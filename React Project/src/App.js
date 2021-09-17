@@ -37,7 +37,6 @@ function App() {
 							min="2010-09-16"
 							max="2022-12-31"
 						/>
-						{/* &nbsp &nbsp &nbsp &nbsp */}
 						<label for="end">End date:</label>
 						<input
 							type="date"

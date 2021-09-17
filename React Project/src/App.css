@@ -91,6 +91,10 @@ label {
 	margin-bottom: 10px;
 }
 
+.date input{
+	margin: 0 1rem;
+}
+
 .card {
   margin: auto;
   text-align: center;
