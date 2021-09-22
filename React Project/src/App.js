@@ -1,9 +1,33 @@
 import logo from './img/logo.png';
 import './App.css';
+import {APIService} from './apiService';
+
+
+function apiCall(){
+	console.log("Selected")
+	APIService.fetchUsers().then((res)=>{
+		console.log("hy")
+		const { employees } = res;
+			let optionsMarkup = '<option value="">Select an employee</option>';
+			for (let i = 0; i < employees.length; i++) {
+				const employee = employees[i];
+				optionsMarkup += `<option value="${employee.eid}">${employee.eid} - ${employee.name}</option>`;
+			}
+			document.getElementById('employee-select').innerHTML = optionsMarkup;
+	})
+}
+
+
+
+function reload(){
+	window.location.reload();
+}
+
 
 function App() {
+
   return (
-    <div className="App">
+    <div className="App" onLoad={apiCall}>
       <div className="main">
 			<div className="nav-bar">
 				<a href="https://www.tarento.com/"
@@ -56,7 +80,7 @@ function App() {
             <div className="card-body">
               <h5 className="card-title" id="vtName">3 - Misha</h5>
               <p className="card-text" id="vtHours">Total Hours = 10</p>
-              <button className="btn btn-primary" id="btnCheck">Check Again</button>
+              <button className="btn btn-primary" id="btnCheck" onClick={reload}>Check Again</button>
             </div>
           </div>
 		</div>
