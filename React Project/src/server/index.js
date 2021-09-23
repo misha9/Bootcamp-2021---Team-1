@@ -5,7 +5,7 @@ const dbService = require('./dbService');
 const app = express();
 
 app.use(cors());
-
+app.use(express.json());
 
 const formatDate = (timestamp) => {
 	var d = new Date(timestamp),

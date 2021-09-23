@@ -1,7 +1,7 @@
 import logo from './img/logo.png';
 import './App.css';
 import {APIService} from './apiService';
-
+import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 function apiCall(){
 	console.log("Selected")
@@ -17,7 +17,28 @@ function apiCall(){
 	})
 }
 
+function trackHour(){
+	console.log("qaz")
+	const start = Number(new Date(document.getElementById('startDate').value));
+	const end = Number(new Date(document.getElementById('endDate').value));
+    const eid = document.getElementById('employee-select').value;
+	APIService.trackTime(start,end,eid).then((res)=>{
+		console.log("tracking")
+		if (res.hours === undefined) {
+			alert("", res.message || 'something went wrong', "error");
+			return;
+		}
+		document.getElementById('vtName').innerText = res.employee.eid + ' - ' + res.employee.name;
+		document.getElementById('vtHours').innerText = res.hours + ' Hours';
+		document.getElementById('resultCard').style.display = 'block';
+		document.getElementById('cardOverlay').style.display = 'block';
+	})
+}
 
+function displayDate(){
+	console.log(document.getElementById('startDate').value);
+	console.log(document.getElementById('endDate').value);
+}
 
 function reload(){
 	window.location.reload();
@@ -52,27 +73,27 @@ function App() {
 					</div>
 					<br />
 					<div className="date">
-						<label for="start">Start date:</label>
-						<input
-							type="date"
-							id="ipStartDate"
-							name="trip-start"
-							value="2021-08-16"
-							min="2010-09-16"
-							max="2022-12-31"
-						/>
-						<label for="end">End date:</label>
-						<input
-							type="date"
-							id="ipEndDate"
-							name="trip-start"
-							value="2021-08-16"
-							min="2010-09-16"
-							max="2022-12-31"
-						/>
-					</div>
+						<div className="datePicker">
+								<DatePickerComponent 
+									id="startDate" 
+									cssClass='customCSS' 
+									format='dd-mm-yyyy'
+									placeholder='Enter start date'  
+									onChange={displayDate}>
+								</DatePickerComponent>
+							</div>
+							<div className="datePicker">
+								<DatePickerComponent 
+									id="endDate" 
+									cssClass='customCSS' 
+									format='dd-mm-yyyy'
+									placeholder='Enter end date' 
+									onChange={displayDate}>
+								</DatePickerComponent>
+							</div>
+						</div>
 					<br />
-					<button type="button" id="btnTrack" className="btn btn-outline-light">Track</button>
+					<button type="button" id="btnTrack" className="btn btn-outline-light" onClick={trackHour}>Track</button>
 				</div>
 			</div>
          <br/>

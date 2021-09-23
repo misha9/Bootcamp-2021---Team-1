@@ -1,11 +1,26 @@
 export const APIService = {
-    fetchUsers
+    fetchUsers, trackTime
   };
 
   function fetchUsers(){
     return fetch("http://localhost:5000/api/get-employees")
         .then(handleResponse);
   }
+
+  function trackTime(start,end,eid){
+    let data = {start: start, end: end, eid: eid}
+    console.log(data)
+//    console.log(eid,start,end)
+    const requestOptions = {
+        method: "PATCH",
+        headers: {
+            "Content-type": "application/json",
+          },
+        body: JSON.stringify(data)
+      };
+    return fetch("http://localhost:5000/api/track-time",requestOptions)
+        .then(handleResponse);
+    };
 
   function handleResponse(response) {
     console.log(response);
