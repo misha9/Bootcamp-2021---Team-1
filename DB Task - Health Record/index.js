@@ -2,11 +2,13 @@ const express = require('express');
 const patientRoutes = require('./src/Patient/routes');
 const billRoutes = require('./src/Bill/routes');
 const recordRoutes = require('./src/Record/routes');
+const queryRoutes = require('./src/Queries/routes');
 
 const app = express();
 const pool = require("./dbService");
 
-app.use(express.json());   //allows us to post and get json from our endpoints
+app.use(express.json({limit: '100mb'})); //allows us to post and get json from our endpoints
+
 
 app.get('/', (req, res)=>{
     res.send("Hey");
@@ -18,6 +20,7 @@ app.get('/', (req, res)=>{
 app.use('/api/v1/patients', patientRoutes);
 app.use('/api/v1/bills', billRoutes);
 app.use('/api/v1/record', recordRoutes);
+app.use('/api/v1/query', queryRoutes);
 
 
 app.listen(3000, ()=>{

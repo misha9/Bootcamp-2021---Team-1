@@ -1,5 +1,5 @@
 const getRecords = "SELECT * FROM Record";
-const addRecord = "INSERT INTO Record (record_id, p_name, p_id, h_name, doctor_name, consultation, test, amount, h_id, b_id, doctor_id, consultation_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
+const addRecord = "INSERT INTO Record (p_id, h_id, doctor_id, service_id, amount, consultation_date) VALUES ($1, $2, $3, $4, $5, $6)";
 
 
 module.exports ={

@@ -1,5 +1,5 @@
 const getBills = "SELECT * FROM Bill";
-const addBill = "INSERT INTO Bill (b_date, amount, b_id) VALUES ($1, $2, $3)";
+const addBill = "INSERT INTO Bill (amount, b_date) VALUES ($1, $2)";
 
 
 module.exports ={
