@@ -17,9 +17,7 @@ function apiCall(){
 	})
 }
 
-
 function App() {
-
   return (
     <div className="App" onLoad={apiCall}>
 		
