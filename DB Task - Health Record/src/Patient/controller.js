@@ -19,7 +19,7 @@ const getPatientById = (req, res) => {
 
 const addPatient = (req, res) => {
     const {p_name, user_id, age, blood_group, p_address, h_id, p_id} = req.body;
-    pool.query(queries.addPatient, [p_name, user_id, age, blood_group, p_address, h_id, p_id], (error, results) => {
+    pool.query(queries.addPatient, [p_name, user_id, age, blood_group, p_address, p_id], (error, results) => {
         if(error) throw error;
         res.status(200).send("Patient added successfully");
         console.log("Patient added");

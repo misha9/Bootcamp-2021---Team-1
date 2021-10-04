@@ -7,8 +7,8 @@ const queryRoutes = require('./src/Queries/routes');
 const app = express();
 const pool = require("./dbService");
 
-app.use(express.json({limit: '500mb'})); //allows us to post and get json from our endpoints
-
+//allows us to post and get json from our endpoints
+app.use(express.json({limit: '500mb'}));
 
 
 //Routes
