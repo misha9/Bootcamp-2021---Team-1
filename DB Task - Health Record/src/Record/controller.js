@@ -9,17 +9,12 @@ const getRecords = (req, res) =>{
 }
 
 const addRecord = (req, res) => {
-    const data = req.body;
-
-    const obj = data.map(i => {
-        pool.query(queries.addRecord, [i.p_id, i.h_id, i.doctor_id, i.service_id, i.amount, i.consultation_date], (error, results) => {
-            if(error) throw error;
-        })
+    const {p_id, h_id, doctor_id, service_id, amount, consultation_date} = req.query;
+    pool.query(queries.addRecord, [p_id, h_id, doctor_id, service_id, amount, consultation_date], (error, results) => {
+        if(error) throw error;
+        res.status(200).send("Patient added successfully");
+        console.log("Patient added");
     })
-    if (obj) {
-        res.status(200).send("Record added successfully");
-        console.log("Record added");
-    }
 }
 
 module.exports = {

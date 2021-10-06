@@ -9,17 +9,13 @@ const getBills = (req, res) =>{
 }
 
 const addBill = (req, res) => {
-    const data = req.body;
-    
-    const obj = data.map(i => {
-        pool.query(queries.addBill, [i.amount, i.b_date], (error, results) => {
-            if(error) throw error;
-        })
+    console.log(req.query);
+    const {amount, b_date} = req.query;
+    pool.query(queries.addBill, [amount, b_date], (error, results) => {
+        if(error) throw error;
+        res.status(200).send("Patient added successfully");
+        console.log("Patient added");
     })
-    if (obj) {
-        res.status(200).send("Bill added successfully");
-        console.log("Bill added");
-    }
 }
 
 module.exports = {
