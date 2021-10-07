@@ -9,7 +9,6 @@ const getBills = (req, res) =>{
 }
 
 const addBill = (req, res) => {
-    console.log(req.query);
     const {amount, b_date} = req.query;
     pool.query(queries.addBill, [amount, b_date], (error, results) => {
         if(error) throw error;
