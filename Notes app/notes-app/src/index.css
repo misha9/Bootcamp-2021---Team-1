@@ -18,15 +18,18 @@ code {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.card{
+.note{
   min-height: 180px;
+  position: relative;
 }
 
-/* .text-area{
-  background-color: #67d7cc;
-  resize: none;
+.footer{
+  position: absolute;
+  bottom: 0;
 }
 
-.text-area:focus{
-  outline: none;
-} */
+.delete-icon{
+  /* margin-left: 7rem; */
+  position: absolute;
+  right: -150px;
+}
