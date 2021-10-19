@@ -1,8 +1,9 @@
+
 export const APIService = {
-    fetchUsers
+    fetchNotes
   };
 
-  function fetchUsers(){
+  function fetchNotes(){
     console.log("fetch")
     return fetch("http://localhost:5000/api/get-notes")
         .then(handleResponse);
@@ -19,7 +20,7 @@ export const APIService = {
 //           },
 //         body: JSON.stringify(data)
 //       };
-//     return fetch("http://localhost:5000/api/track-time",requestOptions)
+//     return post("http://localhost:5000/api/track-time",requestOptions)
 //         .then(handleResponse);
 //     };
 
@@ -29,5 +30,6 @@ export const APIService = {
        const data = text && JSON.parse(text);
        return data;
      });
+     
    }
 
