@@ -3,7 +3,19 @@ import { useState } from 'react';
 import {nanoid} from 'nanoid';
 import NotesList from './components/NotesList';
 
+import {APIService} from './apiService';
+
+function getAllNotes(){
+  console.log("get");
+	APIService.fetchUsers().then((res)=>{
+		console.log("hy")
+		const { result } = res;
+    console.log(result);
+  })
+}
+
 function App() {
+
   const [notes, setNotes] = useState([
     {
     id: nanoid(),
@@ -39,7 +51,7 @@ function App() {
   }
 
   return (
-    <div className="App mt-3">
+    <div className="App mt-3"  onLoad={getAllNotes}>
         <NotesList 
           notes={notes} 
           handleAddNote={addNote}
