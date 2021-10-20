@@ -23,6 +23,16 @@ code {
   position: relative;
 }
 
+.card-text{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card-text:hover{
+  cursor: pointer;
+}
+
 .footer{
   position: absolute;
   bottom: 0;
@@ -32,3 +42,9 @@ code {
   position: absolute;
   right: -150px;
 }
+
+.delete-icon:hover{
+  cursor: pointer;
+}
+
+

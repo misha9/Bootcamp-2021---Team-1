@@ -21,7 +21,7 @@ function AddNote({handleAddNote}) {
                     <div class="bg-light">
                         <textarea class="form-control text-area border-0" onChange={handleChange} value={noteText} placeholder="Type to add a note..." id="floatingTextarea2" style={{height: '100px'}}></textarea>
                     </div>
-                    <div className="note-footer">
+                    <div className="note-footer text-end">
                         <button className='save btn btn-primary mt-3' onClick={handleSaveClick}>Save</button>
                     </div>
                 </div>
