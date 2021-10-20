@@ -19,12 +19,23 @@ app.get('/api/get-notes', (req, res) =>{
 })
 
 app.post('/api/add-notes', (req, res) => {
-    console.log(req.query)
-    const {note_content, note_date} = req.query;
-    pool.query("INSERT INTO notes (note_content, note_date) VALUES ($1, $2)", [note_content, note_date], (error, results) => {
+    console.log(req.body, 'body');
+    const {note_id, note_content, note_date} = req.body;
+    pool.query("INSERT INTO notes (note_id, note_content, note_date) VALUES ($1, $2, $3)", [note_id, note_content, note_date], (error, results) => {
         if(error) throw error;
         res.status(200).send("Note added successfully");
         console.log("Note added");
+    })
+})
+
+app.post('/api/delete-notes', (req, res) => {
+    console.log(req.body, 'delete-body');
+    const id = req.body.id;
+    console.log(id);
+    pool.query("delete from notes where note_id = $1", [id], (error, results)=>{
+        if(error) throw error;
+        res.status(200).json(results.rows);
+        console.log("Deleted a note");
     })
 })
 
