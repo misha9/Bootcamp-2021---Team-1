@@ -36,7 +36,6 @@ function App() {
       setNotes(data);
     })
   }
-
   
 
   const addNote = (text) => {
@@ -61,6 +60,7 @@ function App() {
 
     const newNotes = [...notes, newNote];
     setNotes(newNotes);
+    // getAllNotes();
   }
 
   const deleteNote = (id) => {

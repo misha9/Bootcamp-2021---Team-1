@@ -1,0 +1,31 @@
+
+  .note{
+    min-height: 180px;
+    position: relative;
+    /* background-color: #385170; */
+  }
+
+  
+  .card-text{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .card-text:hover{
+    cursor: pointer;
+  }
+  
+  .footer{
+    position: absolute;
+    bottom: 0;
+  }
+  
+  .delete-icon{
+    position: absolute;
+    right: -150px;
+  }
+  
+  .delete-icon:hover{
+    cursor: pointer;
+  }

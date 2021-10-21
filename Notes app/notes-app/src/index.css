@@ -17,34 +17,3 @@ code {
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
-
-.note{
-  min-height: 180px;
-  position: relative;
-}
-
-.card-text{
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.card-text:hover{
-  cursor: pointer;
-}
-
-.footer{
-  position: absolute;
-  bottom: 0;
-}
-
-.delete-icon{
-  position: absolute;
-  right: -150px;
-}
-
-.delete-icon:hover{
-  cursor: pointer;
-}
-
-
