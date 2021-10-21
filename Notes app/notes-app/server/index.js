@@ -12,9 +12,22 @@ app.use(express.json());
 
 app.get('/api/get-notes', (req, res) =>{
     // (error, results) =>{} is a callback fn
-    pool.query("select * from notes", (error, results)=>{
+    pool.query("select * from preview", (error, results)=>{
         if(error) throw error; //if there is an error
         res.status(200).json(results.rows);   //if it was a successful query then have to send back the json of all patients
+    })
+})
+
+app.patch('/api/get-full-text', (req, res) =>{
+    // (error, results) =>{} is a callback fn
+    console.log('In  get full-text')
+    console.log(req.body, 'body')
+    const id = (req.body.note_id);
+    pool.query("select note_content from notes where note_id = $1", [id],  (error, results)=>{
+        if(error) throw error; //if there is an error
+        res.status(200).json(results.rows);   //if it was a successful query then have to send back the json of all patients
+        console.log(results.rows);
+        console.log('Got full text')
     })
 })
 

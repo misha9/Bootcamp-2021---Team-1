@@ -30,7 +30,7 @@ function App() {
     APIService.fetchNotes().then((res)=>{
       for (let i = 0; i < res.length; i++) {
         let newDate = formatDate(res[i].note_date);
-        data.push({id: res[i].note_id, text: res[i].note_content, date: newDate});
+        data.push({id: res[i].note_id, text: res[i].sub, date: newDate});
       }
       console.log(data);
       setNotes(data);
