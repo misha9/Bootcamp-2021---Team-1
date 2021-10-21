@@ -9,7 +9,7 @@ import {APIService} from './apiService';
 
 function App() {
 
-  const [notes, setNotes] = useState();
+  const [notes, setNotes] = useState([]);
 
   const formatDate = (timestamp) => {
     var d = new Date(timestamp),
@@ -23,10 +23,9 @@ function App() {
     return [day, month, year].join('/');
   };
 
-  let data = [];
-
   const getAllNotes = () =>{
     console.log("Loaded");
+    const data = [];
     APIService.fetchNotes().then((res)=>{
       for (let i = 0; i < res.length; i++) {
         let newDate = formatDate(res[i].note_date);
@@ -41,26 +40,24 @@ function App() {
   const addNote = (text) => {
     const date = new Date();
     const newNote = {
-      id: nanoid(),
+      // id: nanoid(),
       text: text,
       date: date.toLocaleDateString()
     }
 
-    function insertIntoDb(){
-      return fetch('http://localhost:5000/api/add-notes', {
-        method: 'POST',
-        headers: {
+    const requestOptions = {
+      method: "POST",
+      headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-type': 'application/json',
         },
-        body: JSON.stringify({note_id: newNote.id, note_content: newNote.text, note_date: newNote.date})
-      });
-    }
-    insertIntoDb(); 
+        body: JSON.stringify({note_content: newNote.text, note_date: newNote.date})
+    };
+    fetch("http://localhost:5000/api/add-notes", requestOptions).then(getAllNotes);
 
-    const newNotes = [...notes, newNote];
-    setNotes(newNotes);
-    // getAllNotes();
+    // const newNotes = [...notes, newNote];
+    // setNotes(newNotes);
+    
   }
 
   const deleteNote = (id) => {
@@ -87,16 +84,16 @@ function App() {
   },[]);
 
   return (
-    <div className="App mt-3">
+    <div className="App pt-3">
         <div className="container">
           <h1 className='mb-4 text-secondary'>Notes</h1>
         </div>
         {console.log(notes)}
-        {notes && (<NotesList
+        <NotesList
           notes={notes} 
           handleAddNote={addNote}
           handleDeleteNote={deleteNote}
-        />)}
+        />
         
     </div>
   );

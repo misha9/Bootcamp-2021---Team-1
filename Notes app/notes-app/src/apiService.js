@@ -1,17 +1,11 @@
 
 export const APIService = {
-    fetchNotes, fetchFullText, handleResponse
+    fetchNotes, handleResponse
   };
 
   function fetchNotes(){
     console.log("fetch")
     return fetch("http://localhost:5000/api/get-notes")
-        .then(handleResponse);
-  }
-
-  function fetchFullText(){
-    console.log("fetchText")
-    return fetch("http://localhost:5000/api/get-full-text")
         .then(handleResponse);
   }
 

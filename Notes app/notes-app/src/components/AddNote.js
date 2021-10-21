@@ -16,16 +16,20 @@ function AddNote({handleAddNote}) {
         if (noteText.trim().length > 0) {
             handleAddNote(noteText);
             setNoteText('');
-        } 
+        }
+        console.log(noteText); 
     }
+
+
     return (
         <div className='note new' >
-            <div className="card">
+            <div className="card" style={{borderRadius: "10px"}}>
                 <div className="card-body">
                     <CKEditor 
                         editor = {ClassicEditor}
                         onChange={handleChange}
                         config={{placeholder: "Type to add a note..."}}
+                        data={noteText}
                     />
                     <div className="note-footer text-end">
                          <button className='save btn btn-primary mt-3' onClick={handleSaveClick}>Save</button>
@@ -33,21 +37,6 @@ function AddNote({handleAddNote}) {
                 </div>
             </div>
         </div>
-        // <div className='note new'>
-        //     <div className="card">
-        //         <div className="card-body">
-        //             <div class="bg-light">
-        //                 <CKEditor 
-        //                     editor = {ClassicEditor}
-        //                 />
-        //                 <textarea class="form-control text-area border-0" onChange={handleChange} value={noteText} placeholder="Type to add a note..." id="floatingTextarea2" style={{height: '100px'}}></textarea>
-        //             </div>
-        //             <div className="note-footer text-end">
-        //                 <button className='save btn btn-primary mt-3' onClick={handleSaveClick}>Save</button>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
     )
 }
 

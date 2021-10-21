@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 } */
+
+.App {
+  background-color: #e7eaf6;
+  /* font-family: Lato, Helvetica, sans-serif;
+  font-weight: 400; */
+}

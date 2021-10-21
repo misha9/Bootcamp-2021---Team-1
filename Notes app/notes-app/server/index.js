@@ -33,8 +33,7 @@ app.patch('/api/get-full-text', (req, res) =>{
 
 app.post('/api/add-notes', (req, res) => {
     console.log(req.body, 'body');
-    const {note_id, note_content, note_date} = req.body;
-    pool.query("INSERT INTO notes (note_id, note_content, note_date) VALUES ($1, $2, $3)", [note_id, note_content, note_date], (error, results) => {
+    pool.query("INSERT INTO notes (note_content, note_date) VALUES ($1, $2)", [req.body.note_content, req.body.note_date], (error, results) => {
         if(error) throw error;
         res.status(200).send("Note added successfully");
         console.log("Note added");

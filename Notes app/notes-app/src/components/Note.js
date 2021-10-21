@@ -35,16 +35,16 @@ function Note({id, text, date, handleDeleteNote}) {
 
     return (
         <div className='mb-2'>
-            <div className="card note text-white bg-primary">
-                <div class="card-body pb-2" onClick={getFullContent}>
-                    <p class="card-text text-start" onClick={() => setButtonPopup(true)}>{ReactHtmlParser(text)}</p>
+            <div className="card note text-white bg-primary" style={{borderRadius: "10px"}}>
+                <div className="card-body pb-2" onClick={getFullContent}>
+                    <p className="card-text text-start" onClick={() => setButtonPopup(true)}>{ReactHtmlParser(text)}</p>
                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                         <p className='mt-5'>{ReactHtmlParser(fullText)}</p>
                     </Popup>
-                    <div className="footer d-flex justify-content-between mt-4">
-                        <p className='small'>{date}</p>
-                        <MdDeleteForever onClick={()=> handleDeleteNote(id)} className="delete-icon" size='1.3rem' />
-                    </div>
+                </div>
+                <div className="footer d-flex justify-content-between ps-3 pe-3">
+                    <p className='small'>{date}</p>
+                    <MdDeleteForever onClick={()=> handleDeleteNote(id)} className="delete-icon" size='1.3rem' />
                 </div>
             </div>
         </div>
