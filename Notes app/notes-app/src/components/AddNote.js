@@ -23,7 +23,7 @@ function AddNote({handleAddNote}) {
 
     return (
         <div className='note new' >
-            <div className="card" style={{borderRadius: "10px"}}>
+            <div className="card bg-light" style={{borderRadius: "10px"}}>
                 <div className="card-body">
                     <CKEditor 
                         editor = {ClassicEditor}
@@ -32,7 +32,7 @@ function AddNote({handleAddNote}) {
                         data={noteText}
                     />
                     <div className="note-footer text-end">
-                         <button className='save btn btn-primary mt-3' onClick={handleSaveClick}>Save</button>
+                         <button className='save btn btn-dark mt-3' onClick={handleSaveClick}>Save</button>
                     </div>
                 </div>
             </div>

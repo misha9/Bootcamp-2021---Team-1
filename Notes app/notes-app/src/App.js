@@ -86,7 +86,7 @@ function App() {
   return (
     <div className="App pt-3">
         <div className="container">
-          <h1 className='mb-4 text-secondary'>Notes</h1>
+          <h1 className='mb-4 text-dark'>Notes</h1>
         </div>
         {console.log(notes)}
         <NotesList

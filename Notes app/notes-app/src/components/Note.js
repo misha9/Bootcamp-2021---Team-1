@@ -35,7 +35,7 @@ function Note({id, text, date, handleDeleteNote}) {
 
     return (
         <div className='mb-2'>
-            <div className="card note text-white bg-primary" style={{borderRadius: "10px"}}>
+            <div className="card note text-light bg-dark" style={{borderRadius: "10px"}}>
                 <div className="card-body pb-2" onClick={getFullContent}>
                     <p className="card-text text-start" onClick={() => setButtonPopup(true)}>{ReactHtmlParser(text)}</p>
                     <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>

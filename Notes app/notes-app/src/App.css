@@ -38,7 +38,23 @@
 } */
 
 .App {
-  background-color: #e7eaf6;
-  /* font-family: Lato, Helvetica, sans-serif;
-  font-weight: 400; */
+  background: #ebecf1;
+
+  height: 100vh;
+  /* background: rgb(13, 121, 173);
+  background: linear-gradient(
+    0deg,
+    rgba(13, 121, 173, 1) 0%,
+    rgba(96, 104, 210, 1) 48%,
+    rgba(16, 43, 56, 1) 100%
+  ); */
+  font-family: Lato-Regular, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Lato-Regular";
+  font-weight: 400;
+  src: local("Lato"),
+    url(./components/fonts/Lato-Regular.ttf) format("truetype");
 }
