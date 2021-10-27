@@ -1,91 +1,95 @@
 import './App.css';
-import { useState, useEffect } from 'react';
-import {nanoid} from 'nanoid';
-import NotesList from './components/NotesList';
+// import { useState, useEffect } from 'react';
+// import NotesList from './components/NotesList';
+// import { Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
+import Main from './components/Main';
+import Login from './components/Login';
 
 
-import {APIService} from './apiService';
+// import {APIService} from './apiService';
 
 
 function App() {
-
-  const [notes, setNotes] = useState([]);
-
-  const formatDate = (timestamp) => {
-    var d = new Date(timestamp),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-  
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-  
-    return [day, month, year].join('/');
-  };
-
-  const getAllNotes = () =>{
-    console.log("Loaded");
-    const data = [];
-    APIService.fetchNotes().then((res)=>{
-      for (let i = 0; i < res.length; i++) {
-        let newDate = formatDate(res[i].note_date);
-        data.push({id: res[i].note_id, text: res[i].sub, date: newDate});
-      }
-      console.log(data);
-      setNotes(data);
-    })
-  }
   
 
-  const addNote = (text) => {
-    const date = new Date();
-    const newNote = {
-      // id: nanoid(),
-      text: text,
-      date: date.toLocaleDateString()
-    }
+  // const [notes, setNotes] = useState([]);
 
-    const requestOptions = {
-      method: "POST",
-      headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({note_content: newNote.text, note_date: newNote.date})
-    };
-    fetch("http://localhost:5000/api/add-notes", requestOptions).then(getAllNotes);
+  // const formatDate = (timestamp) => {
+  //   var d = new Date(timestamp),
+  //     month = '' + (d.getMonth() + 1),
+  //     day = '' + d.getDate(),
+  //     year = d.getFullYear();
+  
+  //   if (month.length < 2) month = '0' + month;
+  //   if (day.length < 2) day = '0' + day;
+  
+  //   return [day, month, year].join('/');
+  // };
 
-    // const newNotes = [...notes, newNote];
-    // setNotes(newNotes);
+  // const getAllNotes = () =>{
+  //   console.log("Loaded");
+  //   const data = [];
+  //   APIService.fetchNotes().then((res)=>{
+  //     for (let i = 0; i < res.length; i++) {
+  //       let newDate = formatDate(res[i].note_date);
+  //       data.push({id: res[i].note_id, text: res[i].sub, date: newDate});
+  //     }
+  //     console.log(data);
+  //     setNotes(data);
+  //   })
+  // }
+  
+
+  // const addNote = (text) => {
+  //   const date = new Date();
+  //   const newNote = {
+  //     text: text,
+  //     date: date.toLocaleDateString()
+  //   }
+
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: {
+  //         'Accept': 'application/json',
+  //         'Content-type': 'application/json',
+  //       },
+  //       body: JSON.stringify({note_content: newNote.text, note_date: newNote.date})
+  //   };
+  //   fetch("http://localhost:5000/api/add-notes", requestOptions).then(getAllNotes);
+
+  //   // const newNotes = [...notes, newNote];
+  //   // setNotes(newNotes);
     
-  }
+  // }
 
-  const deleteNote = (id) => {
-    const data = {id:id};
-    function deleteNoteFromDb(id){
-      console.log('timestamp');
-      return fetch('http://localhost:5000/api/delete-notes', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-    }
-    deleteNoteFromDb();  
-    // getAllNotes();
-    const newNotes = notes.filter((note)=> note.id !== id);
-    setNotes(newNotes);
-  }
+  // const deleteNote = (id) => {
+  //   const data = {id:id};
+  //   function deleteNoteFromDb(id){
+  //     console.log('timestamp');
+  //     return fetch('http://localhost:5000/api/delete-notes', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(data)
+  //     });
+  //   }
+  //   deleteNoteFromDb();  
+  //   const newNotes = notes.filter((note)=> note.id !== id);
+  //   setNotes(newNotes);
+  // }
 
-  useEffect(() => {
-    getAllNotes();
-  },[]);
+  // useEffect(() => {
+  //   getAllNotes();
+  // },[]);
 
   return (
     <div className="App pt-3">
-        <div className="container">
+        <Route exact path = "/" component={Login}/>
+        <Route exact path = "/main" component={Main}/>
+        {/* <div className="container">
           <h1 className='mb-4 text-dark'>Notes</h1>
         </div>
         {console.log(notes)}
@@ -93,7 +97,7 @@ function App() {
           notes={notes} 
           handleAddNote={addNote}
           handleDeleteNote={deleteNote}
-        />
+        /> */}
         
     </div>
   );
