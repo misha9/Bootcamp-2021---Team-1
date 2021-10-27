@@ -5,7 +5,7 @@ import {useState} from 'react'
 import ReactHtmlParser from 'react-html-parser';
 import './Note.css';
 
-import {APIService} from '../apiService';
+import {APIService} from '../../../apiService';
 
 
 function Note({id, text, date, handleDeleteNote}) {

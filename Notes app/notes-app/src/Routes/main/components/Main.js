@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import NotesList from './NotesList';
 
 
-import {APIService} from '../apiService';
+import {APIService} from '../../../apiService';
 
 
 function Main() {
