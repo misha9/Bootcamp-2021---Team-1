@@ -1,16 +1,20 @@
-.note {
-  min-height: 180px;
-  /* position: relative; */
+.note .card {
+  min-height: 167px;
+  min-width: 340px;
+  background: #fbfbfb;
+  border-radius: 20px;
+  border: none;
+}
+
+.card:hover {
+  background: #ffab45;
+  color: #ffffff;
 }
 
 .card-text {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-
-.card-text:hover {
-  cursor: pointer;
 }
 
 .delete-icon:hover {

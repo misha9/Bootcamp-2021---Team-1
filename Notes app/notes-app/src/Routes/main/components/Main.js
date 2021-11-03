@@ -2,14 +2,23 @@ import React from 'react'
 
 import { useState, useEffect } from 'react';
 import NotesList from './NotesList';
-
+import ReactHtmlParser from 'react-html-parser';
 
 import {APIService} from '../../../apiService';
+import MenuBar from './MenuBar';
+import RightContent from './RightContent';
+import AddNote from './AddNote';
+import SearchBar from './SearchBar';
+import ToolBar from './ToolBar';
 
 
 function Main() {
 
     const [notes, setNotes] = useState([]);
+    const [noteID, setNoteID] = useState();
+    const [addNoteStatus, setAddNoteStatus] = useState(false);
+    const [searchText, setSearchText] = useState('');
+    const [deleteStatus, setDeleteStatus] = useState(false);
 
     const formatDate = (timestamp) => {
         var d = new Date(timestamp),
@@ -35,7 +44,6 @@ function Main() {
         setNotes(data);
         })
     }
-    
 
     const addNote = (text) => {
         const date = new Date();
@@ -75,23 +83,66 @@ function Main() {
         deleteNoteFromDb();  
         const newNotes = notes.filter((note)=> note.id !== id);
         setNotes(newNotes);
+        setDeleteStatus(true);
     }
+
+    const getNoteID = (id) =>{
+        setNoteID(id);
+        setAddNoteStatus(false);
+    }
+
+    const getAddNoteStatus = (status) =>{
+        console.log(status);
+        setAddNoteStatus(status);
+        console.log(addNoteStatus);
+    }
+    
+    console.log(addNoteStatus);
 
     useEffect(() => {
         getAllNotes();
     },[]);
 
     return (
-        <div>
-            <div className="container">
-                <h1 className='mb-4 text-dark'>Notes</h1>
+        <div className='main ms-4 me-4 d-flex justify-content-center'>
+            <div className="menuBar col-md-2 pt-4">
+                <MenuBar />
             </div>
             {console.log(notes)}
-            <NotesList
-                notes={notes} 
-                handleAddNote={addNote}
-                handleDeleteNote={deleteNote}
-            />
+            <div className="col-md-3">
+                <div className="search-bar position-fixed pt-4" style={{zIndex: "2"}}>
+                    <SearchBar 
+                        handleSearchNote = {setSearchText}
+                    />
+                </div>
+                <div className="note-list">
+                    <NotesList
+                        notes={notes.filter((note)=>
+                            note.text.toLowerCase().includes(searchText)    
+                        )} 
+                        handleDeleteNote={deleteNote}
+                        handleAddNoteStatus={getAddNoteStatus}
+                        getNoteID={getNoteID}
+                    />
+                </div>
+            </div>
+            <div className="col-md-7 pt-4">
+                <ToolBar/>
+                <div className="full-content d-flex justify-content-center">
+                    <RightContent 
+                        id={noteID}
+                        addNoteStatus={addNoteStatus}
+                        handleDeleteStatus={deleteStatus}
+                    />
+                </div>
+                <AddNote 
+                    handleAddNote={addNote}
+                    handleAddNoteStatus={getAddNoteStatus}
+                    addNoteStatus={addNoteStatus}
+                    // handleAddNoteStatus={addNoteStatus}    
+                />
+
+            </div>
         </div>
     )
 }

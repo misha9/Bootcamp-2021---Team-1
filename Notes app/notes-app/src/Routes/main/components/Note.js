@@ -1,6 +1,5 @@
 import React from 'react';
 import {MdDeleteForever} from 'react-icons/md';
-import Popup from './Popup';
 import {useState} from 'react'
 import ReactHtmlParser from 'react-html-parser';
 import './Note.css';
@@ -8,39 +7,24 @@ import './Note.css';
 import {APIService} from '../../../apiService';
 
 
-function Note({id, text, date, handleDeleteNote}) {
-    const [buttonPopup, setButtonPopup] = useState(false);
-    const [fullText, setFullText] = useState('');
+function Note({id, text, date, handleDeleteNote, getNoteID}) {
+
+    const [selectNoteID, setSelectNoteID] = useState(id);
+
+    console.log(id)
+
+    const selectNote = () =>{
+        getNoteID(id)
+        setSelectNoteID(id);
+        console.log(selectNoteID)
+    }
     
 
-    function getFullText(){
-        const requestOptions = {
-            method: "PATCH",
-            headers: {
-                "Content-type": "application/json",
-              },
-            body: JSON.stringify({note_id: id})
-          };
-        return fetch("http://localhost:5000/api/get-full-text",requestOptions)
-            .then(APIService.handleResponse);
-        };
-
-
-    function getFullContent(){
-        getFullText(id).then((res)=>{
-            console.log("tracking")
-            setFullText(res[0].note_content);
-        })
-    }
-
     return (
-        <div className='mb-2'>
-            <div className="card note text-light bg-dark" style={{borderRadius: "10px"}}>
-                <div className="card-body pb-2" onClick={getFullContent}>
-                    <p className="card-text text-start" onClick={() => setButtonPopup(true)}>{ReactHtmlParser(text)}</p>
-                    <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                        <p className='mt-5'>{ReactHtmlParser(fullText)}</p>
-                    </Popup>
+        <div className='note mb-2'>
+            <div className="card" onMouseEnter={()=>{selectNote()}} onMouseLeave={()=>console.log("mouse left")}>
+                <div className="card-body pb-2">
+                    <p className="card-text text-start" >{ReactHtmlParser(text)}</p>
                 </div>
                 <div className="footer d-flex justify-content-between ps-3 pe-3">
                     <p className='small'>{date}</p>
@@ -52,3 +36,4 @@ function Note({id, text, date, handleDeleteNote}) {
 }
 
 export default Note;
+

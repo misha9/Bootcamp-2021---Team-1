@@ -8,7 +8,7 @@ import Login from './Routes/login/components/Login';
 function App() {
 
   return (
-    <div className="App pt-3">
+    <div className="App">
         <Route exact path = "/" component={Login}/>
         <Route exact path = "/main" component={Main}/> 
     </div>

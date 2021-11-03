@@ -1,53 +1,4 @@
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-
 .App {
-  background: #ebecf1;
-
-  height: 100vh;
-  /* background: rgb(13, 121, 173);
-  background: linear-gradient(
-    0deg,
-    rgba(13, 121, 173, 1) 0%,
-    rgba(96, 104, 210, 1) 48%,
-    rgba(16, 43, 56, 1) 100%
-  ); */
   font-family: Lato-Regular, Helvetica, sans-serif;
   font-weight: 400;
 }
@@ -56,5 +7,5 @@
   font-family: "Lato-Regular";
   font-weight: 400;
   src: local("Lato"),
-    url(./components/fonts/Lato-Regular.ttf) format("truetype");
+    url(./Routes/main/components/fonts/Lato-Regular.ttf) format("truetype");
 }
