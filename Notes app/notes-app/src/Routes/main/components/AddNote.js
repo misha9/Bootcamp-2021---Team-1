@@ -2,9 +2,15 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import axios from 'axios';
 
 
 function AddNote({handleAddNote, handleAddNoteStatus, addNoteStatus}) {
+
+    // const [body,  setBody] = useState('');
+
     const [noteText, setNoteText] = useState('');
 
     const handleChange = (event, editor) =>{
@@ -26,6 +32,12 @@ function AddNote({handleAddNote, handleAddNoteStatus, addNoteStatus}) {
     return (
         (addNoteStatus) ? (
             <div className='new m-auto' style={{maxWidth: '570px'}}>
+                {/* <ReactQuill 
+                    placeholder={"Type to add a note..."}
+                    onEditorChange={onEditorChange}
+                    onFilesChange={onFilesChange}
+                    value={noteText}
+                /> */}
                 <CKEditor 
                     editor = {ClassicEditor}
                     onChange={handleChange}

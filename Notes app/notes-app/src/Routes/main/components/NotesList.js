@@ -1,6 +1,7 @@
 import React from 'react'
 import Note from './Note';
 import AddNote from './AddNote';
+import { IoIosAdd } from "react-icons/io";
 import './NotesList.css';
 
 
@@ -11,7 +12,13 @@ function NotesList({notes, handleDeleteNote, getNoteID, handleAddNoteStatus}) {
                 <div className='add-section'>
                     <div className="d-flex justify-content-between align-items-center" style={{paddingTop: '7rem'}}>
                         <h4 className='notebook' style={{fontWeight: '600'}}>Notebook 1</h4>
-                        <img className="mb-2 add-icon" onClick={()=>handleAddNoteStatus(true)} src="./add-icon.svg" alt="add-icon" />    
+                        <IoIosAdd 
+                            className="mb-2 add-icon" 
+                            onClick={()=>handleAddNoteStatus(true)} 
+                            src="./add-icon.svg" 
+                            alt="add-icon" 
+                            size='1.5rem'
+                        />    
                     </div>
                 </div>
             </div>
@@ -26,7 +33,6 @@ function NotesList({notes, handleDeleteNote, getNoteID, handleAddNoteStatus}) {
                         getNoteID={getNoteID}
                     />
                 ))}
-                {/* <AddNote handleAddNote={handleAddNote}/> */}
             </div>
         </div>
     )

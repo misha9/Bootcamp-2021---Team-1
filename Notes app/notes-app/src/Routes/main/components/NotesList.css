@@ -1,3 +1,10 @@
-.add .add-icon:hover {
-  opacity: 0.5;
+.noteList .add-icon {
+  background-color: #fbfbfb;
+  border-radius: 100%;
+}
+
+.noteList .add-icon:hover {
+  cursor: pointer;
+  background-color: black;
+  color: #fbfbfb;
 }

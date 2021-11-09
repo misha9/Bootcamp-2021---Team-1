@@ -51,6 +51,64 @@ app.post('/api/delete-notes', (req, res) => {
     })
 })
 
+app.post('/api/registration', async (req, res) => {
+    let email=req.body.reg 
+    let password=req.body.pas
+    let password2=req.body.cpas
+    let errors = [];
+    console.log({
+     email,
+     password,
+     password2 
+    });
+  
+      hashedPassword = await bcrypt.hash(password, 10);
+      console.log(hashedPassword);
+
+            pool.query(
+                `SELECT * FROM USERS WHERE username =$1"`,
+                [email],
+                (err, results) => {
+                if (err) {
+                //     throw err;
+                // }
+                // if (res.rows.length =0){
+                    pool.query(
+                        `INSERT INTO users (username, psw)
+                            VALUES ($1, $2)`,
+                        [email, hashedPassword],
+                        (err, results) => {
+                          if (err) {
+                            throw err;
+                          }
+                          console.log("success_msg", "You are now registered. Please log in");
+                          res.send("true");
+                          //   res.redirect("/login/Login.js");
+                        }
+                      );
+                }
+             }
+
+            );             
+          } 
+      );
+
+app.get('/api/get-notebooks', (req, res) =>{
+// (error, results) =>{} is a callback fn
+    pool.query("select * from notebook ORDER BY nb_id DESC", (error, results)=>{
+        if(error) throw error; //if there is an error
+        res.status(200).json(results.rows);   //if it was a successful query then have to send back the json of all patients
+    })
+})
+
+app.post('/api/add-notebook', (req, res) =>{
+    pool.query("INSERT INTO notebook (name) VALUES ($1)", [req.body.name], (error, results) => {
+        if(error) throw error;
+        res.status(200).send("Notebook added successfully");
+        console.log("Notebook added");
+    })
+})
+
 app.get('/api/v1/test', (req, res) =>{
     res.send('Hi')   
 });

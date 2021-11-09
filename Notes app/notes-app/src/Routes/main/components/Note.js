@@ -1,16 +1,16 @@
 import React from 'react';
 import {MdDeleteForever} from 'react-icons/md';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import ReactHtmlParser from 'react-html-parser';
 import './Note.css';
 
 import {APIService} from '../../../apiService';
+import { bgcolor } from '@mui/system';
 
 
 function Note({id, text, date, handleDeleteNote, getNoteID}) {
 
-    const [selectNoteID, setSelectNoteID] = useState(id);
-
+    const [selectNoteID, setSelectNoteID] = useState('');
     console.log(id)
 
     const selectNote = () =>{
@@ -18,7 +18,14 @@ function Note({id, text, date, handleDeleteNote, getNoteID}) {
         setSelectNoteID(id);
         console.log(selectNoteID)
     }
+
+    // const bgColor = () =>{
+
+    // }
     
+    // useEffect(() => {
+        
+    // }, [selectNoteID])
 
     return (
         <div className='note mb-2'>

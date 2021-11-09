@@ -3,12 +3,14 @@ import './MenuBar.css'
 import { BiUser } from "react-icons/bi";
 import { MdOutlineHome, MdWorkOutline, MdEventNote, MdStarBorder, MdAddCircle } from "react-icons/md";
 import { CgHashtag } from "react-icons/cg";
+import { IoIosAddCircle } from "react-icons/io";
 import { GiBackwardTime } from "react-icons/gi";
 import { VscNote } from "react-icons/vsc";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 
-function MenuBar() {
+function MenuBar({handleNotebookStatus, notebooks}) {
+    console.log("notebooks in menubar", notebooks);
     return (
         <div className='menuBar position-fixed'>
             <div className="logo mb-5">
@@ -21,38 +23,52 @@ function MenuBar() {
                 <div className='workspace'>
                     <p className='text-uppercase small'>workspace</p>
                     <ul className='list-unstyled'>
-                        <li>
-                            <a href="" className='text-decoration-none text-dark d-flex align-items-center'><MdWorkOutline className='me-3' size='1.3rem'/>Work</a>
+                        <li className='d-flex align-items-center'>
+                            <MdWorkOutline className='me-3' size='1.3rem'/><a href="" className='text-decoration-none text-dark'>Work</a>
                         </li>
-                        <li>
-                            <a href="" className='text-decoration-none text-dark d-flex align-items-center'><BiUser className='me-3' size='1.3rem'/>Personal</a>
+                        <li className='d-flex align-items-center'>
+                            <BiUser className='me-3' size='1.3rem'/><a href="" className='text-decoration-none text-dark'>Personal</a>
                         </li>
-                        <li>
-                            <a href="" className='text-decoration-none text-dark d-flex align-items-center'><MdOutlineHome className='me-3' size='1.3rem'/> Home</a>
+                        <li className='d-flex align-items-center'>
+                            <MdOutlineHome className='me-3' size='1.3rem'/><a href="" className='text-decoration-none text-dark'> Home</a>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <p className='text-uppercase small mt-4'>notebook</p>
                     <ul className='list-unstyled'>
-                        <li><a href="" className='text-decoration-none text-dark d-flex align-items-center'><VscNote className='me-3' size='1.3rem'/>Notebook 1</a></li>
+                        {notebooks.map((notebook) =>(
+                            <li 
+                                className='d-flex align-items-center'>
+                                <VscNote 
+                                    className='me-3' 
+                                    size='1.3rem'/>
+                                <a href="" className='text-decoration-none text-dark'>{notebook.name}</a>
+                            </li>
+                        ))}
                     </ul>
                 </div>
                 <div className="special">
                     <ul className='list-unstyled'>
-                        <li className="mt-4">
-                            <a href="" className='text-decoration-none text-dark d-flex align-items-center'><CgHashtag className='me-3' size='1.3rem'/>Tags</a>
+                        <li className="mt-4 d-flex align-items-center">
+                            <CgHashtag className='me-3' size='1.3rem'/><a href="" className='text-decoration-none text-dark'>Tags</a>
                         </li>
-                        <li>
-                            <a href="" className='text-decoration-none text-dark d-flex align-items-center'><MdStarBorder className='me-3' size='1.3rem'/>Starred</a>
+                        <li className='d-flex align-items-center'>
+                            <MdStarBorder className='me-3' size='1.3rem'/><a href="" className='text-decoration-none text-dark'>Starred</a>
                         </li>
-                        <li>
-                            <a href="" className='text-decoration-none text-dark d-flex align-items-center'><GiBackwardTime className='me-3' size='1.3rem'/>Recent</a>
+                        <li className='d-flex align-items-center'>
+                            <GiBackwardTime className='me-3' size='1.3rem'/><a href="" className='text-decoration-none text-dark'>Recent</a>
                         </li>
                     </ul>
                 </div>
                 <div className="add-notebook d-flex align-items-center mt-4">
-                    <p><MdAddCircle size='1.7rem' className='me-2' /></p>
+                    <p>
+                        <IoIosAddCircle 
+                            size='1.7rem' 
+                            className='me-2 add-icon'
+                            onClick={()=>handleNotebookStatus(true)}
+                        />
+                    </p>
                     <p className=''>New Notebook</p>
                 </div>
             </div>

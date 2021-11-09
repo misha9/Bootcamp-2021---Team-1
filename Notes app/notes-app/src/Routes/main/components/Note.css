@@ -6,8 +6,9 @@
   border: none;
 }
 
-.card:hover {
-  background: #ffab45;
+.note .card:hover,
+.note .active {
+  background: #ffab45 !important;
   color: #ffffff;
 }
 

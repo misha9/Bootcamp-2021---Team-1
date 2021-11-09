@@ -1,15 +1,15 @@
 import React from 'react'
-
 import { useState, useEffect } from 'react';
-import NotesList from './NotesList';
-import ReactHtmlParser from 'react-html-parser';
 
-import {APIService} from '../../../apiService';
+import NotesList from './NotesList';
 import MenuBar from './MenuBar';
 import RightContent from './RightContent';
 import AddNote from './AddNote';
 import SearchBar from './SearchBar';
 import ToolBar from './ToolBar';
+import CreateNotebook from './CreateNotebook'
+
+import {APIService} from '../../../apiService';
 
 
 function Main() {
@@ -19,6 +19,9 @@ function Main() {
     const [addNoteStatus, setAddNoteStatus] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [deleteStatus, setDeleteStatus] = useState(false);
+    const [notebookStatus, setNotebookStatus] = useState(false);
+    const [notebookTitle, setNotebookTitle] = useState('');
+    const [notebooks, setNotebooks] = useState([]);
 
     const formatDate = (timestamp) => {
         var d = new Date(timestamp),
@@ -32,15 +35,47 @@ function Main() {
         return [day, month, year].join('/');
     };
 
+    const getAllNotebooks = () =>{
+        console.log("Loaded notebook");
+        const data = [];
+        APIService.fetchNotebooks().then((res)=>{
+        for (let i = 0; i < res.length; i++) {
+            data.push({id: res[i].nb_id, name: res[i].name});
+        }
+        console.log(data);
+        setNotebooks(data);
+        })
+    }
+
+    const addNotebook = (name) => {
+        const newNotebook = {
+        text: name
+        }
+
+        const requestOptions = {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            },
+            body: JSON.stringify({name: newNotebook.text})
+        };
+        fetch("http://localhost:5000/api/add-notebook", requestOptions).then(getAllNotebooks);
+
+        // const newNotes = [...notes, newNote];
+        // setNotes(newNotes);  
+    }
+
     const getAllNotes = () =>{
         console.log("Loaded");
         const data = [];
         APIService.fetchNotes().then((res)=>{
         for (let i = 0; i < res.length; i++) {
             let newDate = formatDate(res[i].note_date);
+
             data.push({id: res[i].note_id, text: res[i].sub, date: newDate});
         }
-        console.log(data);
+        // console.log(data);
         setNotes(data);
         })
     }
@@ -63,14 +98,15 @@ function Main() {
         fetch("http://localhost:5000/api/add-notes", requestOptions).then(getAllNotes);
 
         // const newNotes = [...notes, newNote];
-        // setNotes(newNotes);
-        
+        // setNotes(newNotes);  
     }
+
+
 
     const deleteNote = (id) => {
         const data = {id:id};
         function deleteNoteFromDb(id){
-        console.log('timestamp');
+        // console.log('timestamp');
         return fetch('http://localhost:5000/api/delete-notes', {
             method: 'POST',
             headers: {
@@ -92,21 +128,33 @@ function Main() {
     }
 
     const getAddNoteStatus = (status) =>{
-        console.log(status);
+        // console.log(status);
         setAddNoteStatus(status);
-        console.log(addNoteStatus);
+        // console.log(addNoteStatus);
+    }
+
+    const getNotebookStatus = (status) =>{
+        setNotebookStatus(status);
     }
     
-    console.log(addNoteStatus);
+    // console.log(addNoteStatus);
 
     useEffect(() => {
         getAllNotes();
     },[]);
 
+    useEffect(() => {
+        getAllNotebooks()
+    },[]);
+
+
     return (
         <div className='main ms-4 me-4 d-flex justify-content-center'>
             <div className="menuBar col-md-2 pt-4">
-                <MenuBar />
+                <MenuBar 
+                    handleNotebookStatus={getNotebookStatus}
+                    notebooks={notebooks}
+                />
             </div>
             {console.log(notes)}
             <div className="col-md-3">
@@ -138,11 +186,14 @@ function Main() {
                 <AddNote 
                     handleAddNote={addNote}
                     handleAddNoteStatus={getAddNoteStatus}
-                    addNoteStatus={addNoteStatus}
-                    // handleAddNoteStatus={addNoteStatus}    
+                    addNoteStatus={addNoteStatus}   
                 />
-
             </div>
+            <CreateNotebook 
+                displayNotebookStatus={notebookStatus}
+                handleNotebookStatus={getNotebookStatus}
+                handleAddNotebook={addNotebook}
+            />
         </div>
     )
 }

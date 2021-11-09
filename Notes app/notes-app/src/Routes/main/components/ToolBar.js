@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {CgMaximize} from "react-icons/cg";
 
 const options = [
-  'Edit',
+  'Edit note',
   'Delete note'
 ];
 

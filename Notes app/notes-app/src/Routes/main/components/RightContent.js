@@ -3,10 +3,10 @@ import {APIService} from '../../../apiService';
 import ReactHtmlParser from 'react-html-parser';
 
 function RightContent({id, addNoteStatus, handleDeleteStatus}) {
-    console.log(handleDeleteStatus);
+    // console.log(handleDeleteStatus);
     const [fullText, setFullText] = useState('');
-    console.log(id);
-    console.log(addNoteStatus);
+    // console.log(id);
+    // console.log(addNoteStatus);
 
     function getFullText(){
         const requestOptions = {
@@ -23,9 +23,9 @@ function RightContent({id, addNoteStatus, handleDeleteStatus}) {
 
     function getFullContent(){
         getFullText(id).then((res)=>{
-            console.log("tracking")
+            // console.log("tracking")
             setFullText(res[0].note_content);
-            console.log(res[0].note_content);
+            // console.log(res[0].note_content);
         })
     }
     

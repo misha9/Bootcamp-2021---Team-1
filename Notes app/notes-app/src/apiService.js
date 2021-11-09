@@ -1,11 +1,17 @@
 
 export const APIService = {
-    fetchNotes, handleResponse
+    fetchNotes, handleResponse, fetchNotebooks
   };
 
   function fetchNotes(){
     console.log("fetch")
     return fetch("http://localhost:5000/api/get-notes")
+        .then(handleResponse);
+  }
+
+  function fetchNotebooks(){
+    console.log("fetching notebooks")
+    return fetch("http://localhost:5000/api/get-notebooks")
         .then(handleResponse);
   }
 
@@ -17,6 +23,5 @@ export const APIService = {
        console.log(data);
        return data;
      });
-     
   }
 
