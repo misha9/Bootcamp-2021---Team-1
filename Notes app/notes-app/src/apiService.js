@@ -1,17 +1,45 @@
 
 export const APIService = {
-    fetchNotes, handleResponse, fetchNotebooks
+    fetchNotes, handleResponse, fetchNotebooks, fetchWorkspace
   };
 
-  function fetchNotes(){
+  function fetchNotes(id){
     console.log("fetch")
-    return fetch("http://localhost:5000/api/get-notes")
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+          "Content-type": "application/json",
+        },
+      body: JSON.stringify({notebook_id: id})
+    };
+    return fetch("http://localhost:5000/api/get-notes", requestOptions)
         .then(handleResponse);
   }
 
-  function fetchNotebooks(){
+  function fetchNotebooks(wsID){
+    console.log("fetch")
+    const requestOptions = {
+      method: "PATCH",
+      headers: {
+          "Content-type": "application/json",
+        },
+      body: JSON.stringify({ws_id: wsID})
+    };
+    return fetch("http://localhost:5000/api/get-notebooks", requestOptions)
+        .then(handleResponse);
+  }
+
+
+
+  // function fetchNotebooks(){
+  //   console.log("fetching notebooks")
+  //   return fetch("http://localhost:5000/api/get-notebooks")
+  //       .then(handleResponse);
+  // }
+
+  function fetchWorkspace(){
     console.log("fetching notebooks")
-    return fetch("http://localhost:5000/api/get-notebooks")
+    return fetch("http://localhost:5000/api/get-workspace")
         .then(handleResponse);
   }
 

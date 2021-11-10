@@ -1,0 +1,17 @@
+.notebook .card {
+  border-radius: 8px;
+}
+
+.notebook .card .btn-primary {
+  background-color: #ffab45;
+  border-radius: 4px;
+}
+
+.notebook .card .btn-primary:hover {
+  background-color: #fc9a22;
+  border-radius: 4px;
+}
+
+.notebook .card .close-icon:hover {
+  cursor: pointer;
+}

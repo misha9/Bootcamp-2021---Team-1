@@ -4,13 +4,15 @@ import {useState} from 'react'
 
 import TextField from '@mui/material/TextField';
 
-function CreateNotebook({displayNotebookStatus, handleNotebookStatus, handleAddNotebook}) {
+function CreateNotebook({displayNotebookStatus, handleNotebookStatus, handleAddNotebook, workspaceID, setCreateStatus}) {
 
     const [notebookName, setNotebookName] = useState('')
 
     const handleCreate = () =>{
-        handleAddNotebook(notebookName);
+        console.log(workspaceID);
+        handleAddNotebook(notebookName, workspaceID);
         handleNotebookStatus(false);
+        setCreateStatus(true);
     }
 
     return (

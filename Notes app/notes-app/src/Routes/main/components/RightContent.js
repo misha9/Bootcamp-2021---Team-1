@@ -2,11 +2,9 @@ import React, {useState, useEffect} from 'react'
 import {APIService} from '../../../apiService';
 import ReactHtmlParser from 'react-html-parser';
 
-function RightContent({id, addNoteStatus, handleDeleteStatus}) {
-    // console.log(handleDeleteStatus);
+function RightContent({id, addNoteStatus, handleDeleteStatus, notebookID}) {
+
     const [fullText, setFullText] = useState('');
-    // console.log(id);
-    // console.log(addNoteStatus);
 
     function getFullText(){
         const requestOptions = {
@@ -41,6 +39,10 @@ function RightContent({id, addNoteStatus, handleDeleteStatus}) {
             setFullText('');
         }
     }, [handleDeleteStatus])
+
+    useEffect(() => {
+        setFullText('');
+    }, [notebookID])
 
     useEffect(() => {
         if (id) {

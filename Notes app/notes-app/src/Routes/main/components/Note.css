@@ -9,7 +9,7 @@
 .note .card:hover,
 .note .active {
   background: #ffab45 !important;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .card-text {

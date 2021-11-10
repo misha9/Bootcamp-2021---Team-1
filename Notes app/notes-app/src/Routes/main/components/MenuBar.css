@@ -2,6 +2,20 @@
   margin-bottom: 1rem;
 }
 
+.menuBar .workspace a:hover {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menuBar .notebook a {
+  color: #212529;
+}
+
+.menuBar .notebook a:hover {
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .add-notebook .add-icon:hover {
   cursor: pointer;
   opacity: 0.9;

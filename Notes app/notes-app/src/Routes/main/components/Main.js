@@ -10,6 +10,7 @@ import ToolBar from './ToolBar';
 import CreateNotebook from './CreateNotebook'
 
 import {APIService} from '../../../apiService';
+import DeleteNotebook from './DeleteNotebook';
 
 
 function Main() {
@@ -20,8 +21,16 @@ function Main() {
     const [searchText, setSearchText] = useState('');
     const [deleteStatus, setDeleteStatus] = useState(false);
     const [notebookStatus, setNotebookStatus] = useState(false);
-    const [notebookTitle, setNotebookTitle] = useState('');
     const [notebooks, setNotebooks] = useState([]);
+    const [notebookTitle, setNotebookTitle] = useState('');
+    const [notebookID, setNotebookID] = useState('');
+    const [nbSelect, setNbSelect] = useState(false);
+    // const [workspace, setWorkspace] = useState([]);
+    const [workspaceID, setWorkspaceID] = useState('');
+    const [saveStatus, setSaveStatus] = useState(false);
+    const [createStatus, setCreateStatus] = useState(false);
+    const [nbDeleteStatus, setNbDeleteStatus] = useState(false);
+
 
     const formatDate = (timestamp) => {
         var d = new Date(timestamp),
@@ -35,10 +44,10 @@ function Main() {
         return [day, month, year].join('/');
     };
 
-    const getAllNotebooks = () =>{
+    const getAllNotebooks = (wsID) =>{
         console.log("Loaded notebook");
         const data = [];
-        APIService.fetchNotebooks().then((res)=>{
+        APIService.fetchNotebooks(wsID).then((res)=>{
         for (let i = 0; i < res.length; i++) {
             data.push({id: res[i].nb_id, name: res[i].name});
         }
@@ -47,9 +56,24 @@ function Main() {
         })
     }
 
-    const addNotebook = (name) => {
+    console.log(notebooks);
+
+    // const getAllWorkspace = () =>{
+    //     console.log("Loaded workspace");
+    //     const data = [];
+    //     APIService.fetchWorkspace().then((res)=>{
+    //     for (let i = 0; i < res.length; i++) {
+    //         data.push({id: res[i].ws_id, name: res[i].name});
+    //     }
+    //     console.log(data);
+    //     setWorkspace(data);
+    //     })
+    // }
+
+    const addNotebook = (name, wsID) => {
         const newNotebook = {
-        text: name
+        text: name,
+        wsID: wsID
         }
 
         const requestOptions = {
@@ -58,33 +82,56 @@ function Main() {
             'Accept': 'application/json',
             'Content-type': 'application/json',
             },
-            body: JSON.stringify({name: newNotebook.text})
+            body: JSON.stringify({name: newNotebook.text, ws_id: newNotebook.wsID})
         };
-        fetch("http://localhost:5000/api/add-notebook", requestOptions).then(getAllNotebooks);
+        fetch("http://localhost:5000/api/add-notebook", requestOptions).then(getAllNotebooks(wsID));
 
         // const newNotes = [...notes, newNote];
         // setNotes(newNotes);  
     }
 
-    const getAllNotes = () =>{
-        console.log("Loaded");
+    const deleteNotebook = (id) => {
+        const data = {
+            nbID: id
+        };
+        function deleteNoteFromDb(id, nbID){
+        // console.log('timestamp');
+        return fetch('http://localhost:5000/api/delete-notebook', {
+            method: 'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        }
+        deleteNoteFromDb();  
+        const newNotebooks = notebooks.filter((notebook)=> notebook.id !== id);
+        setNotebooks(newNotebooks);
+    }
+
+    const getAllNotes = (id) =>{
+        console.log("Loaded", id);
         const data = [];
-        APIService.fetchNotes().then((res)=>{
+        APIService.fetchNotes(id).then((res)=>{
         for (let i = 0; i < res.length; i++) {
             let newDate = formatDate(res[i].note_date);
 
-            data.push({id: res[i].note_id, text: res[i].sub, date: newDate});
+            data.push({id: res[i].n_id, text: res[i].sub, date: newDate});
         }
         // console.log(data);
         setNotes(data);
         })
     }
 
-    const addNote = (text) => {
+    const addNote = (text, nbID, wsID) => {
+        // console.log(notebookID);
         const date = new Date();
         const newNote = {
         text: text,
-        date: date.toLocaleDateString()
+        date: date.toLocaleDateString(),
+        nbID: nbID,
+        wsID: wsID
         }
 
         const requestOptions = {
@@ -93,19 +140,24 @@ function Main() {
             'Accept': 'application/json',
             'Content-type': 'application/json',
             },
-            body: JSON.stringify({note_content: newNote.text, note_date: newNote.date})
+            body: JSON.stringify({
+                note_content: newNote.text, 
+                note_date: newNote.date, 
+                nb_id: newNote.nbID, ws_id: newNote.wsID
+            })
         };
-        fetch("http://localhost:5000/api/add-notes", requestOptions).then(getAllNotes);
+        fetch("http://localhost:5000/api/add-notes", requestOptions).then(getAllNotes(nbID));
 
         // const newNotes = [...notes, newNote];
         // setNotes(newNotes);  
     }
 
 
-
     const deleteNote = (id) => {
-        const data = {id:id};
-        function deleteNoteFromDb(id){
+        const data = {
+            id: id
+        };
+        function deleteNoteFromDb(id, nbID){
         // console.log('timestamp');
         return fetch('http://localhost:5000/api/delete-notes', {
             method: 'POST',
@@ -137,15 +189,18 @@ function Main() {
         setNotebookStatus(status);
     }
     
-    // console.log(addNoteStatus);
+    const getNotebookContent = (title, id) =>{
+        setNotebookTitle(title);
+        setNotebookID(id);
+    }
 
-    useEffect(() => {
-        getAllNotes();
-    },[]);
+    // useEffect(() => {
+    //     getAllWorkspace()
+    // },[]);
 
-    useEffect(() => {
-        getAllNotebooks()
-    },[]);
+    // useEffect(() => {
+    //     getAllNotebooks()
+    // },[]);
 
 
     return (
@@ -154,6 +209,18 @@ function Main() {
                 <MenuBar 
                     handleNotebookStatus={getNotebookStatus}
                     notebooks={notebooks}
+                    notebookContent={getNotebookContent}
+                    getNotes={getAllNotes}
+                    setNbSelect={setNbSelect}
+                    // workspace={workspace}
+                    getNotebooks={getAllNotebooks}
+                    setWorkspaceID={setWorkspaceID}
+                    workspaceID={workspaceID}
+                    createStatus={createStatus}
+                    setCreateStatus={setCreateStatus}
+                    saveStatus={saveStatus}
+                    setSaveStatus={setSaveStatus}
+                    // notes={notes}
                 />
             </div>
             {console.log(notes)}
@@ -171,6 +238,10 @@ function Main() {
                         handleDeleteNote={deleteNote}
                         handleAddNoteStatus={getAddNoteStatus}
                         getNoteID={getNoteID}
+                        notebookTitle={notebookTitle}
+                        notebookID={notebookID}
+                        setNbDeleteStatus={setNbDeleteStatus}
+                        nbSelect={nbSelect}
                     />
                 </div>
             </div>
@@ -181,18 +252,31 @@ function Main() {
                         id={noteID}
                         addNoteStatus={addNoteStatus}
                         handleDeleteStatus={deleteStatus}
+                        notebookID={notebookID}
                     />
                 </div>
                 <AddNote 
                     handleAddNote={addNote}
                     handleAddNoteStatus={getAddNoteStatus}
-                    addNoteStatus={addNoteStatus}   
+                    addNoteStatus={addNoteStatus}
+                    notebookID={notebookID}
+                    workspaceID={workspaceID}
+                    setSaveStatus={setSaveStatus}
+                    // saveStatus={saveStatus}   
                 />
             </div>
             <CreateNotebook 
                 displayNotebookStatus={notebookStatus}
                 handleNotebookStatus={getNotebookStatus}
                 handleAddNotebook={addNotebook}
+                workspaceID={workspaceID}
+                setCreateStatus={setCreateStatus} 
+            />
+            <DeleteNotebook 
+                nbDeleteStatus={nbDeleteStatus}
+                setNbDeleteStatus={setNbDeleteStatus}
+                notebookID={notebookID}
+                handleDeleteNotebook={deleteNotebook}
             />
         </div>
     )
