@@ -30,13 +30,6 @@ export const APIService = {
   }
 
 
-
-  // function fetchNotebooks(){
-  //   console.log("fetching notebooks")
-  //   return fetch("http://localhost:5000/api/get-notebooks")
-  //       .then(handleResponse);
-  // }
-
   function fetchWorkspace(){
     console.log("fetching notebooks")
     return fetch("http://localhost:5000/api/get-workspace")

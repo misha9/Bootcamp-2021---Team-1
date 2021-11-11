@@ -1,32 +1,18 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import axios from 'axios';
+
 
 
 function AddNote({handleAddNote, handleAddNoteStatus, addNoteStatus, notebookID, workspaceID, setSaveStatus}) {
 
-    // const [body,  setBody] = useState('');
-
     const [noteText, setNoteText] = useState('');
-    // const [files, setFiles] = useState('');
-
-    // const handleChange = (event, editor) =>{
-    //     console.log(editor.getData());
-    //     setNoteText(editor.getData());
-    // }
 
     const handleChange = (value) =>{
         setNoteText(value);
         console.log(value);
     }
-
-    // const onFilesChange = (file) =>{
-    //     setFiles(file)
-    // }
 
     const handleSaveClick = () => {
         handleAddNoteStatus(false);
@@ -46,15 +32,26 @@ function AddNote({handleAddNote, handleAddNoteStatus, addNoteStatus, notebookID,
                 <ReactQuill 
                     placeholder={"Type to add a note..."}
                     onChange={handleChange}
-                    // onFilesChange={onFilesChange}
-                    // value={noteText}
+                    modules={
+                        {
+                            toolbar: [
+                              [{ 'header': [1, 2, false] }],
+                              ['bold', 'italic', 'underline','strike', 'blockquote'],
+                              [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+                              ['link', 'image'],
+                              ['clean']
+                            ],
+                          }
+                    }
+                    formats={
+                        [
+                            'header',
+                            'bold', 'italic', 'underline', 'strike', 'blockquote',
+                            'list', 'bullet', 'indent',
+                            'link', 'image'
+                          ]
+                    }
                 />
-                {/* <CKEditor 
-                    editor = {ClassicEditor}
-                    onChange={handleChange}
-                    config={{placeholder: "Type to add a note..."}}
-                    data={noteText}
-                /> */}
                 <div className="text-end">
                     <button className='save btn btn-dark mt-3' onClick={handleSaveClick}>Save</button>
                 </div>

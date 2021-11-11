@@ -58,17 +58,6 @@ function Main() {
 
     console.log(notebooks);
 
-    // const getAllWorkspace = () =>{
-    //     console.log("Loaded workspace");
-    //     const data = [];
-    //     APIService.fetchWorkspace().then((res)=>{
-    //     for (let i = 0; i < res.length; i++) {
-    //         data.push({id: res[i].ws_id, name: res[i].name});
-    //     }
-    //     console.log(data);
-    //     setWorkspace(data);
-    //     })
-    // }
 
     const addNotebook = (name, wsID) => {
         const newNotebook = {
@@ -194,14 +183,6 @@ function Main() {
         setNotebookID(id);
     }
 
-    // useEffect(() => {
-    //     getAllWorkspace()
-    // },[]);
-
-    // useEffect(() => {
-    //     getAllNotebooks()
-    // },[]);
-
 
     return (
         <div className='main ms-4 me-4 d-flex justify-content-center'>
@@ -253,6 +234,7 @@ function Main() {
                         addNoteStatus={addNoteStatus}
                         handleDeleteStatus={deleteStatus}
                         notebookID={notebookID}
+                        nbSelect={nbSelect}
                     />
                 </div>
                 <AddNote 
@@ -277,6 +259,7 @@ function Main() {
                 setNbDeleteStatus={setNbDeleteStatus}
                 notebookID={notebookID}
                 handleDeleteNotebook={deleteNotebook}
+                setNbSelect={setNbSelect}
             />
         </div>
     )

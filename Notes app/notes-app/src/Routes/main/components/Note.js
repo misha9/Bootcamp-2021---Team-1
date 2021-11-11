@@ -8,28 +8,14 @@ import {APIService} from '../../../apiService';
 import { bgcolor } from '@mui/system';
 
 
-function Note({id, text, date, handleDeleteNote, getNoteID}) {
+function Note({id, text, date, handleDeleteNote, selected, onSelect}) {
 
-    const [selectNoteID, setSelectNoteID] = useState('');
     console.log(id)
 
-    const selectNote = () =>{
-        getNoteID(id)
-        setSelectNoteID(id);
-        console.log(selectNoteID)
-    }
-
-    // const bgColor = () =>{
-
-    // }
-    
-    // useEffect(() => {
-        
-    // }, [selectNoteID])
 
     return (
-        <div className='note mb-2'>
-            <div className="card" onMouseEnter={()=>{selectNote()}} onMouseLeave={()=>console.log("mouse left")}>
+        <div className='note mb-2' onMouseEnter={()=>{onSelect(id)}}>
+            <div className="card" style={{backgroundColor: selected ? '#ffab45' : '#FBFBFB', color: selected ? '#ffffff' : '#000000'}}>
                 <div className="card-body pb-2">
                     <p className="card-text text-start" >{ReactHtmlParser(text)}</p>
                 </div>

@@ -29,19 +29,6 @@ function SearchBar({handleSearchNote}) {
                 />
             </FormControl>
             
-            {/* <div className="input-group rounded">
-                <span className="input-group-text border-0 p-0 bg-transparent" id="search-addon">
-                    <MdSearch className="opacity-50" size='1.3rem'/>
-                </span>
-                <input 
-                    type="search" 
-                    onChange={(event)=> handleSearchNote(event.target.value)} 
-                    className="form-control rounded bg-transparent border-0" 
-                    placeholder="Search" 
-                    aria-label="Search"
-                    aria-describedby="search-addon" />
-            </div>
-            <hr className="mt-0"/> */}
         </div>
     )
 }

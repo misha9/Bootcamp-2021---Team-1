@@ -6,12 +6,6 @@
   border: none;
 }
 
-.note .card:hover,
-.note .active {
-  background: #ffab45 !important;
-  color: #ffffff !important;
-}
-
 .card-text {
   text-overflow: ellipsis;
   white-space: nowrap;

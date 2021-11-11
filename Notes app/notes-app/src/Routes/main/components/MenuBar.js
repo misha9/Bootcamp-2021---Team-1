@@ -18,6 +18,7 @@ function MenuBar({handleNotebookStatus, notebooks, notebookContent, getNotes, ge
     
     
     console.log("notebooks in menubar", notebooks);
+    console.log(notebooks[0]);
 
 
     const handleSelectNotebook = (name, id) =>{
@@ -58,6 +59,12 @@ function MenuBar({handleNotebookStatus, notebooks, notebookContent, getNotes, ge
         setSaveStatus(false);
     },[saveStatus]);
 
+    useEffect(() => {
+        handleGetNotebooks(1);
+        // handleSelectNotebook(nbName, nbID);
+        // getNotes(notebooks[0].id)
+    }, [])
+
 
     return (
         <div className='menuBar position-fixed'>
@@ -76,6 +83,7 @@ function MenuBar({handleNotebookStatus, notebooks, notebookContent, getNotes, ge
                             <a 
                                 className='text-decoration-none text-dark'
                                 onMouseEnter={()=>handleGetNotebooks(1)}
+                                // style={{fontFamily: selected ? '600' : '400'}}
                             >Work
                             </a>
                         </li>
@@ -106,7 +114,12 @@ function MenuBar({handleNotebookStatus, notebooks, notebookContent, getNotes, ge
                                 <VscNote 
                                     className='me-3' 
                                     size='1.3rem'/>
-                                <a className='text-decoration-none' onMouseEnter={()=>handleSelectNotebook(notebook.name, notebook.id)}>{notebook.name}</a>
+                                <a 
+                                    className='text-decoration-none' 
+                                    // style={{fontFamily: selected ? '600' : '400'}}
+                                    onMouseEnter={()=>handleSelectNotebook(notebook.name, notebook.id)}
+                                >{notebook.name}
+                                </a>
                             </li>
                         ))}
                     </ul>

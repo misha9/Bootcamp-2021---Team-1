@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {APIService} from '../../../apiService';
 import ReactHtmlParser from 'react-html-parser';
 
-function RightContent({id, addNoteStatus, handleDeleteStatus, notebookID}) {
+function RightContent({id, addNoteStatus, handleDeleteStatus, notebookID, nbSelect}) {
 
     const [fullText, setFullText] = useState('');
 
@@ -43,6 +43,12 @@ function RightContent({id, addNoteStatus, handleDeleteStatus, notebookID}) {
     useEffect(() => {
         setFullText('');
     }, [notebookID])
+
+    useEffect(() => {
+        if (nbSelect === false) {
+            setFullText('');
+        }
+    }, [nbSelect])
 
     useEffect(() => {
         if (id) {

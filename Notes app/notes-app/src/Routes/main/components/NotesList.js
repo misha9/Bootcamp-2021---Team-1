@@ -1,8 +1,7 @@
 import React from 'react'
-// import {useEffect} from 'react'
+import {useState} from 'react'
 
 import Note from './Note';
-import AddNote from './AddNote';
 import { IoIosAdd } from "react-icons/io";
 import './NotesList.css';
 import { MdOutlineModeEditOutline } from "react-icons/md";
@@ -11,6 +10,8 @@ import {MdDeleteForever} from 'react-icons/md';
 
 function NotesList({notes, handleDeleteNote, getNoteID, handleAddNoteStatus, notebookTitle, notebookID, setNbDeleteStatus, nbSelect}) {
     console.log(notebookID);
+
+    const [selectedNoteId, setSelectedNoteId] = useState(-1);
 
     return (
         (nbSelect) ? (
@@ -37,10 +38,12 @@ function NotesList({notes, handleDeleteNote, getNoteID, handleAddNoteStatus, not
                             text={note.text} 
                             date={note.date}
                             handleDeleteNote={handleDeleteNote}
-                            getNoteID={getNoteID}
+                            // getNoteID={getNoteID}
+                            selected={selectedNoteId===note.id}
+                            onSelect={(id)=>{setSelectedNoteId(id);getNoteID(id);}}
                         />
                     ))}
-                    <div className="options text-end">
+                    <div className="options text-end mb-3">
                         <button type="button" className="ps-3 pe-3 me-3 btn btn-secondary btn-sm align-items-center">
                             <MdOutlineModeEditOutline className='me-2'/>Rename
                         </button>
