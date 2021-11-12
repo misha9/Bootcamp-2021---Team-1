@@ -1,0 +1,14 @@
+.noteList .add-icon {
+  background-color: #fbfbfb;
+  border-radius: 100%;
+}
+
+.noteList .add-icon:hover {
+  cursor: pointer;
+  background-color: black;
+  color: #fbfbfb;
+}
+
+.noteList .notebook-option button {
+  border-radius: 20px;
+}

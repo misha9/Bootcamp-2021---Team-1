@@ -57,47 +57,6 @@ app.post('/api/delete-notes', (req, res) => {
     })
 })
 
-// app.post('/api/registration', async (req, res) => {
-//     let email=req.body.reg 
-//     let password=req.body.pas
-//     let password2=req.body.cpas
-//     let errors = [];
-//     console.log({
-//      email,
-//      password,
-//      password2 
-//     });
-  
-//       hashedPassword = await bcrypt.hash(password, 10);
-//       console.log(hashedPassword);
-
-//             pool.query(
-//                 `SELECT * FROM USERS WHERE username =$1"`,
-//                 [email],
-//                 (err, results) => {
-//                 if (err) {
-//                 //     throw err;
-//                 // }
-//                 // if (res.rows.length =0){
-//                     pool.query(
-//                         `INSERT INTO users (username, psw)
-//                             VALUES ($1, $2)`,
-//                         [email, hashedPassword],
-//                         (err, results) => {
-//                           if (err) {
-//                             throw err;
-//                           }
-//                           console.log("success_msg", "You are now registered. Please log in");
-//                           res.send("true");
-//                           //   res.redirect("/login/Login.js");
-//                         }
-//                       );
-//                 }
-//              }
-
-//             );             
-//           } 
-//       );
 
 app.patch('/api/get-notebooks', (req, res) =>{
 // (error, results) =>{} is a callback fn

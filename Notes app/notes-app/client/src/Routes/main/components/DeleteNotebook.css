@@ -1,0 +1,7 @@
+.delete-nb .delete-notebook .card {
+  border-radius: 8px;
+}
+
+.delete-notebook .card .close-icon:hover {
+  cursor: pointer;
+}
