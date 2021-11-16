@@ -1,6 +1,6 @@
 .note .card {
   min-height: 167px;
-  min-width: 340px;
+  max-width: 340px;
   background: #fbfbfb;
   border-radius: 20px;
   border: none;
