@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import "../../../styles/MenuBar.css";
 
 import { Scrollbars } from "react-custom-scrollbars";
-import { Link } from "react-router-dom";
 
 import { BiUser } from "react-icons/bi";
 import {
@@ -77,105 +76,109 @@ const NotesMenu = ({
       <div className='menuBar'>
         <div className='logo mb-5'>
           <div className='d-flex align-items-center'>
-            <MdEventNote className='me-1' size='1x' style={{ width: "13%" }} />
+            <MdEventNote className='me-1' size='1x' style={{ width: "18%" }} />
             <span>
-              <h3>Notes</h3>
+              <h3 style={{ margin: "auto 0" }}>Notes</h3>
             </span>
           </div>
         </div>
-        <Scrollbars style={{ height: "75vh" }}>
-          <div className='workspace'>
-            <p className='text-uppercase small'>workspace</p>
-            <ul className='list-unstyled'>
-              <li className='d-flex align-items-center'>
-                <MdWorkOutline className='me-3' size='1.3rem' />
-                <button
-                  type='button'
-                  className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                  onClick={() => handleGetNotebooks(1)}
-                  style={{ fontWeight: workspaceID === 1 ? "600" : "400" }}
-                >
-                  Work
-                </button>
-              </li>
-              <li className='d-flex align-items-center'>
-                <BiUser className='me-3' size='1.3rem' />
-                <div onClick={() => handleGetNotebooks(2)}>
+        <div className='menu ms-1'>
+          <Scrollbars style={{ height: "75vh" }}>
+            <div className='workspace'>
+              <p className='text-uppercase small'>workspace</p>
+              <ul className='list-unstyled'>
+                <li className='d-flex align-items-center'>
+                  <MdWorkOutline className='me-3' size='1.3rem' />
                   <button
                     type='button'
                     className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                    style={{ fontWeight: workspaceID === 2 ? "600" : "400" }}
+                    onClick={() => handleGetNotebooks(1)}
+                    style={{ fontWeight: workspaceID === 1 ? "600" : "400" }}
                   >
-                    Personal
+                    Work
                   </button>
-                </div>
-              </li>
-              <li className='d-flex align-items-center'>
-                <MdOutlineHome className='me-3' size='1.3rem' />
-                <button
-                  type='button'
-                  className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                  onClick={() => handleGetNotebooks(3)}
-                  style={{ fontWeight: workspaceID === 3 ? "600" : "400" }}
-                >
-                  {" "}
-                  Home
-                </button>
-              </li>
-            </ul>
-          </div>
-          <div className='notebook'>
-            <p className='text-uppercase small mt-4'>notebook</p>
-            <ul className='list-unstyled'>
-              {notebooks.map((notebook) => (
+                </li>
                 <li className='d-flex align-items-center'>
-                  <VscNote className='me-3' size='1.3rem' />
-                  <a
-                    className='text-decoration-none'
-                    // style={{fontFamily: selected ? '600' : '400'}}
-                    onMouseEnter={() =>
-                      handleSelectNotebook(notebook.name, notebook.id)
-                    }
-                    style={{ fontWeight: notebook.id === nbID ? "600" : "400" }}
+                  <BiUser className='me-3' size='1.3rem' />
+                  <div onClick={() => handleGetNotebooks(2)}>
+                    <button
+                      type='button'
+                      className='text-decoration-none text-dark p-0 border-0 bg-transparent'
+                      style={{ fontWeight: workspaceID === 2 ? "600" : "400" }}
+                    >
+                      Personal
+                    </button>
+                  </div>
+                </li>
+                <li className='d-flex align-items-center'>
+                  <MdOutlineHome className='me-3' size='1.3rem' />
+                  <button
+                    type='button'
+                    className='text-decoration-none text-dark p-0 border-0 bg-transparent'
+                    onClick={() => handleGetNotebooks(3)}
+                    style={{ fontWeight: workspaceID === 3 ? "600" : "400" }}
                   >
-                    {notebook.name}
+                    {" "}
+                    Home
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div className='notebook'>
+              <p className='text-uppercase small mt-4'>notebook</p>
+              <ul className='list-unstyled'>
+                {notebooks.map((notebook) => (
+                  <li className='d-flex align-items-center'>
+                    <VscNote className='me-3' size='1.3rem' />
+                    <a
+                      className='text-decoration-none'
+                      // style={{fontFamily: selected ? '600' : '400'}}
+                      onMouseEnter={() =>
+                        handleSelectNotebook(notebook.name, notebook.id)
+                      }
+                      style={{
+                        fontWeight: notebook.id === nbID ? "600" : "400",
+                      }}
+                    >
+                      {notebook.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className='special'>
+              <ul className='list-unstyled'>
+                <li className='mt-4 d-flex align-items-center'>
+                  <CgHashtag className='me-3' size='1.3rem' />
+                  <a href='' className='text-decoration-none text-dark'>
+                    Tags
                   </a>
                 </li>
-              ))}
-            </ul>
+                <li className='d-flex align-items-center'>
+                  <MdStarBorder className='me-3' size='1.3rem' />
+                  <a href='' className='text-decoration-none text-dark'>
+                    Starred
+                  </a>
+                </li>
+                <li className='d-flex align-items-center'>
+                  <GiBackwardTime className='me-3' size='1.3rem' />
+                  <a href='' className='text-decoration-none text-dark'>
+                    Recent
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </Scrollbars>
+          <div className='add-notebook d-flex align-items-center mt-2'>
+            <p>
+              <IoIosAddCircle
+                size='1.7rem'
+                className='me-2 add-icon'
+                onClick={() => handleNotebookStatus(true)}
+              />
+            </p>
+            <p className=''>New Notebook</p>
           </div>
-          <div className='special'>
-            <ul className='list-unstyled'>
-              <li className='mt-4 d-flex align-items-center'>
-                <CgHashtag className='me-3' size='1.3rem' />
-                <a href='' className='text-decoration-none text-dark'>
-                  Tags
-                </a>
-              </li>
-              <li className='d-flex align-items-center'>
-                <MdStarBorder className='me-3' size='1.3rem' />
-                <a href='' className='text-decoration-none text-dark'>
-                  Starred
-                </a>
-              </li>
-              <li className='d-flex align-items-center'>
-                <GiBackwardTime className='me-3' size='1.3rem' />
-                <a href='' className='text-decoration-none text-dark'>
-                  Recent
-                </a>
-              </li>
-            </ul>
-          </div>
-        </Scrollbars>
-        <div className='add-notebook d-flex align-items-center mt-2'>
-          <p>
-            <IoIosAddCircle
-              size='1.7rem'
-              className='me-2 add-icon'
-              onClick={() => handleNotebookStatus(true)}
-            />
-          </p>
-          <p className=''>New Notebook</p>
         </div>
       </div>
     </div>

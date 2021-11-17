@@ -70,7 +70,7 @@ function RightContent({
 
   return (
     <div className='right-content position-fixed'>
-      <p className='mt-5' style={{ maxWidth: "605px" }}>
+      <p className='mt-5 ps-5' style={{ maxWidth: "605px" }}>
         {ReactHtmlParser(fullText)}
       </p>
     </div>

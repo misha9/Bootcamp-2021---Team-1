@@ -196,7 +196,7 @@ const MainContainer = () => {
 
   return (
     <div className='container-fluid'>
-      <div className='row'>
+      <div className='row justify-content-center'>
         <NotesMenu
           handleNotebookStatus={getNotebookStatus}
           notebooks={notebooks}

@@ -18,7 +18,7 @@ const NoteView = ({
 }) => {
   return (
     <div
-      className='col-sm-12 col-md-7 col-lg-7 col-xl-7 col-xxl-7 pt-3'
+      className='col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-3'
       style={{ height: "100vh" }}
     >
       <ToolBar />

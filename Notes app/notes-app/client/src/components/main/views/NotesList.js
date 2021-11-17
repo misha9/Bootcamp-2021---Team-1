@@ -15,7 +15,7 @@ const NotesList = ({
   handleDeleteNote,
   getNoteID,
   handleAddNoteStatus,
-  notebookTitle,
+  nbName,
   notebookID,
   setNbDeleteStatus,
   nbSelect,
@@ -26,8 +26,8 @@ const NotesList = ({
 
   return (
     <div
-      className='col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 pt-3'
-      style={{ height: "100vh" }}
+      className='col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-3'
+      style={{ height: "100vh", maxWidth: "365px" }}
     >
       {/* <p>NotesList</p> */}
       <SearchBar handleSearchNote={handleSearchNote} />
@@ -40,7 +40,7 @@ const NotesList = ({
                 // style={{ paddingTop: "7rem" }}
               >
                 <h4 className='notebook' style={{ fontWeight: "600" }}>
-                  {notebookTitle}
+                  {nbName}
                 </h4>
                 <IoIosAdd
                   className='mb-2 add-icon'
@@ -52,7 +52,7 @@ const NotesList = ({
               </div>
             </div>
           </div>
-          <Scrollbars style={{ height: "70vh" }}>
+          <Scrollbars style={{ height: "70vh", width: "360px" }}>
             <div className='notes-list'>
               {notes.map((note, ind) => (
                 <Note

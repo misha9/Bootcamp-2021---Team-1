@@ -33,7 +33,7 @@ function AddNote({
   console.log(addNoteStatus);
 
   return addNoteStatus ? (
-    <div className='new m-auto' style={{ maxWidth: "570px" }}>
+    <div className='new m-auto' style={{ maxWidth: "600px" }}>
       <ReactQuill
         placeholder={"Type to add a note..."}
         onChange={handleChange}
