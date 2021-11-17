@@ -2,6 +2,7 @@ import React from "react";
 
 import { useEffect } from "react";
 import "../../../styles/MenuBar.css";
+import {APIService} from '../../../services/apiService'
 
 import { Scrollbars } from "react-custom-scrollbars";
 
@@ -34,6 +35,8 @@ const NotesMenu = ({
   setNbID,
   nbName,
   nbID,
+  fDate,
+  setBnotes
 }) => {
   const handleSelectNotebook = (name, id) => {
     // notebookContent(name, id);
@@ -48,6 +51,35 @@ const NotesMenu = ({
     setWorkspaceID(i);
     setNbSelect(false);
   };
+
+  function getAllBookmark(){
+    const data = [];
+       APIService.fetchBookmarkedNotes().then((res)=>{
+           for (let i = 0; i < res.length; i++) {
+               let newDate = fDate(res[i].note_date);
+               data.push({id: res[i].n_id, text: res[i].sub, date: newDate});
+               console.log(res[0].n_id);
+           }
+   setBnotes(data); 
+   setNbSelect(true) ;
+   console.log(res[0].n_id);
+   })
+} 
+
+function getAllRecentNotes(){
+  const data = [];
+     APIService.fetchRecentNotes().then((res)=>{
+         for (let j = 0; j < res.length; j++) {
+             let newDate = fDate(res[j].note_date);
+             data.push({id: res[j].n_id, text: res[j].sub, date: newDate});
+             console.log(res[0].n_id);
+         }
+ setBnotes(data); 
+ setNbSelect(true) ;
+ console.log(res[0].n_id);
+ })
+} 
+
 
   useEffect(() => {
     if (createStatus === true) {
@@ -156,13 +188,13 @@ const NotesMenu = ({
                 </li>
                 <li className='d-flex align-items-center'>
                   <MdStarBorder className='me-3' size='1.3rem' />
-                  <a href='' className='text-decoration-none text-dark'>
+                  <a className='text-decoration-none text-dark'onClick={getAllBookmark}>
                     Starred
                   </a>
                 </li>
                 <li className='d-flex align-items-center'>
                   <GiBackwardTime className='me-3' size='1.3rem' />
-                  <a href='' className='text-decoration-none text-dark'>
+                  <a className='text-decoration-none text-dark' onClick={getAllRecentNotes}>
                     Recent
                   </a>
                 </li>

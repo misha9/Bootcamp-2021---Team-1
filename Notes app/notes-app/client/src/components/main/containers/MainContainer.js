@@ -135,6 +135,8 @@ const MainContainer = () => {
           setNbID={setNbID}
           nbName={nbName}
           nbID={nbID}
+          fDate={formatDate}
+          setBnotes={setNotes}
         />
         <NotesList
           notes={notes.filter((note) =>

@@ -8,6 +8,8 @@ export const APIService = {
   renameNotebookInDb,
   addNewNote,
   deleteNoteFromDb,
+  fetchRecentNotes,
+  fetchBookmarkedNotes
 };
 
 function fetchNotes(id) {
@@ -115,6 +117,32 @@ function deleteNoteFromDb(data) {
     },
     body: JSON.stringify(data),
   });
+}
+
+
+function fetchBookmarkedNotes(){
+  const requestOptions = {
+    method: "GET",
+    headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+        },
+        // body: JSON.stringify({id:bookMark.id })
+    };
+  return fetch("http://localhost:5000/api/get-bookmark",requestOptions)
+      .then(handleResponse);
+}
+function fetchRecentNotes(){
+  const requestOptions = {
+    method: "GET",
+    headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json',
+        },
+        // body: JSON.stringify({id:bookMark.id })
+    };
+  return fetch("http://localhost:5000/api/get-recent",requestOptions)
+      .then(handleResponse);
 }
 
 function handleResponse(response) {
