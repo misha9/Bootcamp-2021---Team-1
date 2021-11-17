@@ -15,20 +15,18 @@ app.use(express.json());
 // app.use(express.json());
 
 app.patch("/api/get-notes", (req, res) => {
-  // (error, results) =>{} is a callback fn
   console.log(req.body.notebook_id, "notebook id comes");
   pool.query(
     "select * from prev where nb_id=$1 ORDER BY n_id DESC",
     [req.body.notebook_id],
     (error, results) => {
-      if (error) throw error; //if there is an error
-      res.status(200).json(results.rows); //if it was a successful query then have to send back the json of all patients
+      if (error) throw error;
+      res.status(200).json(results.rows);
     }
   );
 });
 
 app.patch("/api/get-full-text", (req, res) => {
-  // (error, results) =>{} is a callback fn
   console.log("In  get full-text");
   console.log(req.body, "body");
   const id = req.body.note_id;
@@ -36,8 +34,8 @@ app.patch("/api/get-full-text", (req, res) => {
     "select note_content from note1 where n_id = $1",
     [id],
     (error, results) => {
-      if (error) throw error; //if there is an error
-      res.status(200).json(results.rows); //if it was a successful query then have to send back the json of all patients
+      if (error) throw error;
+      res.status(200).json(results.rows);
       console.log(results.rows);
       console.log("Got full text");
     }
@@ -69,15 +67,14 @@ app.post("/api/delete-notes", (req, res) => {
 });
 
 app.patch("/api/get-notebooks", (req, res) => {
-  // (error, results) =>{} is a callback fn
   console.log("For work notebooks", req.body.ws_id);
   pool.query(
     "select * from notebook where ws_id=$1 ORDER BY nb_id DESC",
     [req.body.ws_id],
     (error, results) => {
-      if (error) throw error; //if there is an error
+      if (error) throw error;
       console.log(results.rows);
-      res.status(200).json(results.rows); //if it was a successful query then have to send back the json of all patients
+      res.status(200).json(results.rows);
     }
   );
 });
@@ -119,15 +116,10 @@ app.post("/api/rename-notebook", (req, res) => {
 });
 
 app.get("/api/get-workspace", (req, res) => {
-  // (error, results) =>{} is a callback fn
   pool.query("select * from workspace", (error, results) => {
-    if (error) throw error; //if there is an error
-    res.status(200).json(results.rows); //if it was a successful query then have to send back the json of all patients
+    if (error) throw error;
+    res.status(200).json(results.rows);
   });
-});
-
-app.get("/api/v1/test", (req, res) => {
-  res.send("Hi");
 });
 
 app.listen(5000, () => {
