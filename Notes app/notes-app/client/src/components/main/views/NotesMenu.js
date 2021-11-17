@@ -36,7 +36,7 @@ const NotesMenu = ({
   nbID,
 }) => {
   const handleSelectNotebook = (name, id) => {
-    notebookContent(name, id);
+    // notebookContent(name, id);
     getNotes(id);
     setNbName(name);
     setNbID(id);

@@ -17,8 +17,6 @@ const MainContainer = () => {
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [notebookStatus, setNotebookStatus] = useState(false);
   const [notebooks, setNotebooks] = useState([]);
-  const [notebookTitle, setNotebookTitle] = useState("");
-  const [notebookID, setNotebookID] = useState("");
   const [nbSelect, setNbSelect] = useState(false);
   const [workspaceID, setWorkspaceID] = useState("");
   const [saveStatus, setSaveStatus] = useState(false);
@@ -56,64 +54,19 @@ const MainContainer = () => {
   console.log(notebooks);
 
   const addNotebook = (name, wsID) => {
-    const newNotebook = {
-      text: name,
-      wsID: wsID,
-    };
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ name: newNotebook.text, ws_id: newNotebook.wsID }),
-    };
-    fetch("http://localhost:5000/api/add-notebook", requestOptions).then(
-      getAllNotebooks(wsID)
-    );
-    // const newNotes = [...notes, newNote];
-    // setNotes(newNotes);
+    APIService.addNewNotebook(name, wsID).then(getAllNotebooks(wsID));
   };
 
   const deleteNotebook = (id) => {
-    const data = {
-      nbID: id,
-    };
-    function deleteNoteFromDb() {
-      return fetch("http://localhost:5000/api/delete-notebook", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-    }
-    deleteNoteFromDb();
+    APIService.deleteNotebookFromDb(id);
     const newNotebooks = notebooks.filter((notebook) => notebook.id !== id);
     setNotebooks(newNotebooks);
   };
 
   const renameNotebook = (id, name, ws_id) => {
     console.log("renaming at main", ws_id);
-    const data = {
-      nbID: id,
-      name: name,
-    };
-    function renameNotebookInDb(nbID, name, ws_id) {
-      return fetch("http://localhost:5000/api/rename-notebook", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then(getAllNotebooks(ws_id));
-    }
-    renameNotebookInDb(id, name, ws_id);
-    // const newNotebooks = notebooks.filter((notebook) => notebook.id !== id);
-    // setNotebooks(newNotebooks);
+
+    APIService.renameNotebookInDb(id, name).then(getAllNotebooks(ws_id));
   };
 
   const getAllNotes = (id) => {
@@ -137,40 +90,14 @@ const MainContainer = () => {
       nbID: nbID,
       wsID: wsID,
     };
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        note_content: newNote.text,
-        note_date: newNote.date,
-        nb_id: newNote.nbID,
-        ws_id: newNote.wsID,
-      }),
-    };
-    fetch("http://localhost:5000/api/add-notes", requestOptions).then(
-      getAllNotes(nbID)
-    );
+    APIService.addNewNote(newNote).then(getAllNotes(nbID));
   };
 
   const deleteNote = (id) => {
     const data = {
       id: id,
     };
-    function deleteNoteFromDb(id, nbID) {
-      return fetch("http://localhost:5000/api/delete-notes", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-    }
-    deleteNoteFromDb();
+    APIService.deleteNoteFromDb(data);
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
     setDeleteStatus(true);
@@ -189,18 +116,12 @@ const MainContainer = () => {
     setNotebookStatus(status);
   };
 
-  const getNotebookContent = (title, id) => {
-    setNotebookTitle(title);
-    setNotebookID(id);
-  };
-
   return (
     <div className='container-fluid'>
       <div className='row justify-content-center'>
         <NotesMenu
           handleNotebookStatus={getNotebookStatus}
           notebooks={notebooks}
-          notebookContent={getNotebookContent}
           getNotes={getAllNotes}
           setNbSelect={setNbSelect}
           getNotebooks={getAllNotebooks}
@@ -223,7 +144,7 @@ const MainContainer = () => {
           handleAddNoteStatus={getAddNoteStatus}
           getNoteID={getNoteID}
           nbName={nbName}
-          notebookID={notebookID}
+          notebookID={nbID}
           setNbDeleteStatus={setNbDeleteStatus}
           nbSelect={nbSelect}
           setNbRenameStatus={setNbRenameStatus}
@@ -233,7 +154,7 @@ const MainContainer = () => {
           id={noteID}
           addNoteStatus={addNoteStatus}
           handleDeleteStatus={deleteStatus}
-          notebookID={notebookID}
+          notebookID={nbID}
           nbSelect={nbSelect}
           deleteStatus={deleteStatus}
           handleAddNote={addNote}
@@ -251,7 +172,7 @@ const MainContainer = () => {
         <DeleteNotebook
           nbDeleteStatus={nbDeleteStatus}
           setNbDeleteStatus={setNbDeleteStatus}
-          notebookID={notebookID}
+          notebookID={nbID}
           handleDeleteNotebook={deleteNotebook}
           setNbSelect={setNbSelect}
         />

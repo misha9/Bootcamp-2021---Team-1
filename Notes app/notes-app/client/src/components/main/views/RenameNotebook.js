@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../styles/DeleteNotebook.css";
+import "../../../styles/RenameNotebook.css";
 
 import TextField from "@mui/material/TextField";
 
@@ -12,15 +12,11 @@ function RenameNotebook({
   renameNb,
   handleRenameNotebook,
   workspaceID,
-  // setNbSelect,
 }) {
-  // console.log(nbDeleteStatus);
-
   const handleRename = () => {
     console.log("Rename notebook");
     setNbRenameStatus(false);
     handleRenameNotebook(nbID, renameNb, workspaceID);
-    // setNbSelect(false);
   };
 
   return nbRenameStatus ? (
