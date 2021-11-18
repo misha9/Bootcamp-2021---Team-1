@@ -9,7 +9,9 @@ export const APIService = {
   addNewNote,
   deleteNoteFromDb,
   fetchRecentNotes,
-  fetchBookmarkedNotes
+  fetchBookmarkedNotes,
+  getFullText,
+  addBookmark,
 };
 
 function fetchNotes(id) {
@@ -119,30 +121,61 @@ function deleteNoteFromDb(data) {
   });
 }
 
-
-function fetchBookmarkedNotes(){
+function fetchBookmarkedNotes() {
   const requestOptions = {
     method: "GET",
     headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json',
-        },
-        // body: JSON.stringify({id:bookMark.id })
-    };
-  return fetch("http://localhost:5000/api/get-bookmark",requestOptions)
-      .then(handleResponse);
+      Accept: "application/json",
+      "Content-type": "application/json",
+    },
+    // body: JSON.stringify({id:bookMark.id })
+  };
+  return fetch("http://localhost:5000/api/get-bookmark", requestOptions).then(
+    handleResponse
+  );
 }
-function fetchRecentNotes(){
+function fetchRecentNotes() {
   const requestOptions = {
     method: "GET",
     headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json',
-        },
-        // body: JSON.stringify({id:bookMark.id })
-    };
-  return fetch("http://localhost:5000/api/get-recent",requestOptions)
-      .then(handleResponse);
+      Accept: "application/json",
+      "Content-type": "application/json",
+    },
+    // body: JSON.stringify({id:bookMark.id })
+  };
+  return fetch("http://localhost:5000/api/get-recent", requestOptions).then(
+    handleResponse
+  );
+}
+
+function getFullText(id) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ note_id: id }),
+  };
+  return fetch("http://localhost:5000/api/get-full-text", requestOptions).then(
+    handleResponse
+  );
+}
+
+function addBookmark(id, bookMarkStatus) {
+  const markBookmark = {
+    id: id,
+    flag: bookMarkStatus,
+  };
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ id: markBookmark.id, flag: markBookmark.flag }),
+  };
+  fetch("http://localhost:5000/api/add-bookmark", requestOptions);
 }
 
 function handleResponse(response) {

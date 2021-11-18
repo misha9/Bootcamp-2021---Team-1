@@ -31,7 +31,7 @@ app.patch("/api/get-full-text", (req, res) => {
   console.log(req.body, "body");
   const id = req.body.note_id;
   pool.query(
-    "select n_id,note_content,bookmark from note1 where n_id = $1",
+    "select n_id,note_content,bookmark from note where n_id = $1",
     [id],
     (error, results) => {
       if (error) throw error;
@@ -45,7 +45,7 @@ app.patch("/api/get-full-text", (req, res) => {
 app.post("/api/add-notes", (req, res) => {
   console.log(req.body, "body");
   pool.query(
-    "INSERT INTO note1 (note_content, note_date, nb_id, ws_id) VALUES ($1, $2, $3, $4)",
+    "INSERT INTO note (note_content, note_date, nb_id, ws_id) VALUES ($1, $2, $3, $4)",
     [req.body.note_content, req.body.note_date, req.body.nb_id, req.body.ws_id],
     (error, results) => {
       if (error) throw error;
@@ -59,7 +59,7 @@ app.post("/api/delete-notes", (req, res) => {
   console.log(req.body, "delete-body");
   const id = req.body.id;
   console.log(id);
-  pool.query("delete from note1 where n_id = $1", [id], (error, results) => {
+  pool.query("delete from note where n_id = $1", [id], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
     console.log("Deleted a note");
@@ -122,30 +122,40 @@ app.get("/api/get-workspace", (req, res) => {
   });
 });
 
-app.post('/api/add-bookmark', (req, res) => {
+app.post("/api/add-bookmark", (req, res) => {
   console.log(req.body.id, req.body.flag);
 
-  pool.query("update note1 set bookmark = $1 where n_id = $2", [req.body.flag, req.body.id], (error, results) => {
-      if(error) throw error;
+  pool.query(
+    "update note set bookmark = $1 where n_id = $2",
+    [req.body.flag, req.body.id],
+    (error, results) => {
+      if (error) throw error;
       res.status(200).send("SUCCESS");
       console.log("Bookmarked the note successfully");
-  })
-})
+    }
+  );
+});
 
-app.get('/api/get-bookmark', (req, res) =>{
-  pool.query("select * from prev where bookmark = $1 " , [true],(error, results)=>{
-      if(error) throw error;
-      res.status(200).json(results.rows);  
-  })
-})
+app.get("/api/get-bookmark", (req, res) => {
+  pool.query(
+    "select * from prev where bookmark = $1 ",
+    [true],
+    (error, results) => {
+      if (error) throw error;
+      res.status(200).json(results.rows);
+    }
+  );
+});
 
-app.get('/api/get-recent', (req, res) =>{
-  pool.query("SELECT * FROM prev ORDER BY n_id DESC LIMIT 5 ",(error, results)=>{
-      if(error) throw error;
-      res.status(200).json(results.rows);  
-  })
-})
-
+app.get("/api/get-recent", (req, res) => {
+  pool.query(
+    "SELECT * FROM prev ORDER BY n_id DESC LIMIT 5 ",
+    (error, results) => {
+      if (error) throw error;
+      res.status(200).json(results.rows);
+    }
+  );
+});
 
 app.listen(5000, () => {
   console.log("Server is listening on the port 5000");

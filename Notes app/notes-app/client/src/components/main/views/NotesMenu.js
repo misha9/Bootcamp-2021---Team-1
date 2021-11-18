@@ -2,7 +2,7 @@ import React from "react";
 
 import { useEffect } from "react";
 import "../../../styles/MenuBar.css";
-import {APIService} from '../../../services/apiService'
+import { APIService } from "../../../services/apiService";
 
 import { Scrollbars } from "react-custom-scrollbars";
 
@@ -21,7 +21,6 @@ import { VscNote } from "react-icons/vsc";
 const NotesMenu = ({
   handleNotebookStatus,
   notebooks,
-  notebookContent,
   getNotes,
   getNotebooks,
   setWorkspaceID,
@@ -35,51 +34,28 @@ const NotesMenu = ({
   setNbID,
   nbName,
   nbID,
-  fDate,
-  setBnotes
+  setFeatureStatus,
+  getAllBookmark,
+  getAllRecentNotes,
 }) => {
   const handleSelectNotebook = (name, id) => {
-    // notebookContent(name, id);
     getNotes(id);
     setNbName(name);
     setNbID(id);
     setNbSelect(true);
+    setFeatureStatus(false);
   };
 
   const handleGetNotebooks = (i) => {
     getNotebooks(i);
     setWorkspaceID(i);
     setNbSelect(false);
+    setFeatureStatus(false);
   };
 
-  function getAllBookmark(){
-    const data = [];
-       APIService.fetchBookmarkedNotes().then((res)=>{
-           for (let i = 0; i < res.length; i++) {
-               let newDate = fDate(res[i].note_date);
-               data.push({id: res[i].n_id, text: res[i].sub, date: newDate});
-               console.log(res[0].n_id);
-           }
-   setBnotes(data); 
-   setNbSelect(true) ;
-   console.log(res[0].n_id);
-   })
-} 
-
-function getAllRecentNotes(){
-  const data = [];
-     APIService.fetchRecentNotes().then((res)=>{
-         for (let j = 0; j < res.length; j++) {
-             let newDate = fDate(res[j].note_date);
-             data.push({id: res[j].n_id, text: res[j].sub, date: newDate});
-             console.log(res[0].n_id);
-         }
- setBnotes(data); 
- setNbSelect(true) ;
- console.log(res[0].n_id);
- })
-} 
-
+  const getBookmarkNotes = () => {
+    getAllBookmark();
+  };
 
   useEffect(() => {
     if (createStatus === true) {
@@ -150,7 +126,6 @@ function getAllRecentNotes(){
                     onClick={() => handleGetNotebooks(3)}
                     style={{ fontWeight: workspaceID === 3 ? "600" : "400" }}
                   >
-                    {" "}
                     Home
                   </button>
                 </li>
@@ -182,21 +157,25 @@ function getAllRecentNotes(){
               <ul className='list-unstyled'>
                 <li className='mt-4 d-flex align-items-center'>
                   <CgHashtag className='me-3' size='1.3rem' />
-                  <a href='' className='text-decoration-none text-dark'>
-                    Tags
-                  </a>
+                  <a className='text-decoration-none text-dark'>Tags</a>
                 </li>
                 <li className='d-flex align-items-center'>
                   <MdStarBorder className='me-3' size='1.3rem' />
-                  <a className='text-decoration-none text-dark'onClick={getAllBookmark}>
+                  <button
+                    className='text-decoration-none text-dark p-0 border-0 bg-transparent'
+                    onClick={() => getBookmarkNotes()}
+                  >
                     Starred
-                  </a>
+                  </button>
                 </li>
                 <li className='d-flex align-items-center'>
                   <GiBackwardTime className='me-3' size='1.3rem' />
-                  <a className='text-decoration-none text-dark' onClick={getAllRecentNotes}>
+                  <button
+                    className='text-decoration-none text-dark p-0 border-0 bg-transparent'
+                    onClick={getAllRecentNotes}
+                  >
                     Recent
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>

@@ -10,8 +10,10 @@ function AddNote({
   notebookID,
   workspaceID,
   setSaveStatus,
+  noteText,
+  setNoteText,
 }) {
-  const [noteText, setNoteText] = useState("");
+  // const [noteText, setNoteText] = useState("");
 
   console.log(addNoteStatus);
 

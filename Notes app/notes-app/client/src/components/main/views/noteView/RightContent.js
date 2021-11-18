@@ -9,74 +9,28 @@ function RightContent({
   notebookID,
   nbSelect,
   deleteStatus,
+  getAllBookmark,
+  setBookmarkStatus,
+  bookmarkStatus,
+  fullText,
+  setFullText,
+  fullTextStatus,
+  setFullTextStatus,
+  getFullContent,
 }) {
-  const [fullText, setFullText] = useState("");
-
-  const [fullTextStatus,setfullTextStatus]=useState(false);
-  //bookmark status
-  const [bookMarkStatus,setBookmarkStatus]=useState();
-
-  function getFullText() {
-    const requestOptions = {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ note_id: id }),
-    };
-    return fetch(
-      "http://localhost:5000/api/get-full-text",
-      requestOptions
-    ).then(APIService.handleResponse);
-  }
+  // const [fullText, setFullText] = useState("");
+  // const [fullTextStatus, setFullTextStatus] = useState(false);
 
   const bookmarkChangeHandler = () => {
-    console.log(bookMarkStatus);
-    setBookmarkStatus(!bookMarkStatus);
-    console.log(bookMarkStatus);
-    
-    }
-    
-    useEffect(() => {
-       addBookmark();
-    }, [bookMarkStatus])
-
-    const addBookmark = () => {
-      // console.log(bookMarkStatus);
-      // setBookmarkStatus(!bookMarkStatus);
-      // console.log(bookMarkStatus);
-      const markBookmark = {
-      id: id,
-      flag: bookMarkStatus
-      
-      }
-
-      const requestOptions = {
-      method: "POST",
-      headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json',
-          },
-          body: JSON.stringify({id:markBookmark.id, flag:markBookmark.flag})
-      };
-      fetch("http://localhost:5000/api/add-bookmark", requestOptions); 
-  }
-
-
-  function getFullContent() {
-    getFullText(id).then((res) => {
-      // console.log("tracking")
-      setFullText(res[0].note_content);
-      setBookmarkStatus(res[0].bookmark);
-
-      // console.log(res[0].note_content);
-    });
-  }
+    // console.log(bookmarkStatus);
+    setBookmarkStatus(!bookmarkStatus);
+    // console.log(bookmarkStatus);
+  };
 
   useEffect(() => {
     if (addNoteStatus === true) {
       setFullText("");
-      setfullTextStatus(false);
+      setFullTextStatus(false);
     }
   }, [addNoteStatus, id]);
 
@@ -88,14 +42,13 @@ function RightContent({
 
   useEffect(() => {
     setFullText("");
-    setfullTextStatus(false);
+    setFullTextStatus(false);
   }, [notebookID]);
 
   useEffect(() => {
     if (nbSelect === false) {
       setFullText("");
-      setfullTextStatus(false);
-
+      setFullTextStatus(false);
     }
   }, [nbSelect]);
 
@@ -107,23 +60,31 @@ function RightContent({
 
   useEffect(() => {
     if (id) {
-      getFullContent();
-      setfullTextStatus(true)
-
+      getFullContent(id);
+      setFullTextStatus(true);
     }
   }, [id]);
 
-  return (
-    <div className='right-content position-fixed'>
-      {(fullTextStatus)? (
-                    <div className='text-end mx-5 px-5'>
-                         <i className={`icon ${ bookMarkStatus != true ? ' far fa-star' : ' fas fa-star'}`} onClick={bookmarkChangeHandler}></i>
-                    </div>
-                ):''}
+  useEffect(() => {
+    APIService.addBookmark(id, bookmarkStatus);
+  }, [bookmarkStatus]);
+
+  return fullTextStatus ? (
+    <div className='right-content'>
+      <div className='text-end'>
+        <i
+          className={`icon me-2 ${
+            bookmarkStatus != true ? " far fa-star" : " fas fa-star"
+          }`}
+          onClick={bookmarkChangeHandler}
+        ></i>
+      </div>
       <p className='mt-5 ps-5' style={{ maxWidth: "605px" }}>
         {ReactHtmlParser(fullText)}
       </p>
     </div>
+  ) : (
+    ""
   );
 }
 

@@ -26,6 +26,12 @@ const MainContainer = () => {
   const [renameNb, setRenameNb] = useState("");
   const [nbName, setNbName] = useState("");
   const [nbID, setNbID] = useState("");
+  const [featureStatus, setFeatureStatus] = useState(false);
+  const [bookmarkStatus, setBookmarkStatus] = useState();
+  const [fullText, setFullText] = useState("");
+  const [fullTextStatus, setFullTextStatus] = useState(false);
+  const [selectedNoteId, setSelectedNoteId] = useState(-1);
+  const [noteText, setNoteText] = useState("");
 
   const formatDate = (timestamp) => {
     var d = new Date(timestamp),
@@ -103,6 +109,42 @@ const MainContainer = () => {
     setDeleteStatus(true);
   };
 
+  function getFullContent(id) {
+    APIService.getFullText(id).then((res) => {
+      setFullText(res[0].note_content);
+      setBookmarkStatus(res[0].bookmark);
+    });
+  }
+
+  function getAllBookmark() {
+    const data = [];
+    APIService.fetchBookmarkedNotes().then((res) => {
+      for (let i = 0; i < res.length; i++) {
+        let newDate = formatDate(res[i].note_date);
+        data.push({ id: res[i].n_id, text: res[i].sub, date: newDate });
+        console.log(res[0].n_id);
+      }
+      setNotes(data);
+      setNbSelect(false);
+      setFeatureStatus(true);
+    });
+  }
+
+  function getAllRecentNotes() {
+    const data = [];
+    APIService.fetchRecentNotes().then((res) => {
+      for (let j = 0; j < res.length; j++) {
+        let newDate = formatDate(res[j].note_date);
+        data.push({ id: res[j].n_id, text: res[j].sub, date: newDate });
+        console.log(res[0].n_id);
+      }
+      setNotes(data);
+      // console.log(res[0].n_id);
+      setNbSelect(false);
+      setFeatureStatus(true);
+    });
+  }
+
   const getNoteID = (id) => {
     setNoteID(id);
     setAddNoteStatus(false);
@@ -135,8 +177,10 @@ const MainContainer = () => {
           setNbID={setNbID}
           nbName={nbName}
           nbID={nbID}
-          fDate={formatDate}
-          setBnotes={setNotes}
+          setNotes={setNotes}
+          setFeatureStatus={setFeatureStatus}
+          getAllBookmark={getAllBookmark}
+          getAllRecentNotes={getAllRecentNotes}
         />
         <NotesList
           notes={notes.filter((note) =>
@@ -151,6 +195,9 @@ const MainContainer = () => {
           nbSelect={nbSelect}
           setNbRenameStatus={setNbRenameStatus}
           handleSearchNote={setSearchText}
+          featureStatus={featureStatus}
+          selectedNoteId={selectedNoteId}
+          setSelectedNoteId={setSelectedNoteId}
         />
         <NoteView
           id={noteID}
@@ -163,6 +210,16 @@ const MainContainer = () => {
           setSaveStatus={setSaveStatus}
           workspaceID={workspaceID}
           handleAddNoteStatus={getAddNoteStatus}
+          getAllBookmark={getAllBookmark}
+          setBookmarkStatus={setBookmarkStatus}
+          bookmarkStatus={bookmarkStatus}
+          fullText={fullText}
+          setFullText={setFullText}
+          fullTextStatus={fullTextStatus}
+          setFullTextStatus={setFullTextStatus}
+          getFullContent={getFullContent}
+          noteText={noteText}
+          setNoteText={setNoteText}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}

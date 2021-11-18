@@ -15,13 +15,23 @@ const NoteView = ({
   setSaveStatus,
   handleAddNoteStatus,
   workspaceID,
+  getAllBookmark,
+  setBookmarkStatus,
+  bookmarkStatus,
+  fullText,
+  setFullText,
+  fullTextStatus,
+  setFullTextStatus,
+  getFullContent,
+  noteText,
+  setNoteText,
 }) => {
   return (
     <div
       className='col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-3'
       style={{ height: "100vh" }}
     >
-      <ToolBar />
+      <ToolBar id={id} />
       <RightContent
         id={id}
         addNoteStatus={addNoteStatus}
@@ -29,6 +39,14 @@ const NoteView = ({
         notebookID={notebookID}
         nbSelect={nbSelect}
         deleteStatus={deleteStatus}
+        getAllBookmark={getAllBookmark}
+        setBookmarkStatus={setBookmarkStatus}
+        bookmarkStatus={bookmarkStatus}
+        fullText={fullText}
+        setFullText={setFullText}
+        fullTextStatus={fullTextStatus}
+        setFullTextStatus={setFullTextStatus}
+        getFullContent={getFullContent}
       />
       <AddNote
         addNoteStatus={addNoteStatus}
@@ -38,6 +56,8 @@ const NoteView = ({
         handleAddNoteStatus={handleAddNoteStatus}
         handleAddNote={handleAddNote}
         setSaveStatus={setSaveStatus}
+        noteText={noteText}
+        setNoteText={setNoteText}
       />
     </div>
   );
