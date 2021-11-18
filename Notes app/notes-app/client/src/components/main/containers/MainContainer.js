@@ -35,6 +35,7 @@ const MainContainer = () => {
   const [editStatus, setEditStatus] = useState(false);
   const [noteTitle, setNoteTitle] = useState();
   const [contentTitle, setContentTitle] = useState("");
+  const [starStatus, setStarStatus] = useState(false);
 
   const formatDate = (timestamp) => {
     var d = new Date(timestamp),
@@ -136,7 +137,12 @@ const MainContainer = () => {
     APIService.fetchBookmarkedNotes().then((res) => {
       for (let i = 0; i < res.length; i++) {
         let newDate = formatDate(res[i].note_date);
-        data.push({ id: res[i].n_id, text: res[i].sub, date: newDate });
+        data.push({
+          id: res[i].n_id,
+          title: res[i].title,
+          text: res[i].sub,
+          date: newDate,
+        });
         console.log(res[0].n_id);
       }
       setNotes(data);
@@ -194,6 +200,7 @@ const MainContainer = () => {
           setFeatureStatus={setFeatureStatus}
           getAllBookmark={getAllBookmark}
           getAllRecentNotes={getAllRecentNotes}
+          setStarStatus={setStarStatus}
         />
         <NotesList
           notes={notes.filter((note) =>
@@ -238,6 +245,8 @@ const MainContainer = () => {
           setNoteTitle={setNoteTitle}
           noteTitle={noteTitle}
           contentTitle={contentTitle}
+          starStatus={starStatus}
+          setContentTitle={setContentTitle}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}

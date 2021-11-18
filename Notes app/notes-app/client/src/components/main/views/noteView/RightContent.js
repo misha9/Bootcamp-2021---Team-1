@@ -19,6 +19,8 @@ function RightContent({
   setFullTextStatus,
   getFullContent,
   contentTitle,
+  starStatus,
+  setContentTitle,
 }) {
   const bookmarkChangeHandler = () => {
     setBookmarkStatus(!bookmarkStatus);
@@ -64,9 +66,13 @@ function RightContent({
 
   useEffect(() => {
     APIService.addBookmark(id, bookmarkStatus);
-    setTimeout(() => {
-      getAllBookmark();
-    }, 250);
+    if (starStatus === true) {
+      setTimeout(() => {
+        getAllBookmark();
+        setFullText("");
+        setContentTitle("");
+      }, 250);
+    }
   }, [bookmarkStatus]);
 
   return fullTextStatus ? (

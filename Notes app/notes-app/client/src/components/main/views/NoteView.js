@@ -30,6 +30,8 @@ const NoteView = ({
   setNoteTitle,
   noteTitle,
   contentTitle,
+  starStatus,
+  setContentTitle,
 }) => {
   return (
     <div
@@ -58,6 +60,8 @@ const NoteView = ({
         setFullTextStatus={setFullTextStatus}
         getFullContent={getFullContent}
         contentTitle={contentTitle}
+        starStatus={starStatus}
+        setContentTitle={setContentTitle}
       />
       <AddNote
         addNoteStatus={addNoteStatus}

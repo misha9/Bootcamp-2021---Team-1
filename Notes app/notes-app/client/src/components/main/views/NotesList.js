@@ -24,6 +24,7 @@ const NotesList = ({
   selectedNoteId,
   setSelectedNoteId,
 }) => {
+  console.log(featureStatus, nbSelect);
   return (
     <div
       className='col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-3'
@@ -39,7 +40,7 @@ const NotesList = ({
               <Note
                 key={ind}
                 id={note.id}
-                title={note.id}
+                title={note.title}
                 text={note.text}
                 date={note.date}
                 handleDeleteNote={handleDeleteNote}

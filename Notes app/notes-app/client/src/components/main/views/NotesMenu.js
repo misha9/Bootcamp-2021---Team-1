@@ -36,6 +36,7 @@ const NotesMenu = ({
   setFeatureStatus,
   getAllBookmark,
   getAllRecentNotes,
+  setStarStatus,
 }) => {
   const handleSelectNotebook = (name, id) => {
     getNotes(id);
@@ -43,6 +44,7 @@ const NotesMenu = ({
     setNbID(id);
     setNbSelect(true);
     setFeatureStatus(false);
+    setStarStatus(false);
   };
 
   const handleGetNotebooks = (i) => {
@@ -50,12 +52,14 @@ const NotesMenu = ({
     setWorkspaceID(i);
     setNbSelect(false);
     setFeatureStatus(false);
+    setStarStatus(false);
   };
 
   const getBookmarkNotes = () => {
     getAllBookmark();
     setNbSelect(false);
     setFeatureStatus(true);
+    setStarStatus(true);
   };
 
   useEffect(() => {
