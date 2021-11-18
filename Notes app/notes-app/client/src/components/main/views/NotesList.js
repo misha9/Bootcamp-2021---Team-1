@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useState } from "react";
 import "../../../styles/NotesList.css";
 
 import Note from "./noteList/Note";
@@ -25,8 +24,6 @@ const NotesList = ({
   selectedNoteId,
   setSelectedNoteId,
 }) => {
-  // const [selectedNoteId, setSelectedNoteId] = useState(-1);
-
   return (
     <div
       className='col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-3'
@@ -42,10 +39,10 @@ const NotesList = ({
               <Note
                 key={ind}
                 id={note.id}
+                title={note.id}
                 text={note.text}
                 date={note.date}
                 handleDeleteNote={handleDeleteNote}
-                // getNoteID={getNoteID}
                 selected={selectedNoteId === note.id}
                 onSelect={(id) => {
                   setSelectedNoteId(id);
@@ -82,6 +79,7 @@ const NotesList = ({
                 <Note
                   key={ind}
                   id={note.id}
+                  title={note.title}
                   text={note.text}
                   date={note.date}
                   handleDeleteNote={handleDeleteNote}

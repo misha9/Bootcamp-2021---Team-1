@@ -32,6 +32,9 @@ const MainContainer = () => {
   const [fullTextStatus, setFullTextStatus] = useState(false);
   const [selectedNoteId, setSelectedNoteId] = useState(-1);
   const [noteText, setNoteText] = useState("");
+  const [editStatus, setEditStatus] = useState(false);
+  const [noteTitle, setNoteTitle] = useState();
+  const [contentTitle, setContentTitle] = useState("");
 
   const formatDate = (timestamp) => {
     var d = new Date(timestamp),
@@ -71,8 +74,12 @@ const MainContainer = () => {
 
   const renameNotebook = (id, name, ws_id) => {
     console.log("renaming at main", ws_id);
-
-    APIService.renameNotebookInDb(id, name).then(getAllNotebooks(ws_id));
+    setNbName(name);
+    APIService.renameNotebookInDb(id, name).then(
+      setTimeout(() => {
+        getAllNotebooks(ws_id);
+      }, 250)
+    );
   };
 
   const getAllNotes = (id) => {
@@ -82,15 +89,21 @@ const MainContainer = () => {
       for (let i = 0; i < res.length; i++) {
         let newDate = formatDate(res[i].note_date);
 
-        data.push({ id: res[i].n_id, text: res[i].sub, date: newDate });
+        data.push({
+          id: res[i].n_id,
+          title: res[i].title,
+          text: res[i].sub,
+          date: newDate,
+        });
       }
       setNotes(data);
     });
   };
 
-  const addNote = (text, nbID, wsID) => {
+  const addNote = (title, text, nbID, wsID) => {
     const date = new Date();
     const newNote = {
+      title: title,
       text: text,
       date: date.toLocaleDateString(),
       nbID: nbID,
@@ -107,11 +120,13 @@ const MainContainer = () => {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
     setDeleteStatus(true);
+    setFullTextStatus(false);
   };
 
   function getFullContent(id) {
     APIService.getFullText(id).then((res) => {
       setFullText(res[0].note_content);
+      setContentTitle(res[0].title);
       setBookmarkStatus(res[0].bookmark);
     });
   }
@@ -125,8 +140,6 @@ const MainContainer = () => {
         console.log(res[0].n_id);
       }
       setNotes(data);
-      setNbSelect(false);
-      setFeatureStatus(true);
     });
   }
 
@@ -220,6 +233,11 @@ const MainContainer = () => {
           getFullContent={getFullContent}
           noteText={noteText}
           setNoteText={setNoteText}
+          setEditStatus={setEditStatus}
+          editStatus={editStatus}
+          setNoteTitle={setNoteTitle}
+          noteTitle={noteTitle}
+          contentTitle={contentTitle}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}
@@ -244,6 +262,7 @@ const MainContainer = () => {
           renameNb={renameNb}
           handleRenameNotebook={renameNotebook}
           workspaceID={workspaceID}
+          setFeatureStatus={setFeatureStatus}
         />
       </div>
     </div>

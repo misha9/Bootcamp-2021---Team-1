@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { APIService } from "../../../../services/apiService";
 import ReactHtmlParser from "react-html-parser";
+import { Scrollbars } from "react-custom-scrollbars";
 
 function RightContent({
   id,
@@ -17,14 +18,10 @@ function RightContent({
   fullTextStatus,
   setFullTextStatus,
   getFullContent,
+  contentTitle,
 }) {
-  // const [fullText, setFullText] = useState("");
-  // const [fullTextStatus, setFullTextStatus] = useState(false);
-
   const bookmarkChangeHandler = () => {
-    // console.log(bookmarkStatus);
     setBookmarkStatus(!bookmarkStatus);
-    // console.log(bookmarkStatus);
   };
 
   useEffect(() => {
@@ -67,6 +64,9 @@ function RightContent({
 
   useEffect(() => {
     APIService.addBookmark(id, bookmarkStatus);
+    setTimeout(() => {
+      getAllBookmark();
+    }, 250);
   }, [bookmarkStatus]);
 
   return fullTextStatus ? (
@@ -79,9 +79,14 @@ function RightContent({
           onClick={bookmarkChangeHandler}
         ></i>
       </div>
-      <p className='mt-5 ps-5' style={{ maxWidth: "605px" }}>
-        {ReactHtmlParser(fullText)}
-      </p>
+      <Scrollbars style={{ minHeight: "78vh" }}>
+        <div className='mt-2 ps-5'>
+          <h2>{contentTitle}</h2>
+          <p className='mt-3 pe-3' style={{ maxWidth: "605px" }}>
+            {ReactHtmlParser(fullText)}
+          </p>
+        </div>
+      </Scrollbars>
     </div>
   ) : (
     ""

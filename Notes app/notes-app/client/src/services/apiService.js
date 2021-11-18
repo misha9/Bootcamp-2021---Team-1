@@ -101,6 +101,7 @@ function addNewNote(newNote) {
       "Content-type": "application/json",
     },
     body: JSON.stringify({
+      title: newNote.title,
       note_content: newNote.text,
       note_date: newNote.date,
       nb_id: newNote.nbID,

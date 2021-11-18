@@ -12,10 +12,12 @@ function RenameNotebook({
   renameNb,
   handleRenameNotebook,
   workspaceID,
+  setFeatureStatus,
 }) {
   const handleRename = () => {
     console.log("Rename notebook");
     setNbRenameStatus(false);
+    setFeatureStatus(false);
     handleRenameNotebook(nbID, renameNb, workspaceID);
   };
 

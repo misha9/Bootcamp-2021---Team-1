@@ -2,7 +2,6 @@ import React from "react";
 
 import { useEffect } from "react";
 import "../../../styles/MenuBar.css";
-import { APIService } from "../../../services/apiService";
 
 import { Scrollbars } from "react-custom-scrollbars";
 
@@ -55,6 +54,8 @@ const NotesMenu = ({
 
   const getBookmarkNotes = () => {
     getAllBookmark();
+    setNbSelect(false);
+    setFeatureStatus(true);
   };
 
   useEffect(() => {
@@ -163,7 +164,7 @@ const NotesMenu = ({
                   <MdStarBorder className='me-3' size='1.3rem' />
                   <button
                     className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                    onClick={() => getBookmarkNotes()}
+                    onClick={getBookmarkNotes}
                   >
                     Starred
                   </button>

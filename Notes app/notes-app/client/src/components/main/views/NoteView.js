@@ -25,13 +25,23 @@ const NoteView = ({
   getFullContent,
   noteText,
   setNoteText,
+  setEditStatus,
+  editStatus,
+  setNoteTitle,
+  noteTitle,
+  contentTitle,
 }) => {
   return (
     <div
       className='col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-3'
       style={{ height: "100vh" }}
     >
-      <ToolBar id={id} />
+      <ToolBar
+        id={id}
+        handleAddNoteStatus={handleAddNoteStatus}
+        fullText={fullText}
+        setEditStatus={setEditStatus}
+      />
       <RightContent
         id={id}
         addNoteStatus={addNoteStatus}
@@ -47,6 +57,7 @@ const NoteView = ({
         fullTextStatus={fullTextStatus}
         setFullTextStatus={setFullTextStatus}
         getFullContent={getFullContent}
+        contentTitle={contentTitle}
       />
       <AddNote
         addNoteStatus={addNoteStatus}
@@ -58,6 +69,10 @@ const NoteView = ({
         setSaveStatus={setSaveStatus}
         noteText={noteText}
         setNoteText={setNoteText}
+        editStatus={editStatus}
+        fullText={fullText}
+        setNoteTitle={setNoteTitle}
+        noteTitle={noteTitle}
       />
     </div>
   );

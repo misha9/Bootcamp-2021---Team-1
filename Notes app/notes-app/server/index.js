@@ -22,6 +22,7 @@ app.patch("/api/get-notes", (req, res) => {
     (error, results) => {
       if (error) throw error;
       res.status(200).json(results.rows);
+      console.log(results.rows);
     }
   );
 });
@@ -31,7 +32,7 @@ app.patch("/api/get-full-text", (req, res) => {
   console.log(req.body, "body");
   const id = req.body.note_id;
   pool.query(
-    "select n_id,note_content,bookmark from note where n_id = $1",
+    "select n_id,note_content,bookmark, title from note where n_id = $1",
     [id],
     (error, results) => {
       if (error) throw error;
@@ -45,8 +46,14 @@ app.patch("/api/get-full-text", (req, res) => {
 app.post("/api/add-notes", (req, res) => {
   console.log(req.body, "body");
   pool.query(
-    "INSERT INTO note (note_content, note_date, nb_id, ws_id) VALUES ($1, $2, $3, $4)",
-    [req.body.note_content, req.body.note_date, req.body.nb_id, req.body.ws_id],
+    "INSERT INTO note (title, note_content, note_date, nb_id, ws_id) VALUES ($1, $2, $3, $4, $5)",
+    [
+      req.body.title,
+      req.body.note_content,
+      req.body.note_date,
+      req.body.nb_id,
+      req.body.ws_id,
+    ],
     (error, results) => {
       if (error) throw error;
       res.status(200).send("Note added successfully");
