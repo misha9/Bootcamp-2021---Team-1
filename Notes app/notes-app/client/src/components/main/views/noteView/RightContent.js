@@ -87,7 +87,7 @@ function RightContent({
           onClick={bookmarkChangeHandler}
         ></i>
       </div>
-      <Scrollbars style={{ minHeight: "78vh" }}>
+      <Scrollbars style={{ minHeight: "75vh" }}>
         <div className='mt-2 ps-5'>
           <h2>{contentTitle}</h2>
           <p className='mt-3 pe-3' style={{ maxWidth: "605px" }}>

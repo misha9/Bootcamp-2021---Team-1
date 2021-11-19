@@ -52,7 +52,8 @@ function RenameNotebook({
               id='standard-basic'
               label='Enter notebook title here'
               variant='standard'
-              placeholder={nbName}
+              // placeholder=""
+              defaultValue={nbName}
               fullWidth
               onChange={(event) => {
                 setRenameNb(event.target.value);

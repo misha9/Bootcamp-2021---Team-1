@@ -65,7 +65,11 @@ const MainContainer = () => {
   console.log(notebooks);
 
   const addNotebook = (name, wsID) => {
-    APIService.addNewNotebook(name, wsID).then(getAllNotebooks(wsID));
+    APIService.addNewNotebook(name, wsID).then(
+      setTimeout(() => {
+        getAllNotebooks(wsID);
+      }, 150)
+    );
   };
 
   const deleteNotebook = (id) => {
