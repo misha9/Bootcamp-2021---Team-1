@@ -9,7 +9,7 @@ const options = ["Edit note", "Delete note"];
 
 const ITEM_HEIGHT = 48;
 
-function ToolBar({ id, handleAddNoteStatus, fullText, setEditStatus }) {
+function ToolBar({ id, fullText, setEditStatus, setFullTextStatus }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -22,8 +22,8 @@ function ToolBar({ id, handleAddNoteStatus, fullText, setEditStatus }) {
   function handleToolbar(option, id) {
     if (option === "Edit note") {
       console.log("In edit note", id);
-      handleAddNoteStatus(true);
       setEditStatus(true);
+      setFullTextStatus(false);
       handleClose();
     }
   }

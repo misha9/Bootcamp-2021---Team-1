@@ -16,7 +16,6 @@ function AddNote({
   setSaveStatus,
   noteText,
   setNoteText,
-  editStatus,
   fullText,
   setNoteTitle,
   noteTitle,
@@ -40,8 +39,8 @@ function AddNote({
     handleAddNoteStatus(false);
     if (noteText.trim().length > 0) {
       handleAddNote(noteTitle, noteText, notebookID, workspaceID);
-      setNoteText("");
-      setNoteTitle("");
+      // setNoteText("");
+      // setNoteTitle("");
     }
     console.log(noteText);
     setSaveStatus(true);

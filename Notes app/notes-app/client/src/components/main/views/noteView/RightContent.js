@@ -75,6 +75,8 @@ function RightContent({
     }
   }, [bookmarkStatus]);
 
+  console.log(fullTextStatus, fullText, contentTitle);
+
   return fullTextStatus ? (
     <div className='right-content'>
       <div className='text-end'>

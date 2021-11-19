@@ -3,6 +3,7 @@ import React from "react";
 import ToolBar from "./noteView/ToolBar";
 import RightContent from "./noteView/RightContent";
 import AddNote from "./noteView/AddNote";
+import EditNote from "./noteView/EditNote";
 
 const NoteView = ({
   id,
@@ -32,6 +33,7 @@ const NoteView = ({
   contentTitle,
   starStatus,
   setContentTitle,
+  handleEditNote,
 }) => {
   return (
     <div
@@ -40,9 +42,9 @@ const NoteView = ({
     >
       <ToolBar
         id={id}
-        handleAddNoteStatus={handleAddNoteStatus}
         fullText={fullText}
         setEditStatus={setEditStatus}
+        setFullTextStatus={setFullTextStatus}
       />
       <RightContent
         id={id}
@@ -73,10 +75,30 @@ const NoteView = ({
         setSaveStatus={setSaveStatus}
         noteText={noteText}
         setNoteText={setNoteText}
+        fullText={fullText}
+        setNoteTitle={setNoteTitle}
+        noteTitle={noteTitle}
+      />
+      <EditNote
+        notebookID={notebookID}
+        nbSelect={nbSelect}
+        workspaceID={workspaceID}
+        handleAddNoteStatus={handleAddNoteStatus}
+        handleAddNote={handleAddNote}
+        setSaveStatus={setSaveStatus}
+        noteText={noteText}
+        setNoteText={setNoteText}
         editStatus={editStatus}
         fullText={fullText}
         setNoteTitle={setNoteTitle}
         noteTitle={noteTitle}
+        setEditStatus={setEditStatus}
+        id={id}
+        contentTitle={contentTitle}
+        handleEditNote={handleEditNote}
+        setFullTextStatus={setFullTextStatus}
+        setContentTitle={setContentTitle}
+        setFullText={setFullText}
       />
     </div>
   );

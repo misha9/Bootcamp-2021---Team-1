@@ -12,6 +12,7 @@ export const APIService = {
   fetchBookmarkedNotes,
   getFullText,
   addBookmark,
+  editNote,
 };
 
 function fetchNotes(id) {
@@ -109,6 +110,23 @@ function addNewNote(newNote) {
     }),
   };
   return fetch("http://localhost:5000/api/add-notes", requestOptions);
+}
+
+function editNote(newNote) {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      noteID: newNote.noteID,
+      title: newNote.title,
+      note_content: newNote.text,
+      update_date: newNote.date,
+    }),
+  };
+  return fetch("http://localhost:5000/api/edit-note", requestOptions);
 }
 
 function deleteNoteFromDb(data) {

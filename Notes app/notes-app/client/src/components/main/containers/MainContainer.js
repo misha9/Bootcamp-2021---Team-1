@@ -8,6 +8,7 @@ import RenameNotebook from "../views/RenameNotebook";
 
 import { useState } from "react";
 import { APIService } from "../../../services/apiService";
+import EditNote from "../views/noteView/EditNote";
 
 const MainContainer = () => {
   const [notes, setNotes] = useState([]);
@@ -124,6 +125,17 @@ const MainContainer = () => {
     setFullTextStatus(false);
   };
 
+  const editNote = (id, title, text, nbID) => {
+    const date = new Date();
+    const newNote = {
+      noteID: id,
+      title: title,
+      text: text,
+      date: date.toLocaleDateString(),
+    };
+    APIService.editNote(newNote).then(getAllNotes(nbID));
+  };
+
   function getFullContent(id) {
     APIService.getFullText(id).then((res) => {
       setFullText(res[0].note_content);
@@ -154,23 +166,31 @@ const MainContainer = () => {
     APIService.fetchRecentNotes().then((res) => {
       for (let j = 0; j < res.length; j++) {
         let newDate = formatDate(res[j].note_date);
-        data.push({ id: res[j].n_id, text: res[j].sub, date: newDate });
+        data.push({
+          id: res[j].n_id,
+          title: res[j].title,
+          text: res[j].sub,
+          date: newDate,
+        });
         console.log(res[0].n_id);
       }
       setNotes(data);
       // console.log(res[0].n_id);
       setNbSelect(false);
       setFeatureStatus(true);
+      setStarStatus(false);
     });
   }
 
   const getNoteID = (id) => {
     setNoteID(id);
     setAddNoteStatus(false);
+    setEditStatus(false);
   };
 
   const getAddNoteStatus = (status) => {
     setAddNoteStatus(status);
+    setEditStatus(status);
   };
 
   const getNotebookStatus = (status) => {
@@ -247,6 +267,7 @@ const MainContainer = () => {
           contentTitle={contentTitle}
           starStatus={starStatus}
           setContentTitle={setContentTitle}
+          handleEditNote={editNote}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}

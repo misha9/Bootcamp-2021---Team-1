@@ -46,7 +46,7 @@ app.patch("/api/get-full-text", (req, res) => {
 app.post("/api/add-notes", (req, res) => {
   console.log(req.body, "body");
   pool.query(
-    "INSERT INTO note (title, note_content, note_date, nb_id, ws_id) VALUES ($1, $2, $3, $4, $5)",
+    "INSERT INTO note (title, note_content, note_date, nb_id, ws_id, bookmark) VALUES ($1, $2, $3, $4, $5, false)",
     [
       req.body.title,
       req.body.note_content,
@@ -58,6 +58,24 @@ app.post("/api/add-notes", (req, res) => {
       if (error) throw error;
       res.status(200).send("Note added successfully");
       console.log("Note added");
+    }
+  );
+});
+
+app.post("/api/edit-note", (req, res) => {
+  console.log(req.body, "body");
+  pool.query(
+    "UPDATE note SET title = $1, note_content = $2, updated_date = $3 WHERE n_id = $4",
+    [
+      req.body.title,
+      req.body.note_content,
+      req.body.update_date,
+      req.body.noteID,
+    ],
+    (error, results) => {
+      if (error) throw error;
+      res.status(200).send("Note updated successfully");
+      console.log("Note updated");
     }
   );
 });
