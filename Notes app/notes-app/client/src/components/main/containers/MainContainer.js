@@ -111,7 +111,11 @@ const MainContainer = () => {
       nbID: nbID,
       wsID: wsID,
     };
-    APIService.addNewNote(newNote).then(getAllNotes(nbID));
+    APIService.addNewNote(newNote).then(
+      setTimeout(() => {
+        getAllNotes(nbID);
+      }, 150)
+    );
   };
 
   const deleteNote = (id) => {
@@ -190,7 +194,7 @@ const MainContainer = () => {
 
   const getAddNoteStatus = (status) => {
     setAddNoteStatus(status);
-    setEditStatus(status);
+    // setEditStatus(status);
   };
 
   const getNotebookStatus = (status) => {

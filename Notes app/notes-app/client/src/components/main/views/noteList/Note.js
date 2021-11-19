@@ -21,7 +21,12 @@ function Note({ id, title, text, date, handleDeleteNote, selected, onSelect }) {
       >
         <div className='card-body pb-2'>
           <h5 className='mb-3'>{title}</h5>
-          <p className='card-text text-start small'>{ReactHtmlParser(text)}</p>
+          <div
+            className='card-text text-start'
+            style={{ height: "60px", fontSize: "0.875rem" }}
+          >
+            {ReactHtmlParser(text)}
+          </div>
         </div>
         <div className='footer d-flex justify-content-between ps-3 pe-3'>
           <p className='small'>{date}</p>
