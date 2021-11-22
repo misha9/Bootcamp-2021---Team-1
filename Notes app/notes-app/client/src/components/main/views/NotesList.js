@@ -74,7 +74,7 @@ const NotesList = ({
               </div>
             </div>
           </div>
-          <Scrollbars style={{ height: "70vh", width: "360px" }}>
+          <Scrollbars style={{ height: "75vh", width: "360px" }}>
             <div className='notes-list'>
               {notes.map((note, ind) => (
                 <Note
@@ -94,24 +94,6 @@ const NotesList = ({
               ))}
             </div>
           </Scrollbars>
-          <div className='notebook-option text-end mb-3 mt-2'>
-            <button
-              type='button'
-              className='ps-3 pe-3 me-3 btn btn-secondary btn-sm align-items-center'
-              onClick={() => setNbRenameStatus(true)}
-            >
-              <MdOutlineModeEditOutline className='me-2' />
-              Rename
-            </button>
-            <button
-              type='button'
-              className='ps-3 pe-3 btn btn-sm btn-danger'
-              onClick={() => setNbDeleteStatus(true)}
-            >
-              <MdDeleteForever className='me-2' />
-              Delete
-            </button>
-          </div>
         </div>
       ) : (
         ""

@@ -16,6 +16,7 @@ import { CgHashtag } from "react-icons/cg";
 import { IoIosAddCircle } from "react-icons/io";
 import { GiBackwardTime } from "react-icons/gi";
 import { VscNote } from "react-icons/vsc";
+import NotebookOption from "./notesMenu/NotebookOption";
 
 const NotesMenu = ({
   handleNotebookStatus,
@@ -37,6 +38,8 @@ const NotesMenu = ({
   getAllBookmark,
   getAllRecentNotes,
   setStarStatus,
+  setRenameNbStatus,
+  setDeleteNbStatus,
 }) => {
   const handleSelectNotebook = (name, id) => {
     getNotes(id);
@@ -140,20 +143,39 @@ const NotesMenu = ({
               <p className='text-uppercase small mt-4'>notebook</p>
               <ul className='list-unstyled'>
                 {notebooks.map((notebook) => (
-                  <li className='d-flex align-items-center'>
-                    <VscNote className='me-3' size='1.3rem' />
-                    <a
-                      className='text-decoration-none'
-                      // style={{fontFamily: selected ? '600' : '400'}}
-                      onMouseEnter={() =>
-                        handleSelectNotebook(notebook.name, notebook.id)
-                      }
-                      style={{
-                        fontWeight: notebook.id === nbID ? "600" : "400",
-                      }}
-                    >
-                      {notebook.name}
-                    </a>
+                  <li className='d-flex align-items-center position-relative'>
+                    <VscNote className='me-3' size='1.5rem' />
+                    <div className='notebook-area d-flex align-items-center'>
+                      <a
+                        className='text-decoration-none'
+                        onMouseEnter={() =>
+                          handleSelectNotebook(notebook.name, notebook.id)
+                        }
+                        style={{
+                          fontWeight: notebook.id === nbID ? "600" : "400",
+                          position: "absolute",
+                          bottom: "0.5px",
+                        }}
+                      >
+                        {notebook.name}
+                      </a>
+                      {notebook.id === nbID ? (
+                        <div
+                          style={{
+                            position: "absolute",
+                            right: "1rem",
+                            bottom: "1px",
+                          }}
+                        >
+                          <NotebookOption
+                            setRenameNbStatus={setRenameNbStatus}
+                            setDeleteNbStatus={setDeleteNbStatus}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>

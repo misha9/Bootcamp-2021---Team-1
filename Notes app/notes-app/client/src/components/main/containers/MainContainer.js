@@ -183,7 +183,6 @@ const MainContainer = () => {
         console.log(res[0].n_id);
       }
       setNotes(data);
-      // console.log(res[0].n_id);
       setNbSelect(false);
       setFeatureStatus(true);
       setStarStatus(false);
@@ -198,7 +197,6 @@ const MainContainer = () => {
 
   const getAddNoteStatus = (status) => {
     setAddNoteStatus(status);
-    // setEditStatus(status);
   };
 
   const getNotebookStatus = (status) => {
@@ -229,6 +227,8 @@ const MainContainer = () => {
           getAllBookmark={getAllBookmark}
           getAllRecentNotes={getAllRecentNotes}
           setStarStatus={setStarStatus}
+          setRenameNbStatus={setNbRenameStatus}
+          setDeleteNbStatus={setNbDeleteStatus}
         />
         <NotesList
           notes={notes.filter((note) =>
