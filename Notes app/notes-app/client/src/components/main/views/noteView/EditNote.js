@@ -1,7 +1,6 @@
 import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import ReactHtmlParser from "react-html-parser";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
@@ -9,7 +8,6 @@ import { Scrollbars } from "react-custom-scrollbars";
 function EditNote({
   handleEditNote,
   notebookID,
-  workspaceID,
   setSaveStatus,
   noteText,
   setNoteText,
@@ -28,8 +26,6 @@ function EditNote({
     setEditStatus(false);
     if (noteText.trim().length > 0) {
       handleEditNote(id, noteTitle, noteText, notebookID);
-      //   setNoteText("");
-      //   setNoteTitle("");
     }
     console.log(noteText);
     setSaveStatus(true);

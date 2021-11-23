@@ -34,10 +34,16 @@ const NoteView = ({
   starStatus,
   setContentTitle,
   handleEditNote,
+  setFullScreenStatus,
+  fullScreenStatus,
 }) => {
   return (
     <div
-      className='col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-3'
+      className={
+        fullScreenStatus
+          ? "col-sm-12 col-md-10 bg-white position-absolute container"
+          : "col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-3"
+      }
       style={{ height: "100vh" }}
     >
       <ToolBar
@@ -45,6 +51,8 @@ const NoteView = ({
         fullText={fullText}
         setEditStatus={setEditStatus}
         setFullTextStatus={setFullTextStatus}
+        setFullScreenStatus={setFullScreenStatus}
+        fullScreenStatus={fullScreenStatus}
       />
       <RightContent
         id={id}
@@ -64,6 +72,7 @@ const NoteView = ({
         contentTitle={contentTitle}
         starStatus={starStatus}
         setContentTitle={setContentTitle}
+        fullScreenStatus={fullScreenStatus}
       />
       <AddNote
         addNoteStatus={addNoteStatus}
@@ -78,6 +87,7 @@ const NoteView = ({
         fullText={fullText}
         setNoteTitle={setNoteTitle}
         noteTitle={noteTitle}
+        fullScreenStatus={fullScreenStatus}
       />
       <EditNote
         notebookID={notebookID}

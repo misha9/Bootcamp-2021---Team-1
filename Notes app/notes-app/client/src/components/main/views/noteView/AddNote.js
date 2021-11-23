@@ -1,8 +1,6 @@
 import React from "react";
-import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import ReactHtmlParser from "react-html-parser";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
@@ -16,31 +14,21 @@ function AddNote({
   setSaveStatus,
   noteText,
   setNoteText,
-  fullText,
   setNoteTitle,
   noteTitle,
+  fullScreenStatus,
 }) {
   console.log(addNoteStatus);
-
-  let currentText = fullText;
 
   const handleChange = (value) => {
     setNoteText(value);
     console.log(value);
   };
 
-  // function handleNoteTitle(e) {
-  //   console.log(e.target.value);
-  //   setNoteTitle(e.target.value);
-  //   // console.log(noteTitle);
-  // }
-
   const handleSaveClick = () => {
     handleAddNoteStatus(false);
     if (noteText.trim().length > 0) {
       handleAddNote(noteTitle, noteText, notebookID, workspaceID);
-      // setNoteText("");
-      // setNoteTitle("");
     }
     console.log(noteText);
     setSaveStatus(true);
@@ -49,7 +37,10 @@ function AddNote({
   console.log(addNoteStatus);
 
   return addNoteStatus ? (
-    <div className='new m-auto' style={{ maxWidth: "600px" }}>
+    <div
+      className='new m-auto p-2'
+      style={fullScreenStatus ? { width: "auto" } : { maxWidth: "600px" }}
+    >
       <EditorToolbar toolbarId={"t1"} />
 
       <div className='form-group mb-3 mt-3'>

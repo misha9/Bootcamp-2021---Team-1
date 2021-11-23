@@ -8,7 +8,6 @@ import RenameNotebook from "../views/RenameNotebook";
 
 import { useState } from "react";
 import { APIService } from "../../../services/apiService";
-import EditNote from "../views/noteView/EditNote";
 
 const MainContainer = () => {
   const [notes, setNotes] = useState([]);
@@ -37,6 +36,7 @@ const MainContainer = () => {
   const [noteTitle, setNoteTitle] = useState();
   const [contentTitle, setContentTitle] = useState("");
   const [starStatus, setStarStatus] = useState(false);
+  const [fullScreenStatus, setFullScreenStatus] = useState(false);
 
   const formatDate = (timestamp) => {
     var d = new Date(timestamp),
@@ -141,7 +141,11 @@ const MainContainer = () => {
       text: text,
       date: date.toLocaleDateString(),
     };
-    APIService.editNote(newNote).then(getAllNotes(nbID));
+    APIService.editNote(newNote).then(
+      setTimeout(() => {
+        getAllNotes(nbID);
+      }, 150)
+    );
   };
 
   function getFullContent(id) {
@@ -238,14 +242,12 @@ const MainContainer = () => {
           handleAddNoteStatus={getAddNoteStatus}
           getNoteID={getNoteID}
           nbName={nbName}
-          notebookID={nbID}
-          setNbDeleteStatus={setNbDeleteStatus}
           nbSelect={nbSelect}
-          setNbRenameStatus={setNbRenameStatus}
           handleSearchNote={setSearchText}
           featureStatus={featureStatus}
           selectedNoteId={selectedNoteId}
           setSelectedNoteId={setSelectedNoteId}
+          setFullTextStatus={setFullTextStatus}
         />
         <NoteView
           id={noteID}
@@ -276,6 +278,8 @@ const MainContainer = () => {
           starStatus={starStatus}
           setContentTitle={setContentTitle}
           handleEditNote={editNote}
+          setFullScreenStatus={setFullScreenStatus}
+          fullScreenStatus={fullScreenStatus}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}

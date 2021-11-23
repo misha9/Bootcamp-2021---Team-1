@@ -7,7 +7,6 @@ import SearchBar from "./noteList/SearchBar";
 import { Scrollbars } from "react-custom-scrollbars";
 
 import { IoIosAdd } from "react-icons/io";
-import { MdDeleteForever, MdOutlineModeEditOutline } from "react-icons/md";
 
 const NotesList = ({
   notes,
@@ -15,14 +14,12 @@ const NotesList = ({
   getNoteID,
   handleAddNoteStatus,
   nbName,
-  notebookID,
-  setNbDeleteStatus,
   nbSelect,
   handleSearchNote,
-  setNbRenameStatus,
   featureStatus,
   selectedNoteId,
   setSelectedNoteId,
+  setFullTextStatus,
 }) => {
   console.log(featureStatus, nbSelect);
   return (
@@ -66,7 +63,10 @@ const NotesList = ({
                 </h4>
                 <IoIosAdd
                   className='mb-2 add-icon'
-                  onClick={() => handleAddNoteStatus(true)}
+                  onClick={() => {
+                    handleAddNoteStatus(true);
+                    setFullTextStatus(false);
+                  }}
                   src='./add-icon.svg'
                   alt='add-icon'
                   size='1.5rem'

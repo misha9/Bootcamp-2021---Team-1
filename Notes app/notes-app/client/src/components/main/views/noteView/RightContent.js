@@ -21,6 +21,7 @@ function RightContent({
   contentTitle,
   starStatus,
   setContentTitle,
+  fullScreenStatus,
 }) {
   const bookmarkChangeHandler = () => {
     setBookmarkStatus(!bookmarkStatus);
@@ -65,6 +66,12 @@ function RightContent({
   }, [id]);
 
   useEffect(() => {
+    if (addNoteStatus === true) {
+      setFullTextStatus(false);
+    }
+  }, []);
+
+  useEffect(() => {
     APIService.addBookmark(id, bookmarkStatus);
     if (starStatus === true) {
       setTimeout(() => {
@@ -88,9 +95,12 @@ function RightContent({
         ></i>
       </div>
       <Scrollbars style={{ minHeight: "75vh" }}>
-        <div className='mt-2 ps-5'>
+        <div className={fullScreenStatus ? "ps-2" : "mt-2 ps-5"}>
           <h2>{contentTitle}</h2>
-          <p className='mt-3 pe-3' style={{ maxWidth: "605px" }}>
+          <p
+            className='mt-3 pe-2'
+            style={fullScreenStatus ? { width: "auto" } : { maxWidth: "605px" }}
+          >
             {ReactHtmlParser(fullText)}
           </p>
         </div>
