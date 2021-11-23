@@ -2,7 +2,7 @@ export const APIService = {
   fetchNotes,
   handleResponse,
   fetchNotebooks,
-  fetchWorkspace,
+  // fetchWorkspace,
   addNewNotebook,
   deleteNotebookFromDb,
   renameNotebookInDb,
@@ -13,7 +13,26 @@ export const APIService = {
   getFullText,
   addBookmark,
   editNote,
+  loginaccess
 };
+
+const AT = localStorage.getItem("token");
+
+function loginaccess(userData) {
+  console.log(AT)
+  const data = {userInfo: userData}
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+                  },
+        body: JSON.stringify(data)
+    };
+  
+    return fetch("http://localhost:5000/api/login", requestOptions).then(handleResponse);
+}
+
 
 function fetchNotes(id) {
   console.log("fetch");
@@ -21,6 +40,7 @@ function fetchNotes(id) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify({ notebook_id: id }),
   };
@@ -35,6 +55,7 @@ function fetchNotebooks(wsID) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify({ ws_id: wsID }),
   };
@@ -43,10 +64,10 @@ function fetchNotebooks(wsID) {
   );
 }
 
-function fetchWorkspace() {
-  console.log("fetching notebooks");
-  return fetch("http://localhost:5000/api/get-workspace").then(handleResponse);
-}
+// function fetchWorkspace() {
+//   console.log("fetching notebooks");
+//   return fetch("http://localhost:5000/api/get-workspace").then(handleResponse);
+// }
 
 function addNewNotebook(name, wsID) {
   const newNotebook = {
@@ -59,6 +80,7 @@ function addNewNotebook(name, wsID) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify({ name: newNotebook.text, ws_id: newNotebook.wsID }),
   };
@@ -74,6 +96,7 @@ function deleteNotebookFromDb(id) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify(data),
   });
@@ -89,6 +112,7 @@ function renameNotebookInDb(id, name) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify(data),
   });
@@ -100,6 +124,7 @@ function addNewNote(newNote) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify({
       title: newNote.title,
@@ -118,6 +143,7 @@ function editNote(newNote) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify({
       noteID: newNote.noteID,
@@ -135,6 +161,7 @@ function deleteNoteFromDb(data) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify(data),
   });
@@ -146,6 +173,7 @@ function fetchBookmarkedNotes() {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     // body: JSON.stringify({id:bookMark.id })
   };
@@ -159,6 +187,7 @@ function fetchRecentNotes() {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     // body: JSON.stringify({id:bookMark.id })
   };
@@ -172,6 +201,7 @@ function getFullText(id) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify({ note_id: id }),
   };
@@ -191,6 +221,7 @@ function addBookmark(id, bookMarkStatus) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
+      'Authorization': `Bearer ${AT}`
     },
     body: JSON.stringify({ id: markBookmark.id, flag: markBookmark.flag }),
   };
