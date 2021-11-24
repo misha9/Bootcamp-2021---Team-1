@@ -5,6 +5,7 @@ import NoteView from "../views/NoteView";
 import CreateNotebook from "../views/CreateNotebook";
 import DeleteNotebook from "../views/DeleteNotebook";
 import RenameNotebook from "../views/RenameNotebook";
+import moment from 'moment';
 
 import { useState } from "react";
 import { APIService } from "../../../services/apiService";
@@ -39,15 +40,16 @@ const MainContainer = () => {
   const [fullScreenStatus, setFullScreenStatus] = useState(false);
 
   const formatDate = (timestamp) => {
-    var d = new Date(timestamp),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
+    // var d = new Date(timestamp),
+    //   month = "" + (d.getMonth() + 1),
+    //   day = "" + d.getDate(),
+    //   year = d.getFullYear();
 
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
+    // if (month.length < 2) month = "0" + month;
+    // if (day.length < 2) day = "0" + day;
 
-    return [day, month, year].join("/");
+    // return [day, month, year].join("/");
+    return(moment(timestamp).local().format('YYYY-MM-DD HH:mm:ss'));
   };
 
   const getAllNotebooks = (wsID) => {
@@ -111,7 +113,8 @@ const MainContainer = () => {
     const newNote = {
       title: title,
       text: text,
-      date: date.toLocaleDateString(),
+      // date: date.toLocaleDateString(),
+      date:moment(date).utc().format('YYYY-MM-DD HH:mm:ss'),
       nbID: nbID,
       wsID: wsID,
     };
@@ -139,7 +142,8 @@ const MainContainer = () => {
       noteID: id,
       title: title,
       text: text,
-      date: date.toLocaleDateString(),
+      // date: date.toLocaleDateString(),
+      date:moment(date).utc().format('YYYY-MM-DD HH:mm:ss'),
     };
     APIService.editNote(newNote).then(
       setTimeout(() => {

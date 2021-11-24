@@ -171,7 +171,7 @@ app.post("/api/add-bookmark", authenticateToken, (req, res) => {
 
 app.get("/api/get-bookmark", authenticateToken, (req, res) => {
   pool.query(
-    "select * from prev where bookmark = $1 ",
+    "select * from prev where bookmark = $1 ORDER BY n_id DESC ",
     [true],
     (error, results) => {
       if (error) throw error;
