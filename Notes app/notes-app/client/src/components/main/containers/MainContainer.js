@@ -8,6 +8,7 @@ import RenameNotebook from "../views/RenameNotebook";
 
 import { useState } from "react";
 import { APIService } from "../../../services/apiService";
+// import { GoogleLogout } from "react-google-login";
 
 const MainContainer = () => {
   const [notes, setNotes] = useState([]);
@@ -37,6 +38,8 @@ const MainContainer = () => {
   const [contentTitle, setContentTitle] = useState("");
   const [starStatus, setStarStatus] = useState(false);
   const [fullScreenStatus, setFullScreenStatus] = useState(false);
+  // const [showloginButton, setShowloginButton] = useState(true);
+  // const [showlogoutButton, setShowlogoutButton] = useState(false);
 
   const formatDate = (timestamp) => {
     var d = new Date(timestamp),
@@ -49,6 +52,9 @@ const MainContainer = () => {
 
     return [day, month, year].join("/");
   };
+
+  // const clientId =
+  //   "866133952316-a8r10cdbhjlsjroke88n2qrm5ul0jgfj.apps.googleusercontent.com";
 
   const getAllNotebooks = (wsID) => {
     console.log("Loaded notebook");
@@ -141,6 +147,7 @@ const MainContainer = () => {
       text: text,
       date: date.toLocaleDateString(),
     };
+    console.log(newNote);
     APIService.editNote(newNote).then(
       setTimeout(() => {
         getAllNotes(nbID);
@@ -207,9 +214,21 @@ const MainContainer = () => {
     setNotebookStatus(status);
   };
 
+  // const onSignoutSuccess = () => {
+  //   // alert("You have been logged out successfully");
+  //   console.clear();
+  //   setShowloginButton(true);
+  //   setShowlogoutButton(false);
+  // };
+
   return (
-    <div className='container-fluid'>
-      <div className='row justify-content-center'>
+    <div className={fullScreenStatus ? "container-fluid" : "ms-4 me-4"}>
+      <div className='row justify-content-between'>
+        {/* <GoogleLogout
+          clientId={clientId}
+          buttonText='Sign Out'
+          onLogoutSuccess={onSignoutSuccess}
+        ></GoogleLogout> */}
         <NotesMenu
           handleNotebookStatus={getNotebookStatus}
           notebooks={notebooks}

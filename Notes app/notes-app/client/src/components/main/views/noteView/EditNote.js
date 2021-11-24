@@ -21,21 +21,32 @@ function EditNote({
   setFullTextStatus,
   setContentTitle,
   setFullText,
+  fullScreenStatus,
 }) {
   const handleSaveClick = () => {
     setEditStatus(false);
-    if (noteText.trim().length > 0) {
-      handleEditNote(id, noteTitle, noteText, notebookID);
+    console.log(noteTitle.trim().length);
+    console.log(fullText.trim().length);
+    // handleEditNote(id, noteTitle, noteText, notebookID);
+    if (fullText.trim().length > 0) {
+      handleEditNote(id, noteTitle, fullText, notebookID);
     }
+    // else if (noteTitle.trim().length > 0) {
+    //   handleEditNote(id, noteTitle, noteText, notebookID);
+    // }
     console.log(noteText);
     setSaveStatus(true);
     setFullTextStatus(true);
   };
 
   console.log(id, fullText, contentTitle);
+  console.log(id, noteTitle, fullText, notebookID);
 
   return editStatus ? (
-    <div className='new m-auto' style={{ maxWidth: "600px" }}>
+    <div
+      className='new m-auto'
+      style={fullScreenStatus ? { width: "100%" } : { maxWidth: "600px" }}
+    >
       <EditorToolbar toolbarId={"t1"} />
 
       <div className='form-group mb-3 mt-3'>

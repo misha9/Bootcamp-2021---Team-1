@@ -59,21 +59,21 @@ function ToolBar({
               Back
             </Button>
           </div>
-          <IconButton size='small' color='inherit'>
-            <CgMinimize
-              size='1.2rem'
-              className='m-1'
-              onClick={() => setFullScreenStatus(false)}
-            />
+          <IconButton
+            size='small'
+            color='inherit'
+            onClick={() => setFullScreenStatus(false)}
+          >
+            <CgMinimize size='1.2rem' className='m-1' />
           </IconButton>
         </div>
       ) : (
-        <IconButton size='small' color='inherit'>
-          <CgMaximize
-            size='1.2rem'
-            className='m-1'
-            onClick={() => setFullScreenStatus(true)}
-          />
+        <IconButton
+          size='small'
+          color='inherit'
+          onClick={() => setFullScreenStatus(true)}
+        >
+          <CgMaximize size='1.2rem' className='m-1' />
         </IconButton>
       )}
       {fullScreenStatus ? (

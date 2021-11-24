@@ -13,26 +13,27 @@ export const APIService = {
   getFullText,
   addBookmark,
   editNote,
-  loginaccess
+  loginAccess,
 };
 
 const AT = localStorage.getItem("token");
 
-function loginaccess(userData) {
-  console.log(AT)
-  const data = {userInfo: userData}
+function loginAccess(userData) {
+  console.log(AT);
+  const data = { userInfo: userData };
   const requestOptions = {
     method: "PATCH",
     headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json'
-                  },
-        body: JSON.stringify(data)
-    };
-  
-    return fetch("http://localhost:5000/api/login", requestOptions).then(handleResponse);
-}
+      Accept: "application/json",
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
 
+  return fetch("http://localhost:5000/api/login", requestOptions).then(
+    handleResponse
+  );
+}
 
 function fetchNotes(id) {
   console.log("fetch");
@@ -40,7 +41,7 @@ function fetchNotes(id) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify({ notebook_id: id }),
   };
@@ -55,7 +56,7 @@ function fetchNotebooks(wsID) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify({ ws_id: wsID }),
   };
@@ -80,7 +81,7 @@ function addNewNotebook(name, wsID) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify({ name: newNotebook.text, ws_id: newNotebook.wsID }),
   };
@@ -96,7 +97,7 @@ function deleteNotebookFromDb(id) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify(data),
   });
@@ -112,7 +113,7 @@ function renameNotebookInDb(id, name) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify(data),
   });
@@ -124,7 +125,7 @@ function addNewNote(newNote) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify({
       title: newNote.title,
@@ -138,12 +139,13 @@ function addNewNote(newNote) {
 }
 
 function editNote(newNote) {
+  console.log(newNote);
   const requestOptions = {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify({
       noteID: newNote.noteID,
@@ -161,7 +163,7 @@ function deleteNoteFromDb(data) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify(data),
   });
@@ -173,7 +175,7 @@ function fetchBookmarkedNotes() {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     // body: JSON.stringify({id:bookMark.id })
   };
@@ -187,7 +189,7 @@ function fetchRecentNotes() {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     // body: JSON.stringify({id:bookMark.id })
   };
@@ -201,7 +203,7 @@ function getFullText(id) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify({ note_id: id }),
   };
@@ -221,7 +223,7 @@ function addBookmark(id, bookMarkStatus) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      'Authorization': `Bearer ${AT}`
+      Authorization: `Bearer ${AT}`,
     },
     body: JSON.stringify({ id: markBookmark.id, flag: markBookmark.flag }),
   };

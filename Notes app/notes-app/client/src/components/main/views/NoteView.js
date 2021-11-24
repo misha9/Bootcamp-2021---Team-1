@@ -41,10 +41,19 @@ const NoteView = ({
     <div
       className={
         fullScreenStatus
-          ? "col-sm-12 col-md-10 bg-white position-absolute container"
+          ? "col-sm-12 col-md-10 bg-white position-absolute"
           : "col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-3"
       }
-      style={{ height: "100vh" }}
+      style={
+        fullScreenStatus
+          ? {
+              height: "100vh",
+              width: "100%",
+              paddingLeft: "10rem",
+              paddingRight: "10rem",
+            }
+          : { height: "100vh" }
+      }
     >
       <ToolBar
         id={id}
@@ -109,6 +118,7 @@ const NoteView = ({
         setFullTextStatus={setFullTextStatus}
         setContentTitle={setContentTitle}
         setFullText={setFullText}
+        fullScreenStatus={fullScreenStatus}
       />
     </div>
   );
