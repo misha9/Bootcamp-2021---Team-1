@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
@@ -7,9 +7,9 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
+import { GoogleLogin } from "react-google-login";
 import { APIService } from "../../../services/apiService";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const clientId =
   "866133952316-a8r10cdbhjlsjroke88n2qrm5ul0jgfj.apps.googleusercontent.com";
@@ -17,17 +17,10 @@ const clientId =
 const theme = createTheme();
 
 export default function LoginContainer() {
-  // const navigate = useNavigate();
-
-  const [showLoginButton, setShowLoginButton] = useState(true);
-  const [showLogoutButton, setShowLogoutButton] = useState(false);
-  const [showLoginStatus, setShowLoginStatus] = useState(false);
+  const navigate = useNavigate();
 
   const onLoginSuccess = (res) => {
     const token_id = res.tokenObj.id_token;
-
-    setShowLoginButton(false);
-    setShowLogoutButton(true);
 
     APIService.loginAccess(token_id).then((res) => {
       //Storing_access_token
@@ -39,25 +32,14 @@ export default function LoginContainer() {
       localStorage.removeItem("loginStatus");
       localStorage.setItem("loginStatus", LS);
       console.log(LS);
-      setShowLoginStatus(LS);
+      if (LS) {
+        navigate("/main");
+      }
     });
   };
-  useEffect(() => {
-    console.log(showLoginStatus);
-    //this_if_has_an_else_condition_so_specify_that_to_redirect_the_user_to_login_if_the_user_is_an_imposter
-    if (showLoginStatus === "True") {
-      //  navigate('/main');
-    }
-  }, [showLoginStatus]);
 
   const onLoginFailure = (res) => {
     console.log("Login Failed:", res);
-  };
-
-  const onSignOutSuccess = () => {
-    console.clear();
-    setShowLoginButton(true);
-    setShowLogoutButton(false);
   };
 
   return (
@@ -99,7 +81,7 @@ export default function LoginContainer() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <Avatar sx={{ m: 1, backgroundColor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component='h1' variant='h5'>
@@ -112,24 +94,14 @@ export default function LoginContainer() {
             >
               {
                 <div>
-                  {showLoginButton ? (
-                    <GoogleLogin
-                      clientId={clientId}
-                      buttonText='Sign in'
-                      onSuccess={onLoginSuccess}
-                      onFailure={onLoginFailure}
-                      cookiePolicy={"single_host_origin"}
-                      isSignedIn={true}
-                    />
-                  ) : null}
-
-                  {showLogoutButton ? (
-                    <GoogleLogout
-                      clientId={clientId}
-                      buttonText='Sign Out'
-                      onLogoutSuccess={onSignOutSuccess}
-                    ></GoogleLogout>
-                  ) : null}
+                  <GoogleLogin
+                    clientId={clientId}
+                    buttonText='Sign in'
+                    onSuccess={onLoginSuccess}
+                    onFailure={onLoginFailure}
+                    cookiePolicy={"single_host_origin"}
+                    isSignedIn={true}
+                  />
                 </div>
               }
             </Box>

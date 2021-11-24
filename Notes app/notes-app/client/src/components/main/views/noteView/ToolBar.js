@@ -40,7 +40,7 @@ function ToolBar({
       className={
         fullScreenStatus
           ? " mb-5 mt-5"
-          : "d-flex align-items-center justify-content-end mb-5"
+          : "d-flex align-items-center justify-content-end mb-3"
       }
     >
       {fullScreenStatus ? (

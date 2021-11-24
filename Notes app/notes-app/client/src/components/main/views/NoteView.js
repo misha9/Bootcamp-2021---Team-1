@@ -5,6 +5,8 @@ import RightContent from "./noteView/RightContent";
 import AddNote from "./noteView/AddNote";
 import EditNote from "./noteView/EditNote";
 
+import { GoogleLogout } from "react-google-login";
+
 const NoteView = ({
   id,
   addNoteStatus,
@@ -36,6 +38,8 @@ const NoteView = ({
   handleEditNote,
   setFullScreenStatus,
   fullScreenStatus,
+  clientId,
+  onSignOutSuccess,
 }) => {
   return (
     <div
@@ -55,6 +59,15 @@ const NoteView = ({
           : { height: "100vh" }
       }
     >
+      <div className='sign-out text-end mb-3'>
+        <GoogleLogout
+          clientId={clientId}
+          buttonText='Sign Out'
+          onLogoutSuccess={() => {
+            onSignOutSuccess();
+          }}
+        ></GoogleLogout>
+      </div>
       <ToolBar
         id={id}
         fullText={fullText}

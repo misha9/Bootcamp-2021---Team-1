@@ -86,17 +86,19 @@ function RightContent({
 
   return fullTextStatus ? (
     <div className='right-content'>
-      <div className='text-end'>
-        <i
-          className={`icon me-2 ${
-            bookmarkStatus != true ? " far fa-star" : " fas fa-star"
-          }`}
-          onClick={bookmarkChangeHandler}
-        ></i>
-      </div>
       <Scrollbars style={{ minHeight: "75vh" }}>
         <div className={fullScreenStatus ? "ps-2" : "mt-2 ps-5"}>
-          <h2>{contentTitle}</h2>
+          <div className='d-flex justify-content-between'>
+            <h2>{contentTitle}</h2>
+            <div>
+              <i
+                className={`icon m-2 ${
+                  bookmarkStatus != true ? " far fa-star" : " fas fa-star"
+                }`}
+                onClick={bookmarkChangeHandler}
+              ></i>
+            </div>
+          </div>
           <p
             className='mt-3 pe-2'
             style={fullScreenStatus ? { width: "auto" } : { maxWidth: "605px" }}
