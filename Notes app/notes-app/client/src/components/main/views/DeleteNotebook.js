@@ -25,6 +25,7 @@ function DeleteNotebook({
         height: "100vh",
         zIndex: "999",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
+        right: "0px",
       }}
     >
       <div className='delete-notebook d-flex justify-content-center mt-5'>

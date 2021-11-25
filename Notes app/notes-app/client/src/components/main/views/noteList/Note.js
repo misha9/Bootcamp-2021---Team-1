@@ -7,7 +7,7 @@ import ReactHtmlParser from "react-html-parser";
 function Note({ id, title, text, date, handleDeleteNote, selected, onSelect }) {
   return (
     <div
-      className='note mb-2'
+      className='note mb-3'
       onMouseEnter={() => {
         onSelect(id);
       }}
