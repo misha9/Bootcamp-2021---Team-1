@@ -18,6 +18,10 @@ function AddNote({
   setNoteTitle,
   noteTitle,
   fullScreenStatus,
+  tagName,
+  setTagName,
+  tags,
+  setTags,
 }) {
   console.log(addNoteStatus);
 
@@ -59,7 +63,14 @@ function AddNote({
           onChange={(e) => setNoteTitle(e.target.value)}
         />
       </div>
-      <TagsInput selectedTags={selectedTags} tags={[]} />
+      <TagsInput
+        selectedTags={selectedTags}
+        // tags={[]}
+        tags={tags}
+        setTags={setTags}
+        tagName={tagName}
+        setTagName={setTagName}
+      />
       <Scrollbars style={{ minHeight: "33vh" }}>
         <ReactQuill
           placeholder={"Type content here..."}

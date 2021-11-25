@@ -7,6 +7,7 @@ const notebookRoutes = require("./src/routes/notebook/routes");
 const loginRoutes = require("./src/routes/login/routes");
 const bookmarkRoutes = require("./src/routes/bookmark/routes");
 const otherRoutes = require("./src/routes/others/routes");
+const tags = require("./src/routes/tag/routes");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api", noteRoutes);
 app.use("/api", notebookRoutes);
 app.use("/api", bookmarkRoutes);
 app.use("/api", otherRoutes);
+app.use("/api", tags);
 
 app.listen(5000, () => {
   console.log("Server is listening on the port 5000");

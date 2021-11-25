@@ -55,8 +55,6 @@ const NotesMenu = ({
     setStarStatus(false);
   };
 
-  // const wsName = ['Work', 'Personal', 'Home']
-  // const icon = [MdWorkOutline, BiUser, MdOutlineHome]
   console.log(notebooks);
 
   const handleGetNotebooks = (sWID, wID) => {
@@ -124,46 +122,14 @@ const NotesMenu = ({
                       type='button'
                       className='text-decoration-none text-dark p-0 border-0 bg-transparent'
                       onClick={() => handleGetNotebooks(ws.wsId_s, ws.wsID)}
-                      style={{ fontWeight: workspaceID === 1 ? "600" : "400" }}
+                      style={{
+                        fontWeight: workspaceID === ws.wsID ? "600" : "400",
+                      }}
                     >
                       {ws.name}
                     </button>
                   </li>
                 ))}
-                {/* <li className='d-flex align-items-center'>
-                  <MdWorkOutline className='me-3' size='1.3rem' />
-                  <button
-                    type='button'
-                    className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                    onClick={() => handleGetNotebooks(1)}
-                    style={{ fontWeight: workspaceID === 1 ? "600" : "400" }}
-                  >
-                    Work
-                  </button>
-                </li>
-                <li className='d-flex align-items-center'>
-                  <BiUser className='me-3' size='1.3rem' />
-                  <div onClick={() => handleGetNotebooks(2)}>
-                    <button
-                      type='button'
-                      className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                      style={{ fontWeight: workspaceID === 2 ? "600" : "400" }}
-                    >
-                      Personal
-                    </button>
-                  </div>
-                </li>
-                <li className='d-flex align-items-center'>
-                  <MdOutlineHome className='me-3' size='1.3rem' />
-                  <button
-                    type='button'
-                    className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                    onClick={() => handleGetNotebooks(3)}
-                    style={{ fontWeight: workspaceID === 3 ? "600" : "400" }}
-                  >
-                    Home
-                  </button>
-                </li> */}
               </ul>
             </div>
             <div className='notebook'>

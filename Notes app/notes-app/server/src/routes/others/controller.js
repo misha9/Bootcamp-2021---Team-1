@@ -34,23 +34,9 @@ const getWorkspace = (req, res) => {
         res.status(200).json(result);
       }
       if (error) throw error;
-      // res.status(200).json(result);
-      // res.status(200).json(results.rows);
     }
   );
 };
-
-// const setWorkspace = (req, res) => {
-//   console.log("For workspace", req.body.user_id);
-//   pool.query(
-//     "call set_workspace($1) WHERE NOT EXISTS (SELECT * FROM workspace WHERE user_id = $1)",
-//     [req.body.user_id],
-//     (error, results) => {
-//       if (error) throw error;
-//       res.status(200).json(results.rows);
-//     }
-//   );
-// };
 
 const getRecent = (req, res) => {
   pool.query(

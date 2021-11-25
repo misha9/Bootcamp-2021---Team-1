@@ -45,6 +45,8 @@ const MainContainer = () => {
   const [fullScreenStatus, setFullScreenStatus] = useState(false);
   const [workspace, setWorkspace] = useState([]);
   const [defaultWsID, setDefaultWsID] = useState("");
+  const [tagName, setTagName] = useState("");
+  const [tags, setTags] = useState("");
 
   const navigate = useNavigate();
 
@@ -65,6 +67,12 @@ const MainContainer = () => {
     "866133952316-a8r10cdbhjlsjroke88n2qrm5ul0jgfj.apps.googleusercontent.com";
 
   const userID = localStorage.getItem("uID");
+  const dp = localStorage.getItem("profilePic");
+  const userName = localStorage.getItem("userName");
+  const mail = localStorage.getItem("userMail");
+
+  console.log(dp, userName, mail);
+
   const work = <MdWorkOutline className='me-3' size='1.3rem' />;
   const personal = <BiUser className='me-3' size='1.3rem' />;
   const home = <MdOutlineHome className='me-3' size='1.3rem' />;
@@ -350,6 +358,13 @@ const MainContainer = () => {
           fullScreenStatus={fullScreenStatus}
           clientId={clientId}
           onSignOutSuccess={onSignOutSuccess}
+          tagName={tagName}
+          setTagName={setTagName}
+          tags={tags}
+          setTags={setTags}
+          dp={dp}
+          userName={userName}
+          mail={mail}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}

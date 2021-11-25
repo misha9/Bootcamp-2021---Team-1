@@ -2,22 +2,37 @@ import React from "react";
 import ReactDOM from "react";
 import Chip from "@mui/material/Chip";
 import Input from "@mui/material/Input";
+import { useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import TextField from "@mui/material/TextField";
+import { APIService } from "../../../../services/apiService";
 
-const TagsInput = (props) => {
-  const [tags, setTags] = React.useState(props.tags);
+const TagsInput = ({ selectedTags, setTags, tags, tagName, setTagName }) => {
+  //   const [tags, setTags] = useState(tags);
+  //   const [tagName, setTagName] = useState("");
   const removeTags = (indexToRemove) => {
     setTags([...tags.filter((_, index) => index !== indexToRemove)]);
   };
+  const insertTag = (name) => {};
   const addTags = (event) => {
+    // setTagName(event.target.value);
+    // setTagName(event.target.value);
+    // setTimeout(() => {
+    //   console.log(tagName);
+    // }, 500);
+
     if (event.target.value !== "") {
+      insertTag();
+      setTagName(event.target.value);
       setTags([...tags, event.target.value]);
-      props.selectedTags([...tags, event.target.value]);
+      selectedTags([...tags, event.target.value]);
       event.target.value = "";
+      //   console.log(tagName);
     }
   };
+  console.log(tagName);
+
   return (
     <div className='tags-input'>
       {/* <ul id='tags'>

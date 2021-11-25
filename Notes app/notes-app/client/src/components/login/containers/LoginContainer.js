@@ -20,6 +20,10 @@ export default function LoginContainer() {
   const navigate = useNavigate();
 
   const onLoginSuccess = (res) => {
+    const profilePic = res.profileObj.imageUrl;
+    const userName = res.profileObj.name;
+    const userMail = res.profileObj.email;
+
     const token_id = res.tokenObj.id_token;
 
     APIService.loginAccess(token_id).then((res) => {
@@ -40,7 +44,10 @@ export default function LoginContainer() {
       localStorage.removeItem("loginStatus");
       localStorage.setItem("loginStatus", LS);
       console.log(LS);
-      if (LS) {
+      if (LS === "True") {
+        localStorage.setItem("profilePic", profilePic);
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("userMail", userMail);
         navigate("/main");
       }
     });
