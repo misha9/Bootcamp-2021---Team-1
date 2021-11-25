@@ -3,7 +3,7 @@ const pool = require("../../../dbService");
 const getNotes = (req, res) => {
   console.log(req.body.notebook_id, "notebook id comes");
   pool.query(
-    "select * from prev where nb_id=$1 ORDER BY n_id DESC",
+    "select * from prev where nb_id=$1 ORDER BY updated_date DESC",
     [req.body.notebook_id],
     (error, results) => {
       if (error) throw error;
@@ -16,7 +16,7 @@ const getNotes = (req, res) => {
 const addNote = (req, res) => {
   console.log(req.body, "body");
   pool.query(
-    "INSERT INTO note (title, note_content, note_date, nb_id, ws_id, bookmark) VALUES ($1, $2, $3, $4, $5, false)",
+    "INSERT INTO note (title, note_content, note_date, nb_id, unique_id, bookmark, updated_date) VALUES ($1, $2, $3, $4, $5, false, $3)",
     [
       req.body.title,
       req.body.note_content,

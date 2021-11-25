@@ -3,10 +3,10 @@ import "../../../../styles/Note.css";
 
 import { MdDeleteForever } from "react-icons/md";
 import ReactHtmlParser from "react-html-parser";
-import moment from 'moment';
+import moment from "moment";
 
 function Note({ id, title, text, date, handleDeleteNote, selected, onSelect }) {
-  let newDate = moment(date).local().format('DD/MM/YYYY HH:mm:ss');
+  let newDate = moment(date).local().format("DD/MM/YYYY HH:mm:ss");
   return (
     <div
       className='note mb-3'
@@ -31,8 +31,10 @@ function Note({ id, title, text, date, handleDeleteNote, selected, onSelect }) {
           </div>
         </div>
         <div className='footer d-flex justify-content-between ps-3 pe-3'>
-          <p className='small'>{newDate.substring(0, 11)}</p>
-          <p className='small'>{(moment.utc(date).local().startOf('seconds').fromNow()).slice(0,-3)}</p>
+          {/* <p className='small'>{newDate.substring(0, 11)}</p> */}
+          <p className='small'>
+            {moment.utc(date).local().startOf("seconds").fromNow().slice(0, -3)}
+          </p>
           <MdDeleteForever
             onClick={() => handleDeleteNote(id)}
             className='delete-icon'

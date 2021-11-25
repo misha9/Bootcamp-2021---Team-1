@@ -4,12 +4,16 @@ const authenticate = require("../login/controller");
 
 const router = Router();
 
-router.get(
+router.patch(
   "/get-workspace",
   authenticate.authenticateToken,
   controller.getWorkspace
 );
-
+// router.patch(
+//   "/get-workspace",
+//   authenticate.authenticateToken,
+//   controller.setWorkspace
+// );
 router.get("/get-recent", authenticate.authenticateToken, controller.getRecent);
 
 module.exports = router;

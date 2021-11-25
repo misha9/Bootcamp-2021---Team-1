@@ -3,7 +3,7 @@ const pool = require("../../../dbService");
 const getNotebooks = (req, res) => {
   console.log("For work notebooks", req.body.ws_id);
   pool.query(
-    "select * from notebook where ws_id=$1 ORDER BY nb_id DESC",
+    "select * from notebook where unique_id=$1 ORDER BY nb_id DESC",
     [req.body.ws_id],
     (error, results) => {
       if (error) throw error;
@@ -14,9 +14,10 @@ const getNotebooks = (req, res) => {
 };
 
 const addNotebook = (req, res) => {
+  console.log("adding notebook");
   pool.query(
-    "INSERT INTO notebook (name, ws_id) VALUES ($1, $2)",
-    [req.body.name, req.body.ws_id],
+    "INSERT INTO notebook (name, nb_date, unique_id) VALUES ($1, $2, $3)",
+    [req.body.name, req.body.date, req.body.ws_id],
     (error, results) => {
       if (error) throw error;
       res.status(200).send("Notebook added successfully");

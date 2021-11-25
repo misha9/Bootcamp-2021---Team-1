@@ -44,6 +44,7 @@ const login = async (req, res) => {
                   [emailID],
                   (err, results) => {
                     user_id = results.rows[0].u_id;
+                    temp.push({ userID: user_id });
                     // console.log(user_id);
                     if (err) {
                       throw err;
@@ -83,6 +84,7 @@ const login = async (req, res) => {
               [emailID],
               (err, results) => {
                 user_id = results.rows[0].u_id;
+                temp.push({ userID: user_id });
                 if (err) {
                   throw err;
                 }

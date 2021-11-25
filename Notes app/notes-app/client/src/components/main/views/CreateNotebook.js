@@ -13,12 +13,13 @@ function CreateNotebook({
 }) {
   const [notebookName, setNotebookName] = useState("");
 
-  const handleCreate = () => {
+  const handleCreate = (workspaceID) => {
     console.log(workspaceID);
     handleAddNotebook(notebookName, workspaceID);
     handleNotebookStatus(false);
     setCreateStatus(true);
   };
+  console.log(workspaceID);
 
   return displayNotebookStatus ? (
     <div
@@ -60,7 +61,7 @@ function CreateNotebook({
             <button
               type='button'
               className='btn btn-primary border-0'
-              onClick={() => handleCreate()}
+              onClick={() => handleCreate(workspaceID)}
             >
               Create
             </button>

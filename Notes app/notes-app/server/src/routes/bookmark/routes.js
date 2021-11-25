@@ -10,7 +10,7 @@ router.post(
   controller.addBookmark
 );
 
-router.get(
+router.patch(
   "/get-bookmark",
   authenticate.authenticateToken,
   controller.getBookmark

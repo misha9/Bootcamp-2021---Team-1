@@ -5,12 +5,14 @@ import NoteView from "../views/NoteView";
 import CreateNotebook from "../views/CreateNotebook";
 import DeleteNotebook from "../views/DeleteNotebook";
 import RenameNotebook from "../views/RenameNotebook";
-import moment from 'moment';
+import moment from "moment";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { APIService } from "../../../services/apiService";
 
 import { Link } from "react-router-dom";
+import { BiUser } from "react-icons/bi";
+import { MdOutlineHome, MdWorkOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const MainContainer = () => {
@@ -41,6 +43,8 @@ const MainContainer = () => {
   const [contentTitle, setContentTitle] = useState("");
   const [starStatus, setStarStatus] = useState(false);
   const [fullScreenStatus, setFullScreenStatus] = useState(false);
+  const [workspace, setWorkspace] = useState([]);
+  const [defaultWsID, setDefaultWsID] = useState("");
 
   const navigate = useNavigate();
 
@@ -54,16 +58,47 @@ const MainContainer = () => {
     // if (day.length < 2) day = "0" + day;
 
     // return [day, month, year].join("/");
-    return(moment(timestamp).local().format('YYYY-MM-DD HH:mm:ss'));
+    return moment(timestamp).local().format("YYYY-MM-DD HH:mm:ss");
   };
 
   const clientId =
     "866133952316-a8r10cdbhjlsjroke88n2qrm5ul0jgfj.apps.googleusercontent.com";
 
-  const getAllNotebooks = (wsID) => {
+  const userID = localStorage.getItem("uID");
+  const work = <MdWorkOutline className='me-3' size='1.3rem' />;
+  const personal = <BiUser className='me-3' size='1.3rem' />;
+  const home = <MdOutlineHome className='me-3' size='1.3rem' />;
+  console.log(userID);
+  const getAllWorkspace = (userID) => {
     console.log("Loaded notebook");
     const data = [];
-    APIService.fetchNotebooks(wsID).then((res) => {
+    const wsName = ["Work", "Personal", "Home"];
+    const icon = [work, personal, home];
+    APIService.fetchWorkspace(userID).then((res) => {
+      console.log(res[0].result);
+      for (let i = 0; i < res[0].result.length; i++) {
+        data.push({
+          wsId_s: res[0].result[i].ws_id,
+          wsID: res[0].result[i].unique_id,
+          name: wsName[i],
+          // name: res[0].result[i].name,
+          userID: res[0].result[i].u_id,
+          icon: icon[i],
+        });
+      }
+      console.log(data);
+      setWorkspace(data);
+    });
+  };
+
+  // const setWorkspace = (userID) => {
+  //   APIService.setWorkspace(userID);
+  // };
+
+  const getAllNotebooks = (sWID, wsID) => {
+    console.log("Loaded notebook");
+    const data = [];
+    APIService.fetchNotebooks(sWID, wsID).then((res) => {
       for (let i = 0; i < res.length; i++) {
         data.push({ id: res[i].nb_id, name: res[i].name });
       }
@@ -77,7 +112,7 @@ const MainContainer = () => {
   const addNotebook = (name, wsID) => {
     APIService.addNewNotebook(name, wsID).then(
       setTimeout(() => {
-        getAllNotebooks(wsID);
+        getAllNotebooks(defaultWsID, wsID);
       }, 150)
     );
   };
@@ -93,7 +128,7 @@ const MainContainer = () => {
     setNbName(name);
     APIService.renameNotebookInDb(id, name).then(
       setTimeout(() => {
-        getAllNotebooks(ws_id);
+        getAllNotebooks(defaultWsID, ws_id);
       }, 250)
     );
   };
@@ -103,7 +138,7 @@ const MainContainer = () => {
     const data = [];
     APIService.fetchNotes(id).then((res) => {
       for (let i = 0; i < res.length; i++) {
-        let newDate = formatDate(res[i].note_date);
+        let newDate = formatDate(res[i].updated_date);
 
         data.push({
           id: res[i].n_id,
@@ -122,7 +157,7 @@ const MainContainer = () => {
       title: title,
       text: text,
       // date: date.toLocaleDateString(),
-      date:moment(date).utc().format('YYYY-MM-DD HH:mm:ss'),
+      date: moment(date).utc().format("YYYY-MM-DD HH:mm:ss"),
       nbID: nbID,
       wsID: wsID,
     };
@@ -151,8 +186,7 @@ const MainContainer = () => {
       title: title,
       text: text,
       // date: date.toLocaleDateString(),
-      date:moment(date).utc().format('YYYY-MM-DD HH:mm:ss'),
-
+      date: moment(date).utc().format("YYYY-MM-DD HH:mm:ss"),
     };
     console.log(newNote);
     APIService.editNote(newNote).then(
@@ -170,11 +204,11 @@ const MainContainer = () => {
     });
   }
 
-  function getAllBookmark() {
+  function getAllBookmark(workspaceID) {
     const data = [];
-    APIService.fetchBookmarkedNotes().then((res) => {
+    APIService.fetchBookmarkedNotes(workspaceID).then((res) => {
       for (let i = 0; i < res.length; i++) {
-        let newDate = formatDate(res[i].note_date);
+        let newDate = formatDate(res[i].updated_date);
         data.push({
           id: res[i].n_id,
           title: res[i].title,
@@ -191,7 +225,7 @@ const MainContainer = () => {
     const data = [];
     APIService.fetchRecentNotes().then((res) => {
       for (let j = 0; j < res.length; j++) {
-        let newDate = formatDate(res[j].note_date);
+        let newDate = formatDate(res[j].updated_date);
         data.push({
           id: res[j].n_id,
           title: res[j].title,
@@ -223,12 +257,20 @@ const MainContainer = () => {
 
   const onSignOutSuccess = () => {
     //api call here => remove access token from db, clear the local storage
-    console.clear();
+    // console.clear();
+    localStorage.removeItem("token");
 
     setTimeout(() => {
       navigate("/");
     }, 500);
   };
+
+  // const getUserID = () => {};
+
+  useEffect(() => {
+    // setWorkspace(userID);
+    getAllWorkspace(userID);
+  }, [userID]);
 
   return (
     <div className='ms-4 me-4'>
@@ -256,6 +298,9 @@ const MainContainer = () => {
           setStarStatus={setStarStatus}
           setRenameNbStatus={setNbRenameStatus}
           setDeleteNbStatus={setNbDeleteStatus}
+          workspace={workspace}
+          setDefaultWsID={setDefaultWsID}
+          defaultWsID={defaultWsID}
         />
         <NotesList
           notes={notes.filter((note) =>

@@ -2,7 +2,7 @@ export const APIService = {
   fetchNotes,
   handleResponse,
   fetchNotebooks,
-  // fetchWorkspace,
+  fetchWorkspace,
   addNewNotebook,
   deleteNotebookFromDb,
   renameNotebookInDb,
@@ -14,6 +14,7 @@ export const APIService = {
   addBookmark,
   editNote,
   loginAccess,
+  // setWorkspace,
 };
 
 const AT = localStorage.getItem("token");
@@ -35,6 +36,21 @@ function loginAccess(userData) {
   );
 }
 
+// function setWorkspace(userID) {
+//   console.log("fetching workspace");
+//   const requestOptions = {
+//     method: "PATCH",
+//     headers: {
+//       "Content-type": "application/json",
+//       Authorization: `Bearer ${AT}`,
+//     },
+//     body: JSON.stringify({ user_id: userID }),
+//   };
+//   return fetch("http://localhost:5000/api/set-workspace", requestOptions).then(
+//     handleResponse
+//   );
+// }
+
 function fetchNotes(id) {
   console.log("fetch");
   const requestOptions = {
@@ -50,7 +66,7 @@ function fetchNotes(id) {
   );
 }
 
-function fetchNotebooks(wsID) {
+function fetchNotebooks(sWId, wsID) {
   console.log("fetch");
   const requestOptions = {
     method: "PATCH",
@@ -58,21 +74,33 @@ function fetchNotebooks(wsID) {
       "Content-type": "application/json",
       Authorization: `Bearer ${AT}`,
     },
-    body: JSON.stringify({ ws_id: wsID }),
+    body: JSON.stringify({ ws_id: wsID, s_wsID: sWId }),
   };
   return fetch("http://localhost:5000/api/get-notebooks", requestOptions).then(
     handleResponse
   );
 }
 
-// function fetchWorkspace() {
-//   console.log("fetching notebooks");
-//   return fetch("http://localhost:5000/api/get-workspace").then(handleResponse);
-// }
+function fetchWorkspace(userID) {
+  console.log("fetching workspace");
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    body: JSON.stringify({ user_id: userID }),
+  };
+  return fetch("http://localhost:5000/api/get-workspace", requestOptions).then(
+    handleResponse
+  );
+}
 
 function addNewNotebook(name, wsID) {
+  const date = new Date();
   const newNotebook = {
     text: name,
+    date: date,
     wsID: wsID,
   };
 
@@ -83,7 +111,11 @@ function addNewNotebook(name, wsID) {
       "Content-type": "application/json",
       Authorization: `Bearer ${AT}`,
     },
-    body: JSON.stringify({ name: newNotebook.text, ws_id: newNotebook.wsID }),
+    body: JSON.stringify({
+      name: newNotebook.text,
+      date: newNotebook.date,
+      ws_id: newNotebook.wsID,
+    }),
   };
   return fetch("http://localhost:5000/api/add-notebook", requestOptions);
 }
@@ -169,15 +201,15 @@ function deleteNoteFromDb(data) {
   });
 }
 
-function fetchBookmarkedNotes() {
+function fetchBookmarkedNotes(workspaceID) {
   const requestOptions = {
-    method: "GET",
+    method: "PATCH",
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
       Authorization: `Bearer ${AT}`,
     },
-    // body: JSON.stringify({id:bookMark.id })
+    body: JSON.stringify({ wsID: workspaceID }),
   };
   return fetch("http://localhost:5000/api/get-bookmark", requestOptions).then(
     handleResponse

@@ -23,12 +23,20 @@ export default function LoginContainer() {
     const token_id = res.tokenObj.id_token;
 
     APIService.loginAccess(token_id).then((res) => {
+      const userID = res[0].userID;
+
+      const uIdExist = localStorage.getItem("uID");
+      if (uIdExist) {
+        localStorage.removeItem("uID");
+      }
+      localStorage.setItem("uID", userID);
+
       //Storing_access_token
-      const AT = res[0].AccessToken;
+      const AT = res[1].AccessToken;
       localStorage.removeItem("token");
       localStorage.setItem("token", AT);
       //Storing_login_status
-      const LS = res[1].LoginStatus;
+      const LS = res[2].LoginStatus;
       localStorage.removeItem("loginStatus");
       localStorage.setItem("loginStatus", LS);
       console.log(LS);

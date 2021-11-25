@@ -40,6 +40,9 @@ const NotesMenu = ({
   setStarStatus,
   setRenameNbStatus,
   setDeleteNbStatus,
+  workspace,
+  setDefaultWsID,
+  defaultWsID,
 }) => {
   const [starredStatus, setStarredStatus] = useState(false);
   const [recentStatus, setRecentStatus] = useState(false);
@@ -52,18 +55,24 @@ const NotesMenu = ({
     setStarStatus(false);
   };
 
-  const handleGetNotebooks = (i) => {
-    getNotebooks(i);
-    setWorkspaceID(i);
+  // const wsName = ['Work', 'Personal', 'Home']
+  // const icon = [MdWorkOutline, BiUser, MdOutlineHome]
+  console.log(notebooks);
+
+  const handleGetNotebooks = (sWID, wID) => {
+    getNotebooks(sWID, wID);
+    setWorkspaceID(wID);
+    setDefaultWsID(sWID);
     setNbSelect(false);
     setFeatureStatus(false);
     setStarStatus(false);
     setStarredStatus(false);
     setRecentStatus(false);
   };
+  console.log(workspaceID);
 
-  const getBookmarkNotes = () => {
-    getAllBookmark();
+  const getBookmarkNotes = (workspaceID) => {
+    getAllBookmark(workspaceID);
     setNbSelect(false);
     setFeatureStatus(true);
     setStarStatus(true);
@@ -71,12 +80,11 @@ const NotesMenu = ({
 
   useEffect(() => {
     if (createStatus === true) {
-      handleGetNotebooks(workspaceID);
+      handleGetNotebooks(defaultWsID, workspaceID);
     }
     setCreateStatus(false);
   }, [createStatus]);
 
-  console.log(saveStatus);
   useEffect(() => {
     if (saveStatus === true) {
       handleSelectNotebook(nbName, nbID);
@@ -85,8 +93,10 @@ const NotesMenu = ({
   }, [saveStatus]);
 
   useEffect(() => {
-    handleGetNotebooks(1);
-  }, []);
+    if (workspace.length === 3) {
+      handleGetNotebooks(1, workspace[0].wsID);
+    }
+  }, [workspace]);
 
   return (
     <div
@@ -107,7 +117,20 @@ const NotesMenu = ({
             <div className='workspace'>
               <p className='text-uppercase small'>workspace</p>
               <ul className='list-unstyled'>
-                <li className='d-flex align-items-center'>
+                {workspace.map((ws) => (
+                  <li className='d-flex align-items-center'>
+                    {ws.icon}
+                    <button
+                      type='button'
+                      className='text-decoration-none text-dark p-0 border-0 bg-transparent'
+                      onClick={() => handleGetNotebooks(ws.wsId_s, ws.wsID)}
+                      style={{ fontWeight: workspaceID === 1 ? "600" : "400" }}
+                    >
+                      {ws.name}
+                    </button>
+                  </li>
+                ))}
+                {/* <li className='d-flex align-items-center'>
                   <MdWorkOutline className='me-3' size='1.3rem' />
                   <button
                     type='button'
@@ -140,7 +163,7 @@ const NotesMenu = ({
                   >
                     Home
                   </button>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className='notebook'>
@@ -199,7 +222,7 @@ const NotesMenu = ({
                     className='text-decoration-none text-dark p-0 border-0 bg-transparent'
                     // onClick={getBookmarkNotes}
                     onClick={() => {
-                      getBookmarkNotes();
+                      getBookmarkNotes(workspaceID);
                       setStarredStatus(true);
                       setRecentStatus(false);
                     }}
