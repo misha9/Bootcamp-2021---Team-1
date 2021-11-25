@@ -45,29 +45,32 @@ const NoteView = ({
     <div
       className={
         fullScreenStatus
-          ? "col-sm-12 col-md-10 bg-white position-absolute"
+          ? "col-sm-12 col-md-12 bg-white position-absolute"
           : "col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 pt-3"
       }
       style={
         fullScreenStatus
           ? {
               height: "100vh",
-              width: "100%",
               paddingLeft: "10rem",
               paddingRight: "10rem",
             }
           : { height: "100vh" }
       }
     >
-      <div className='sign-out text-end mb-3'>
-        <GoogleLogout
-          clientId={clientId}
-          buttonText='Sign Out'
-          onLogoutSuccess={() => {
-            onSignOutSuccess();
-          }}
-        ></GoogleLogout>
-      </div>
+      {fullScreenStatus ? (
+        ""
+      ) : (
+        <div className='sign-out text-end mb-3 me-2'>
+          <GoogleLogout
+            clientId={clientId}
+            buttonText='Sign Out'
+            onLogoutSuccess={() => {
+              onSignOutSuccess();
+            }}
+          ></GoogleLogout>
+        </div>
+      )}
       <ToolBar
         id={id}
         fullText={fullText}

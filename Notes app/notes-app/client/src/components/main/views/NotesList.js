@@ -24,7 +24,7 @@ const NotesList = ({
   console.log(featureStatus, nbSelect);
   return (
     <div
-      className='col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-3'
+      className='col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-3 m-auto'
       style={{ height: "100vh", maxWidth: "365px" }}
     >
       <SearchBar handleSearchNote={handleSearchNote} />
@@ -58,7 +58,10 @@ const NotesList = ({
           <div className='mb-2'>
             <div className='add-section mt-5'>
               <div className='d-flex justify-content-between align-items-center'>
-                <h4 className='notebook' style={{ fontWeight: "600" }}>
+                <h4
+                  className='notebook'
+                  style={{ fontWeight: "600", textTransform: "capitalize" }}
+                >
                   {nbName}
                 </h4>
                 <IoIosAdd

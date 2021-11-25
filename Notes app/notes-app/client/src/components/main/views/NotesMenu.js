@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../../../styles/MenuBar.css";
 
 import { Scrollbars } from "react-custom-scrollbars";
@@ -41,6 +41,8 @@ const NotesMenu = ({
   setRenameNbStatus,
   setDeleteNbStatus,
 }) => {
+  const [starredStatus, setStarredStatus] = useState(false);
+  const [recentStatus, setRecentStatus] = useState(false);
   const handleSelectNotebook = (name, id) => {
     getNotes(id);
     setNbName(name);
@@ -56,6 +58,8 @@ const NotesMenu = ({
     setNbSelect(false);
     setFeatureStatus(false);
     setStarStatus(false);
+    setStarredStatus(false);
+    setRecentStatus(false);
   };
 
   const getBookmarkNotes = () => {
@@ -148,13 +152,16 @@ const NotesMenu = ({
                     <div className='notebook-area d-flex align-items-center'>
                       <a
                         className='text-decoration-none'
-                        onMouseEnter={() =>
-                          handleSelectNotebook(notebook.name, notebook.id)
-                        }
+                        onMouseEnter={() => {
+                          handleSelectNotebook(notebook.name, notebook.id);
+                          setStarredStatus(false);
+                          setRecentStatus(false);
+                        }}
                         style={{
                           fontWeight: notebook.id === nbID ? "600" : "400",
                           position: "absolute",
                           bottom: "0.5px",
+                          textTransform: "capitalize",
                         }}
                       >
                         {notebook.name}
@@ -190,7 +197,13 @@ const NotesMenu = ({
                   <MdStarBorder className='me-3' size='1.3rem' />
                   <button
                     className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                    onClick={getBookmarkNotes}
+                    // onClick={getBookmarkNotes}
+                    onClick={() => {
+                      getBookmarkNotes();
+                      setStarredStatus(true);
+                      setRecentStatus(false);
+                    }}
+                    style={{ fontWeight: starredStatus ? "600" : "400" }}
                   >
                     Starred
                   </button>
@@ -199,7 +212,13 @@ const NotesMenu = ({
                   <GiBackwardTime className='me-3' size='1.3rem' />
                   <button
                     className='text-decoration-none text-dark p-0 border-0 bg-transparent'
-                    onClick={getAllRecentNotes}
+                    // onClick={getAllRecentNotes}
+                    onClick={() => {
+                      getAllRecentNotes();
+                      setRecentStatus(true);
+                      setStarredStatus(false);
+                    }}
+                    style={{ fontWeight: recentStatus ? "600" : "400" }}
                   >
                     Recent
                   </button>

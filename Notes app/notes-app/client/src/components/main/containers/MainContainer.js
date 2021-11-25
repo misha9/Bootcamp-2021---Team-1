@@ -231,8 +231,8 @@ const MainContainer = () => {
   };
 
   return (
-    <div className={fullScreenStatus ? "container-fluid" : "ms-4 me-4"}>
-      <div className='row justify-content-between'>
+    <div className='ms-4 me-4'>
+      <div className={fullScreenStatus ? "row justify-content-center" : "row"}>
         <NotesMenu
           handleNotebookStatus={getNotebookStatus}
           notebooks={notebooks}

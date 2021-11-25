@@ -9,7 +9,7 @@ function Note({ id, title, text, date, handleDeleteNote, selected, onSelect }) {
   let newDate = moment(date).local().format('DD/MM/YYYY HH:mm:ss');
   return (
     <div
-      className='note mb-2'
+      className='note mb-3'
       onMouseEnter={() => {
         onSelect(id);
       }}

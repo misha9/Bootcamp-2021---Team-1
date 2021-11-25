@@ -4,6 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
+import TagsInput from "./TagsInput";
 
 function AddNote({
   handleAddNote,
@@ -34,6 +35,10 @@ function AddNote({
     setSaveStatus(true);
   };
 
+  const selectedTags = (tags) => {
+    console.log(tags);
+  };
+
   console.log(addNoteStatus);
 
   return addNoteStatus ? (
@@ -54,7 +59,8 @@ function AddNote({
           onChange={(e) => setNoteTitle(e.target.value)}
         />
       </div>
-      <Scrollbars style={{ minHeight: "40vh" }}>
+      <TagsInput selectedTags={selectedTags} tags={[]} />
+      <Scrollbars style={{ minHeight: "33vh" }}>
         <ReactQuill
           placeholder={"Type content here..."}
           onChange={handleChange}
