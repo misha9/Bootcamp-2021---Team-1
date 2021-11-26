@@ -48,8 +48,6 @@ const NoteView = ({
   onSignOutSuccess,
   tagName,
   setTagName,
-  tags,
-  setTags,
   dp,
   userName,
   mail,
@@ -134,57 +132,8 @@ const NoteView = ({
                   </div>
                 </div>
               </li>
-              {/* <li>
-                <hr className='dropdown-divider' />
-              </li> */}
-              <li>
-                {/* <GoogleLogout
-                  className='google-logout dropdown-item'
-                  clientId={clientId}
-                  render={(renderProps) => (
-                    <button
-                      onClick={renderProps.onClick}
-                      onMouseEnter={() => {
-                        setLogoutStatus(true);
-                      }}
-                      style={{
-                        width: "100%",
-                        border: "none",
-                        padding: "0.375rem 0",
-                        backgroundColor: logoutStatus
-                          ? "#ededf0"
-                          : "transparent",
-                      }}
-                    >
-                      Sign Out
-                    </button>
-                  )}
-                  buttonText='Sign Out'
-                  onLogoutSuccess={() => {
-                    onSignOutSuccess();
-                  }}
-                ></GoogleLogout> */}
-              </li>
             </ul>
           </div>
-          {/* <FormControl>
-            <InputLabel id='demo-simple-select-label' variant='standard'>
-              Age
-            </InputLabel>
-            <Select
-            labelId='demo-simple-select-label'
-            id='demo-simple-select'
-            value='Hi'
-            label='Age'
-            onChange={handleChange}
-            >
-              <MenuItem value={10}>
-               
-              </MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl> */}
         </div>
       )}
       <ToolBar
@@ -231,8 +180,8 @@ const NoteView = ({
         fullScreenStatus={fullScreenStatus}
         tagName={tagName}
         setTagName={setTagName}
-        tags={tags}
-        setTags={setTags}
+        // tags={tags}
+        // setTags={setTags}
       />
       <EditNote
         notebookID={notebookID}

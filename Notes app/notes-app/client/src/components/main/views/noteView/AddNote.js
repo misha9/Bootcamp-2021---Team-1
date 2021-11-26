@@ -20,8 +20,6 @@ function AddNote({
   fullScreenStatus,
   tagName,
   setTagName,
-  tags,
-  setTags,
 }) {
   console.log(addNoteStatus);
 
@@ -65,9 +63,9 @@ function AddNote({
       </div>
       <TagsInput
         selectedTags={selectedTags}
-        // tags={[]}
-        tags={tags}
-        setTags={setTags}
+        tags={[]}
+        // tags={tags}
+        // setTags={setTags}
         tagName={tagName}
         setTagName={setTagName}
       />

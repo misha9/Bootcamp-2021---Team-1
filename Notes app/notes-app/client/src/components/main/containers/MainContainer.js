@@ -46,20 +46,11 @@ const MainContainer = () => {
   const [workspace, setWorkspace] = useState([]);
   const [defaultWsID, setDefaultWsID] = useState("");
   const [tagName, setTagName] = useState("");
-  const [tags, setTags] = useState("");
+  // const [tags, setTags] = useState("");
 
   const navigate = useNavigate();
 
   const formatDate = (timestamp) => {
-    // var d = new Date(timestamp),
-    //   month = "" + (d.getMonth() + 1),
-    //   day = "" + d.getDate(),
-    //   year = d.getFullYear();
-
-    // if (month.length < 2) month = "0" + month;
-    // if (day.length < 2) day = "0" + day;
-
-    // return [day, month, year].join("/");
     return moment(timestamp).local().format("YYYY-MM-DD HH:mm:ss");
   };
 
@@ -360,8 +351,8 @@ const MainContainer = () => {
           onSignOutSuccess={onSignOutSuccess}
           tagName={tagName}
           setTagName={setTagName}
-          tags={tags}
-          setTags={setTags}
+          // tags={tags}
+          // setTags={setTags}
           dp={dp}
           userName={userName}
           mail={mail}

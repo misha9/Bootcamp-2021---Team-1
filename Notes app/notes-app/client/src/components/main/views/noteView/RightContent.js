@@ -93,7 +93,7 @@ function RightContent({
             : "d-flex justify-content-between ps-5"
         }
       >
-        <h2>{contentTitle}</h2>
+        <h2 className={fullScreenStatus ? "ps-1" : ""}>{contentTitle}</h2>
         <div>
           <i
             className={`icon m-2 ${

@@ -87,31 +87,29 @@ export default function LoginContainer() {
         >
           <Box
             sx={{
-              my: "153px",
-              mx: 4,
-              width: "320px",
-              height: "330px",
+              // my: "153px",
+              // mx: 4,
+              // width: "320px",
+              // height: "330px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
+            className='m-auto'
+            style={{ marginBottom: "0" }}
           >
             <Avatar sx={{ m: 1, backgroundColor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component='h1' variant='h5'>
+            <Typography component='h1' variant='h5' className='m-2'>
               Sign in
             </Typography>
-            <Box
-              component='form'
-              noValidate
-              sx={{ mt: 1, position: "absolute", top: "40%", left: "71.5%" }}
-            >
+            <Box component='form' noValidate sx={{ mt: 1 }} className='mt-3'>
               {
                 <div>
                   <GoogleLogin
                     clientId={clientId}
-                    buttonText='Sign in'
+                    buttonText='Sign in With Google'
                     onSuccess={onLoginSuccess}
                     onFailure={onLoginFailure}
                     cookiePolicy={"single_host_origin"}
