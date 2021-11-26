@@ -1,17 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 import ToolBar from "./noteView/ToolBar";
 import RightContent from "./noteView/RightContent";
 import AddNote from "./noteView/AddNote";
 import EditNote from "./noteView/EditNote";
 
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Button from "@mui/material/Button";
-
-import { GoogleLogout } from "react-google-login";
+import SignOut from "./noteView/SignOut";
 
 const NoteView = ({
   id,
@@ -48,11 +42,11 @@ const NoteView = ({
   onSignOutSuccess,
   tagName,
   setTagName,
+  lastSaved,
   dp,
   userName,
   mail,
 }) => {
-  const [logoutStatus, setLogoutStatus] = useState(false);
   return (
     <div
       className={
@@ -73,68 +67,13 @@ const NoteView = ({
       {fullScreenStatus ? (
         ""
       ) : (
-        <div className='sign-out text-end mb-3'>
-          <div className='btn-group'>
-            <button
-              type='button'
-              className='btn shadow-none p-0'
-              // style={{ borderRadius: "100px", borderColor: "black" }}
-              data-bs-toggle='dropdown'
-              aria-expanded='false'
-              onMouseEnter={() => setLogoutStatus(false)}
-            >
-              <img
-                className='rounded-circle m-0'
-                style={{ maxWidth: "32px", height: "auto" }}
-                src={dp}
-                alt=''
-              />
-            </button>
-            <ul className='dropdown-menu p-0 mt-1'>
-              <li className='p-2'>
-                <div className='p-3 text-center'>
-                  <div className='p-2'>
-                    <img src={dp} className='rounded-circle m-0' alt='' />
-                  </div>
-                  <div>{userName}</div>
-                  <div className='small text-secondary p'>{mail}</div>
-                  <div className='pt-3'>
-                    <GoogleLogout
-                      className='google-logout dropdown-item'
-                      clientId={clientId}
-                      render={(renderProps) => (
-                        <button
-                          onClick={renderProps.onClick}
-                          onMouseEnter={() => {
-                            setLogoutStatus(true);
-                          }}
-                          onMouseLeave={() => setLogoutStatus(false)}
-                          style={{
-                            width: "100%",
-                            // border: "none",
-                            padding: "0.375rem 0",
-                            border: "1px solid #545151",
-                            borderRadius: "10px",
-                            color: logoutStatus ? "white" : "black",
-                            backgroundColor: logoutStatus
-                              ? "#545151"
-                              : "transparent",
-                          }}
-                        >
-                          Sign Out
-                        </button>
-                      )}
-                      buttonText='Sign Out'
-                      onLogoutSuccess={() => {
-                        onSignOutSuccess();
-                      }}
-                    ></GoogleLogout>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <SignOut
+          clientId={clientId}
+          onSignOutSuccess={onSignOutSuccess}
+          dp={dp}
+          userName={userName}
+          mail={mail}
+        />
       )}
       <ToolBar
         id={id}
@@ -204,6 +143,7 @@ const NoteView = ({
         setContentTitle={setContentTitle}
         setFullText={setFullText}
         fullScreenStatus={fullScreenStatus}
+        lastSaved={lastSaved}
       />
     </div>
   );

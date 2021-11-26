@@ -215,15 +215,15 @@ function fetchBookmarkedNotes(workspaceID) {
     handleResponse
   );
 }
-function fetchRecentNotes() {
+function fetchRecentNotes(wsID) {
   const requestOptions = {
-    method: "GET",
+    method: "PATCH",
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
       Authorization: `Bearer ${AT}`,
     },
-    // body: JSON.stringify({id:bookMark.id })
+    body: JSON.stringify({ wsID: wsID }),
   };
   return fetch("http://localhost:5000/api/get-recent", requestOptions).then(
     handleResponse

@@ -5,13 +5,7 @@ import "../../../styles/MenuBar.css";
 
 import { Scrollbars } from "react-custom-scrollbars";
 
-import { BiUser } from "react-icons/bi";
-import {
-  MdOutlineHome,
-  MdWorkOutline,
-  MdEventNote,
-  MdStarBorder,
-} from "react-icons/md";
+import { MdEventNote, MdStarBorder } from "react-icons/md";
 import { CgHashtag } from "react-icons/cg";
 import { IoIosAddCircle } from "react-icons/io";
 import { GiBackwardTime } from "react-icons/gi";
@@ -55,8 +49,6 @@ const NotesMenu = ({
     setStarStatus(false);
   };
 
-  console.log(notebooks);
-
   const handleGetNotebooks = (sWID, wID) => {
     getNotebooks(sWID, wID);
     setWorkspaceID(wID);
@@ -67,7 +59,6 @@ const NotesMenu = ({
     setStarredStatus(false);
     setRecentStatus(false);
   };
-  console.log(workspaceID);
 
   const getBookmarkNotes = (workspaceID) => {
     getAllBookmark(workspaceID);
@@ -96,6 +87,12 @@ const NotesMenu = ({
     }
   }, [workspace]);
 
+  useEffect(() => {
+    if (notebooks.length > 0) {
+      handleSelectNotebook(notebooks[0].name, notebooks[0].id);
+    }
+  }, [notebooks]);
+
   return (
     <div
       className='col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 pt-3'
@@ -113,17 +110,20 @@ const NotesMenu = ({
         <div className='menu ms-1'>
           <Scrollbars style={{ height: "75vh" }}>
             <div className='workspace'>
-              <p className='text-uppercase small'>workspace</p>
+              <p className='text-uppercase small' style={{ color: "#CECECE" }}>
+                workspace
+              </p>
               <ul className='list-unstyled'>
                 {workspace.map((ws) => (
                   <li className='d-flex align-items-center'>
                     {ws.icon}
                     <button
                       type='button'
-                      className='text-decoration-none text-dark p-0 border-0 bg-transparent'
+                      className='text-decoration-none p-0 border-0 bg-transparent'
                       onClick={() => handleGetNotebooks(ws.wsId_s, ws.wsID)}
                       style={{
-                        fontWeight: workspaceID === ws.wsID ? "600" : "400",
+                        fontWeight: "500",
+                        color: workspaceID === ws.wsID ? "#000000" : "#B4B4B4",
                       }}
                     >
                       {ws.name}
@@ -133,7 +133,12 @@ const NotesMenu = ({
               </ul>
             </div>
             <div className='notebook'>
-              <p className='text-uppercase small mt-4'>notebook</p>
+              <p
+                className='text-uppercase mt-4 small'
+                style={{ color: "#CECECE" }}
+              >
+                notebook
+              </p>
               <ul className='list-unstyled'>
                 {notebooks.map((notebook) => (
                   <li className='d-flex align-items-center position-relative'>
@@ -147,7 +152,8 @@ const NotesMenu = ({
                           setRecentStatus(false);
                         }}
                         style={{
-                          fontWeight: notebook.id === nbID ? "600" : "400",
+                          fontWeight: "500",
+                          color: notebook.id === nbID ? "#000000" : "#B4B4B4",
                           position: "absolute",
                           bottom: "0.5px",
                           textTransform: "capitalize",
@@ -180,19 +186,28 @@ const NotesMenu = ({
               <ul className='list-unstyled'>
                 <li className='mt-4 d-flex align-items-center'>
                   <CgHashtag className='me-3' size='1.3rem' />
-                  <a className='text-decoration-none text-dark'>Tags</a>
+                  <a
+                    className='text-decoration-none'
+                    style={{ color: "#B4B4B4", fontWeight: "500" }}
+                  >
+                    Tags
+                  </a>
                 </li>
                 <li className='d-flex align-items-center'>
                   <MdStarBorder className='me-3' size='1.3rem' />
                   <button
-                    className='text-decoration-none text-dark p-0 border-0 bg-transparent'
+                    className='text-decoration-none p-0 border-0 bg-transparent'
                     // onClick={getBookmarkNotes}
                     onClick={() => {
                       getBookmarkNotes(workspaceID);
                       setStarredStatus(true);
                       setRecentStatus(false);
+                      setNbID("");
                     }}
-                    style={{ fontWeight: starredStatus ? "600" : "400" }}
+                    style={{
+                      fontWeight: "500",
+                      color: starredStatus ? "#000000" : "#B4B4B4",
+                    }}
                   >
                     Starred
                   </button>
@@ -200,14 +215,18 @@ const NotesMenu = ({
                 <li className='d-flex align-items-center'>
                   <GiBackwardTime className='me-3' size='1.3rem' />
                   <button
-                    className='text-decoration-none text-dark p-0 border-0 bg-transparent'
+                    className='text-decoration-none p-0 border-0 bg-transparent'
                     // onClick={getAllRecentNotes}
                     onClick={() => {
-                      getAllRecentNotes();
+                      getAllRecentNotes(workspaceID);
                       setRecentStatus(true);
                       setStarredStatus(false);
+                      setNbID("");
                     }}
-                    style={{ fontWeight: recentStatus ? "600" : "400" }}
+                    style={{
+                      fontWeight: "500",
+                      color: recentStatus ? "#000000" : "#B4B4B4",
+                    }}
                   >
                     Recent
                   </button>
@@ -223,7 +242,7 @@ const NotesMenu = ({
                 onClick={() => handleNotebookStatus(true)}
               />
             </p>
-            <p className=''>New Notebook</p>
+            <p style={{ color: "#4F4F4F" }}>New Notebook</p>
           </div>
         </div>
       </div>

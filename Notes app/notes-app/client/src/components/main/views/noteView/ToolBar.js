@@ -81,6 +81,7 @@ function ToolBar({
       ) : (
         <div className='menu'>
           <IconButton
+            color='inherit'
             aria-label='more'
             id='long-button'
             aria-controls='long-menu'

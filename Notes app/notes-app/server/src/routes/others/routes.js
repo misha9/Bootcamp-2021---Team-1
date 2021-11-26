@@ -14,6 +14,10 @@ router.patch(
 //   authenticate.authenticateToken,
 //   controller.setWorkspace
 // );
-router.get("/get-recent", authenticate.authenticateToken, controller.getRecent);
+router.patch(
+  "/get-recent",
+  authenticate.authenticateToken,
+  controller.getRecent
+);
 
 module.exports = router;

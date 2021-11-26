@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 
 function SearchBar({ handleSearchNote }) {
   return (
-    <div>
+    <div className='small'>
       <FormControl
         variant='standard'
         sx={{

@@ -39,8 +39,10 @@ const getWorkspace = (req, res) => {
 };
 
 const getRecent = (req, res) => {
+  console.log(req.body.wsID, "In recent");
   pool.query(
-    "SELECT * FROM prev ORDER BY updated_date DESC LIMIT 10 ",
+    "SELECT * FROM prev where unique_id = $1 ORDER BY updated_date LIMIT 10",
+    [req.body.wsID],
     (error, results) => {
       if (error) throw error;
       res.status(200).json(results.rows);

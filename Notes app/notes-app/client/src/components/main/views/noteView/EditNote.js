@@ -4,6 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
+import moment from "moment";
 
 function EditNote({
   handleEditNote,
@@ -22,11 +23,12 @@ function EditNote({
   setContentTitle,
   setFullText,
   fullScreenStatus,
+  lastSave,
 }) {
   const handleSaveClick = () => {
     setEditStatus(false);
-    console.log(noteTitle.trim().length);
-    console.log(fullText.trim().length);
+    // console.log(noteTitle.trim().length);
+    // console.log(fullText.trim().length);
     // handleEditNote(id, noteTitle, noteText, notebookID);
     if (fullText.trim().length > 0) {
       handleEditNote(id, noteTitle, fullText, notebookID);
@@ -47,6 +49,19 @@ function EditNote({
       className='new m-auto'
       style={fullScreenStatus ? { width: "100%" } : { maxWidth: "600px" }}
     >
+      <div
+        className='bg-light p-2 mb-3 text-center'
+        style={{
+          maxWidth: "182px",
+          fontSize: "12px",
+          borderRadius: "50px",
+          color: "#9B9B9B",
+        }}
+      >
+        Last saved{" "}
+        {moment.utc(lastSave).local().startOf("seconds").fromNow().slice(0, -3)}{" "}
+        ago
+      </div>
       <EditorToolbar toolbarId={"t1"} />
 
       <div className='form-group mb-3 mt-3'>

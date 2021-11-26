@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "../../../styles/NotesList.css";
 
@@ -20,8 +20,18 @@ const NotesList = ({
   selectedNoteId,
   setSelectedNoteId,
   setFullTextStatus,
+  setLastSaved,
 }) => {
-  console.log(featureStatus, nbSelect);
+  console.log(notes);
+
+  // useEffect(() => {
+  //   if (notes.length > 0) {
+  //     setSelectedNoteId(notes[0].id);
+  //     getNoteID(notes[0].id);
+  //     // setSelectedNoteId(notes[0].id);
+  //   }
+  // }, [notes]);
+
   return (
     <div
       className='col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 pt-3 m-auto'
@@ -45,6 +55,7 @@ const NotesList = ({
                 onSelect={(id) => {
                   setSelectedNoteId(id);
                   getNoteID(id);
+                  setLastSaved(note.date);
                 }}
               />
             ))}
@@ -60,7 +71,12 @@ const NotesList = ({
               <div className='d-flex justify-content-between align-items-center'>
                 <h4
                   className='notebook'
-                  style={{ fontWeight: "600", textTransform: "capitalize" }}
+                  style={{
+                    fontWeight: "600",
+                    textTransform: "capitalize",
+                    color: "#161308",
+                    font: "normal normal bold 32px/43px Roboto",
+                  }}
                 >
                   {nbName}
                 </h4>

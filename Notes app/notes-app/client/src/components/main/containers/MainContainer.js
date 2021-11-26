@@ -46,6 +46,7 @@ const MainContainer = () => {
   const [workspace, setWorkspace] = useState([]);
   const [defaultWsID, setDefaultWsID] = useState("");
   const [tagName, setTagName] = useState("");
+  const [lastSaved, setLastSaved] = useState("");
   // const [tags, setTags] = useState("");
 
   const navigate = useNavigate();
@@ -67,7 +68,9 @@ const MainContainer = () => {
   const work = <MdWorkOutline className='me-3' size='1.3rem' />;
   const personal = <BiUser className='me-3' size='1.3rem' />;
   const home = <MdOutlineHome className='me-3' size='1.3rem' />;
+
   console.log(userID);
+
   const getAllWorkspace = (userID) => {
     console.log("Loaded notebook");
     const data = [];
@@ -220,9 +223,9 @@ const MainContainer = () => {
     });
   }
 
-  function getAllRecentNotes() {
+  function getAllRecentNotes(wsID) {
     const data = [];
-    APIService.fetchRecentNotes().then((res) => {
+    APIService.fetchRecentNotes(wsID).then((res) => {
       for (let j = 0; j < res.length; j++) {
         let newDate = formatDate(res[j].updated_date);
         data.push({
@@ -300,6 +303,9 @@ const MainContainer = () => {
           workspace={workspace}
           setDefaultWsID={setDefaultWsID}
           defaultWsID={defaultWsID}
+          setSelectedNoteId={setSelectedNoteId}
+          notes={notes}
+          getNoteID={getNoteID}
         />
         <NotesList
           notes={notes.filter((note) =>
@@ -315,6 +321,7 @@ const MainContainer = () => {
           selectedNoteId={selectedNoteId}
           setSelectedNoteId={setSelectedNoteId}
           setFullTextStatus={setFullTextStatus}
+          setLastSaved={setLastSaved}
         />
         <NoteView
           id={noteID}
@@ -351,6 +358,7 @@ const MainContainer = () => {
           onSignOutSuccess={onSignOutSuccess}
           tagName={tagName}
           setTagName={setTagName}
+          lastSaved={lastSaved}
           // tags={tags}
           // setTags={setTags}
           dp={dp}

@@ -93,7 +93,12 @@ function RightContent({
             : "d-flex justify-content-between ps-5"
         }
       >
-        <h2 className={fullScreenStatus ? "ps-1" : ""}>{contentTitle}</h2>
+        <h2
+          className={fullScreenStatus ? "ps-1" : ""}
+          style={{ color: "#161308", fontWeight: "600" }}
+        >
+          {contentTitle}
+        </h2>
         <div>
           <i
             className={`icon m-2 ${
@@ -106,8 +111,12 @@ function RightContent({
       <Scrollbars style={{ minHeight: "70vh" }}>
         <div className={fullScreenStatus ? "ps-2" : "mt-2 ps-5"}>
           <p
-            className='mt-3 pe-3'
-            style={fullScreenStatus ? { width: "auto" } : { maxWidth: "605px" }}
+            className='mt-3 pe-3 small'
+            style={
+              fullScreenStatus
+                ? { width: "auto", color: "#B5B5B5" }
+                : { maxWidth: "605px", color: "#B5B5B5" }
+            }
           >
             {ReactHtmlParser(fullText)}
           </p>
