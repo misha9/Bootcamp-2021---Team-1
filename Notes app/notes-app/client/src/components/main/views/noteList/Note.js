@@ -1,36 +1,34 @@
 import React from "react";
 import "../../../../styles/Note.css";
 
-import { MdDeleteForever } from "react-icons/md";
 import ReactHtmlParser from "react-html-parser";
 import moment from "moment";
 
 function Note({
-  notes,
   id,
   title,
   text,
   date,
-  handleDeleteNote,
   selected,
   onSelect,
-  tagNames,
+  tags,
+  setLastSaved,
 }) {
   // let newDate = moment(date).local().format("DD/MM/YYYY HH:mm:ss");
-  console.log(tagNames);
+  let lastSave = moment.utc(date).local().startOf("seconds").fromNow();
 
   return (
     <div
       className='note mb-3'
       onMouseEnter={() => {
         onSelect(id);
+        setLastSaved(lastSave);
       }}
     >
       <div
         className='card'
         style={{
           backgroundColor: selected ? "#ffab45" : "#FBFBFB",
-          // color: selected ? "#ffffff" : "#000000",
         }}
       >
         <div className='card-body pb-2'>
@@ -62,23 +60,21 @@ function Note({
           >
             {moment.utc(date).local().startOf("seconds").fromNow().slice(0, -3)}
           </p>
-          {/* <p
+          <p
             style={{
-              color: selected ? "#ffffff" : "#BEBEBE",
+              color: selected ? "#ffffff" : "#FFAB45",
               fontSize: "0.75rem",
               fontWeight: "500",
+              whiteSpace: "nowrap",
+              width: "75px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
-            {tagNames.map((tag) => (
-              <span>{tag.tagName}</span>
+            {tags.map((tag) => (
+              <span className='me-2'>#{tag}</span>
             ))}
-          </p> */}
-          {/* <MdDeleteForever
-            onClick={() => handleDeleteNote(id)}
-            className='delete-icon'
-            size='1.3rem'
-            style={{ color: selected ? "#ffffff" : "#BEBEBE" }}
-          /> */}
+          </p>
         </div>
       </div>
     </div>

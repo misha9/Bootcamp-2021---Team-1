@@ -50,6 +50,7 @@ const NoteView = ({
   setTags,
   getTagName,
   tagNames,
+  setTagNames,
 }) => {
   return (
     <div
@@ -112,6 +113,8 @@ const NoteView = ({
         fullScreenStatus={fullScreenStatus}
         getTagName={getTagName}
         tagNames={tagNames}
+        setTagNames={setTagNames}
+        workspaceID={workspaceID}
       />
       <AddNote
         addNoteStatus={addNoteStatus}
@@ -156,6 +159,7 @@ const NoteView = ({
         tags={tags}
         setTags={setTags}
         tagNames={tagNames}
+        setTagNames={setTagNames}
       />
     </div>
   );

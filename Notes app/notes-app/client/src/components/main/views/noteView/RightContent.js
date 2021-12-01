@@ -24,6 +24,8 @@ function RightContent({
   fullScreenStatus,
   getTagName,
   tagNames,
+  setTagNames,
+  workspaceID,
 }) {
   const bookmarkChangeHandler = () => {
     setBookmarkStatus(!bookmarkStatus);
@@ -78,10 +80,11 @@ function RightContent({
     APIService.addBookmark(id, bookmarkStatus);
     if (starStatus === true) {
       setTimeout(() => {
-        getAllBookmark();
-        setFullText("");
-        setContentTitle("");
-      }, 250);
+        setFullTextStatus(false);
+        getAllBookmark(workspaceID);
+        // setFullText("");
+        // setContentTitle("");
+      }, 100);
     }
   }, [bookmarkStatus]);
 
@@ -112,7 +115,7 @@ function RightContent({
         </div>
       </div>
       <div
-        className='ps-5'
+        className={fullScreenStatus ? "ps-2" : "ps-5"}
         style={{ color: "#FFAB45", fontSize: "0.75rem", fontWeight: "500" }}
       >
         {tagNames.map((tag) => (

@@ -3,18 +3,19 @@ import Chip from "@mui/material/Chip";
 import TagOption from "./TagOption";
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 
-function EditTags({ tags, setTags, tagNames }) {
+function EditTags({ tags, setTags, tagNames, setTagNames }) {
   const [tagStatus, setTagStatus] = useState(false);
   const removeTags = (indexToRemove) => {
-    setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+    setTagNames([...tagNames.filter((_, index) => index !== indexToRemove)]);
   };
   console.log(tagNames);
   const handleTag = (e) => {
-    let obj = { id: Date.now(), name: e.target.value };
-    setTags([...tags, obj]);
+    let obj = { tagName: e.target.value.replace(/ +/g, "") };
+    console.log(e.target.value);
+    setTagNames([...tagNames, obj]);
     setTagStatus(false);
   };
-  console.log(tags);
+  //   console.log(tags);
   return (
     <div className='tag-area d-flex align-items-center'>
       <div className='d-flex align-items-center'>

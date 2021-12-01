@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "../../../styles/NotesList.css";
 
 import Note from "./noteList/Note";
 import SearchBar from "./noteList/SearchBar";
 import { Scrollbars } from "react-custom-scrollbars";
-
 import { IoIosAdd } from "react-icons/io";
 
 const NotesList = ({
@@ -57,9 +56,9 @@ const NotesList = ({
                 onSelect={(id) => {
                   setSelectedNoteId(id);
                   getNoteID(id);
-                  setLastSaved(note.date);
                 }}
-                // tagNames={tagNames}
+                tags={note.tags}
+                setLastSaved={setLastSaved}
               />
             ))}
           </div>
@@ -112,6 +111,8 @@ const NotesList = ({
                     setSelectedNoteId(id);
                     getNoteID(id);
                   }}
+                  tags={note.tags}
+                  setLastSaved={setLastSaved}
                 />
               ))}
             </div>

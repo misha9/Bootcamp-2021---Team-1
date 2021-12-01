@@ -15,6 +15,12 @@ const getNotes = (req, res) => {
 
 const addNote = (req, res) => {
   console.log(req.body, "adding a note");
+  const tagArr = [];
+  console.log(req.body.tags[0].name, "tag names");
+  for (let i = 0; i < req.body.tags.length; i++) {
+    tagArr.push(req.body.tags[i].name);
+  }
+  console.log(tagArr);
   let nID = Date.now();
   pool.query(
     "INSERT INTO note (n_id, title, note_content, note_date, nb_id, unique_id, bookmark, updated_date) VALUES ($1,$2, $3, $4, $5, $6, false, $4)",
@@ -29,24 +35,24 @@ const addNote = (req, res) => {
     (error, results) => {
       if (error) throw error;
       console.log("Note added");
-      req.body.tags.map((tag) => {
-        pool.query(
-          "INSERT INTO tag (t_id, name) VALUES ($1, $2)",
-          [tag.id, tag.name],
-          (error, results) => {
-            if (error) throw error;
-            console.log("tag added");
-            pool.query(
-              "INSERT INTO tag_note (t_id, n_id) VALUES ($1, $2)",
-              [tag.id, nID],
-              (error, results) => {
-                if (error) throw error;
-                console.log("tag added to note");
-              }
-            );
-          }
-        );
-      });
+      pool.query(
+        "INSERT INTO tag (n_id, t_name) VALUES ($1, $2)",
+        [nID, tagArr],
+        (error, results) => {
+          if (error) throw error;
+          console.log("tag added");
+        }
+      );
+      // req.body.tags.map((tag) => {
+      //   pool.query(
+      //     "INSERT INTO tag (n_id, t_name) VALUES ($1, $2)",
+      //     [nID, tag.name],
+      //     (error, results) => {
+      //       if (error) throw error;
+      //       console.log("tag added");
+      //     }
+      //   );
+      // });
       res.status(200).send("Note added successfully");
     }
   );
@@ -54,6 +60,10 @@ const addNote = (req, res) => {
 
 const editNote = (req, res) => {
   console.log(req.body, "Editing");
+  const tagArr = [];
+  for (let i = 0; i < req.body.tags.length; i++) {
+    tagArr.push(req.body.tags[i].tagName);
+  }
   pool.query(
     "UPDATE note SET title = $1, note_content = $2, updated_date = $3 WHERE n_id = $4",
     [
@@ -64,6 +74,14 @@ const editNote = (req, res) => {
     ],
     (error, results) => {
       if (error) throw error;
+      pool.query(
+        "UPDATE tag SET t_name = $1 where n_id=$2",
+        [tagArr, req.body.noteID],
+        (error, results) => {
+          if (error) throw error;
+          console.log("tag added");
+        }
+      );
       res.status(200).send("Note updated successfully");
       console.log("Note updated");
     }
@@ -74,7 +92,7 @@ const deleteNote = (req, res) => {
   console.log(req.body, "delete-body");
   const id = req.body.id;
   console.log(id);
-  pool.query("delete from note where n_id = $1", [id], (error, results) => {
+  pool.query("call delete_note($1)", [id], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
     console.log("Deleted a note");

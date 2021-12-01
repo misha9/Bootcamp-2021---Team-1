@@ -186,6 +186,7 @@ function editNote(newNote) {
       title: newNote.title,
       note_content: newNote.text,
       update_date: newNote.date,
+      tags: newNote.tags,
     }),
   };
   return fetch("http://localhost:5000/api/edit-note", requestOptions);

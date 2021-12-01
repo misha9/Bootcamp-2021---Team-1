@@ -16,7 +16,7 @@ const addTag = (req, res) => {
 const getTagName = (req, res) => {
   console.log("request for tags", req.body);
   pool.query(
-    "SELECT name FROM tag INNER JOIN tag_note ON tag.t_id = tag_note.t_id INNER JOIN note ON tag_note.n_id = note.n_id where tag_note.n_id=$1",
+    "SELECT t_name FROM tag where n_id=$1",
     [req.body.note_id],
     (error, results) => {
       if (error) throw error;

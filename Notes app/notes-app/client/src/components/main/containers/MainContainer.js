@@ -139,6 +139,7 @@ const MainContainer = () => {
     console.log("Loaded", id);
     const data = [];
     APIService.fetchNotes(id).then((res) => {
+      console.log(res);
       for (let i = 0; i < res.length; i++) {
         let newDate = formatDate(res[i].updated_date);
 
@@ -147,6 +148,7 @@ const MainContainer = () => {
           title: res[i].title,
           text: res[i].sub,
           date: newDate,
+          tags: res[i].t_name,
         });
       }
       setNotes(data);
@@ -183,7 +185,7 @@ const MainContainer = () => {
     setFullTextStatus(false);
   };
 
-  const editNote = (id, title, text, nbID) => {
+  const editNote = (id, title, text, nbID, tags) => {
     const date = new Date();
     const newNote = {
       noteID: id,
@@ -191,6 +193,7 @@ const MainContainer = () => {
       text: text,
       // date: date.toLocaleDateString(),
       date: moment(date).utc().format("YYYY-MM-DD HH:mm:ss"),
+      tags: tags,
     };
     console.log(newNote);
     APIService.editNote(newNote).then(
@@ -218,6 +221,7 @@ const MainContainer = () => {
           title: res[i].title,
           text: res[i].sub,
           date: newDate,
+          tags: res[i].t_name,
         });
         console.log(res[0].n_id);
       }
@@ -235,9 +239,10 @@ const MainContainer = () => {
           title: res[j].title,
           text: res[j].sub,
           date: newDate,
+          tags: res[j].t_name,
         });
-        console.log(res[0].n_id);
       }
+      console.log(data);
       setNotes(data);
       setNbSelect(false);
       setFeatureStatus(true);
@@ -260,8 +265,9 @@ const MainContainer = () => {
     console.log("getting tag name");
     const data = [];
     APIService.fetchTags(id).then((res) => {
-      for (let i = 0; i < res.length; i++) {
-        data.push({ tagName: res[i].name });
+      console.log(res[0].t_name.length);
+      for (let i = 0; i < res[0].t_name.length; i++) {
+        data.push({ tagName: res[0].t_name[i] });
       }
       console.log(data);
       setTagNames(data);
@@ -393,6 +399,7 @@ const MainContainer = () => {
           setTags={setTags}
           getTagName={getTagName}
           tagNames={tagNames}
+          setTagNames={setTagNames}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}

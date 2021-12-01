@@ -24,19 +24,21 @@ function EditNote({
   setContentTitle,
   setFullText,
   fullScreenStatus,
-  lastSave,
+  lastSaved,
   tags,
   setTags,
   tagNames,
+  setTagNames,
 }) {
   console.log(tagNames);
+  console.log(lastSaved);
   const handleSaveClick = () => {
     setEditStatus(false);
     // console.log(noteTitle.trim().length);
     // console.log(fullText.trim().length);
     // handleEditNote(id, noteTitle, noteText, notebookID);
     if (fullText.trim().length > 0) {
-      handleEditNote(id, noteTitle, fullText, notebookID);
+      handleEditNote(id, noteTitle, fullText, notebookID, tagNames);
     }
     // else if (noteTitle.trim().length > 0) {
     //   handleEditNote(id, noteTitle, noteText, notebookID);
@@ -63,9 +65,7 @@ function EditNote({
           color: "#9B9B9B",
         }}
       >
-        Last saved{" "}
-        {moment.utc(lastSave).local().startOf("seconds").fromNow().slice(0, -3)}{" "}
-        ago
+        Last saved {lastSaved}
       </div>
       <EditorToolbar toolbarId={"t1"} />
 
@@ -101,6 +101,7 @@ function EditNote({
         setTags={setTags}
         editStatus={editStatus}
         tagNames={tagNames}
+        setTagNames={setTagNames}
       />
       <div className='text-end'>
         <button className='save btn btn-dark mt-3' onClick={handleSaveClick}>
