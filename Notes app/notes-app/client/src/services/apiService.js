@@ -14,6 +14,7 @@ export const APIService = {
   addBookmark,
   editNote,
   loginAccess,
+  fetchTags,
   // setWorkspace,
 };
 
@@ -165,6 +166,7 @@ function addNewNote(newNote) {
       note_date: newNote.date,
       nb_id: newNote.nbID,
       ws_id: newNote.wsID,
+      tags: newNote.tags,
     }),
   };
   return fetch("http://localhost:5000/api/add-notes", requestOptions);
@@ -249,7 +251,6 @@ function addBookmark(id, bookMarkStatus) {
     id: id,
     flag: bookMarkStatus,
   };
-
   const requestOptions = {
     method: "POST",
     headers: {
@@ -260,6 +261,20 @@ function addBookmark(id, bookMarkStatus) {
     body: JSON.stringify({ id: markBookmark.id, flag: markBookmark.flag }),
   };
   fetch("http://localhost:5000/api/add-bookmark", requestOptions);
+}
+
+function fetchTags(id) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    body: JSON.stringify({ note_id: id }),
+  };
+  return fetch("http://localhost:5000/api/get-tags", requestOptions).then(
+    handleResponse
+  );
 }
 
 function handleResponse(response) {

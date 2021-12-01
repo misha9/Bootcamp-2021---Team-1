@@ -22,6 +22,8 @@ function RightContent({
   starStatus,
   setContentTitle,
   fullScreenStatus,
+  getTagName,
+  tagNames,
 }) {
   const bookmarkChangeHandler = () => {
     setBookmarkStatus(!bookmarkStatus);
@@ -61,6 +63,7 @@ function RightContent({
   useEffect(() => {
     if (id) {
       getFullContent(id);
+      getTagName(id);
       setFullTextStatus(true);
     }
   }, [id]);
@@ -107,6 +110,14 @@ function RightContent({
             onClick={bookmarkChangeHandler}
           ></i>
         </div>
+      </div>
+      <div
+        className='ps-5'
+        style={{ color: "#FFAB45", fontSize: "0.75rem", fontWeight: "500" }}
+      >
+        {tagNames.map((tag) => (
+          <span className='me-2'>#{tag.tagName}</span>
+        ))}
       </div>
       <Scrollbars style={{ minHeight: "70vh" }}>
         <div className={fullScreenStatus ? "ps-2" : "mt-2 ps-5"}>

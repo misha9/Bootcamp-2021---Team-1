@@ -14,10 +14,12 @@ const getNotes = (req, res) => {
 };
 
 const addNote = (req, res) => {
-  console.log(req.body, "body");
+  console.log(req.body, "adding a note");
+  let nID = Date.now();
   pool.query(
-    "INSERT INTO note (title, note_content, note_date, nb_id, unique_id, bookmark, updated_date) VALUES ($1, $2, $3, $4, $5, false, $3)",
+    "INSERT INTO note (n_id, title, note_content, note_date, nb_id, unique_id, bookmark, updated_date) VALUES ($1,$2, $3, $4, $5, $6, false, $4)",
     [
+      nID,
       req.body.title,
       req.body.note_content,
       req.body.note_date,
@@ -26,8 +28,26 @@ const addNote = (req, res) => {
     ],
     (error, results) => {
       if (error) throw error;
-      res.status(200).send("Note added successfully");
       console.log("Note added");
+      req.body.tags.map((tag) => {
+        pool.query(
+          "INSERT INTO tag (t_id, name) VALUES ($1, $2)",
+          [tag.id, tag.name],
+          (error, results) => {
+            if (error) throw error;
+            console.log("tag added");
+            pool.query(
+              "INSERT INTO tag_note (t_id, n_id) VALUES ($1, $2)",
+              [tag.id, nID],
+              (error, results) => {
+                if (error) throw error;
+                console.log("tag added to note");
+              }
+            );
+          }
+        );
+      });
+      res.status(200).send("Note added successfully");
     }
   );
 };

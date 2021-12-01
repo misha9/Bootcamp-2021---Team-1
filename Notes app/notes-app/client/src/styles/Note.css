@@ -6,6 +6,10 @@
   border: none;
 }
 
+.note .card:hover {
+  cursor: pointer;
+}
+
 .card-text {
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ToolBar from "./noteView/ToolBar";
 import RightContent from "./noteView/RightContent";
@@ -40,12 +40,16 @@ const NoteView = ({
   fullScreenStatus,
   clientId,
   onSignOutSuccess,
-  tagName,
-  setTagName,
   lastSaved,
   dp,
   userName,
   mail,
+  handleDeleteNote,
+  handleAddTag,
+  tags,
+  setTags,
+  getTagName,
+  tagNames,
 }) => {
   return (
     <div
@@ -82,6 +86,10 @@ const NoteView = ({
         setFullTextStatus={setFullTextStatus}
         setFullScreenStatus={setFullScreenStatus}
         fullScreenStatus={fullScreenStatus}
+        handleDeleteNote={handleDeleteNote}
+        getTagName={getTagName}
+        setTags={setTags}
+        tagNames={tagNames}
       />
       <RightContent
         id={id}
@@ -102,6 +110,8 @@ const NoteView = ({
         starStatus={starStatus}
         setContentTitle={setContentTitle}
         fullScreenStatus={fullScreenStatus}
+        getTagName={getTagName}
+        tagNames={tagNames}
       />
       <AddNote
         addNoteStatus={addNoteStatus}
@@ -117,10 +127,9 @@ const NoteView = ({
         setNoteTitle={setNoteTitle}
         noteTitle={noteTitle}
         fullScreenStatus={fullScreenStatus}
-        tagName={tagName}
-        setTagName={setTagName}
-        // tags={tags}
-        // setTags={setTags}
+        handleAddTag={handleAddTag}
+        tags={tags}
+        setTags={setTags}
       />
       <EditNote
         notebookID={notebookID}
@@ -144,6 +153,9 @@ const NoteView = ({
         setFullText={setFullText}
         fullScreenStatus={fullScreenStatus}
         lastSaved={lastSaved}
+        tags={tags}
+        setTags={setTags}
+        tagNames={tagNames}
       />
     </div>
   );

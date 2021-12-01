@@ -40,6 +40,7 @@ const NotesMenu = ({
 }) => {
   const [starredStatus, setStarredStatus] = useState(false);
   const [recentStatus, setRecentStatus] = useState(false);
+  const [tagStatus, setTagStatus] = useState(false);
   const handleSelectNotebook = (name, id) => {
     getNotes(id);
     setNbName(name);
@@ -150,6 +151,7 @@ const NotesMenu = ({
                           handleSelectNotebook(notebook.name, notebook.id);
                           setStarredStatus(false);
                           setRecentStatus(false);
+                          setTagStatus(false);
                         }}
                         style={{
                           fontWeight: "500",
@@ -186,12 +188,21 @@ const NotesMenu = ({
               <ul className='list-unstyled'>
                 <li className='mt-4 d-flex align-items-center'>
                   <CgHashtag className='me-3' size='1.3rem' />
-                  <a
-                    className='text-decoration-none'
-                    style={{ color: "#B4B4B4", fontWeight: "500" }}
+                  <button
+                    className='text-decoration-none p-0 border-0 bg-transparent'
+                    style={{
+                      fontWeight: "500",
+                      color: tagStatus ? "#000000" : "#B4B4B4",
+                    }}
+                    onClick={() => {
+                      setStarredStatus(false);
+                      setRecentStatus(false);
+                      setTagStatus(true);
+                      setNbID("");
+                    }}
                   >
                     Tags
-                  </a>
+                  </button>
                 </li>
                 <li className='d-flex align-items-center'>
                   <MdStarBorder className='me-3' size='1.3rem' />
@@ -202,6 +213,7 @@ const NotesMenu = ({
                       getBookmarkNotes(workspaceID);
                       setStarredStatus(true);
                       setRecentStatus(false);
+                      setTagStatus(false);
                       setNbID("");
                     }}
                     style={{
@@ -221,6 +233,7 @@ const NotesMenu = ({
                       getAllRecentNotes(workspaceID);
                       setRecentStatus(true);
                       setStarredStatus(false);
+                      setTagStatus(false);
                       setNbID("");
                     }}
                     style={{

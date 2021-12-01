@@ -17,6 +17,7 @@ function ToolBar({
   setFullTextStatus,
   fullScreenStatus,
   setFullScreenStatus,
+  handleDeleteNote,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -31,6 +32,9 @@ function ToolBar({
     if (option === "Edit note") {
       setEditStatus(true);
       setFullTextStatus(false);
+      handleClose();
+    } else if (option === "Delete note") {
+      handleDeleteNote(id);
       handleClose();
     }
   }

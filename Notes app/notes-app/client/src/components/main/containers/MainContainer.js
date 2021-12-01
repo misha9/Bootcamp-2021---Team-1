@@ -45,9 +45,9 @@ const MainContainer = () => {
   const [fullScreenStatus, setFullScreenStatus] = useState(false);
   const [workspace, setWorkspace] = useState([]);
   const [defaultWsID, setDefaultWsID] = useState("");
-  const [tagName, setTagName] = useState("");
   const [lastSaved, setLastSaved] = useState("");
-  // const [tags, setTags] = useState("");
+  const [tags, setTags] = useState([]);
+  const [tagNames, setTagNames] = useState([]);
 
   const navigate = useNavigate();
 
@@ -153,7 +153,7 @@ const MainContainer = () => {
     });
   };
 
-  const addNote = (title, text, nbID, wsID) => {
+  const addNote = (title, text, nbID, wsID, tags) => {
     const date = new Date();
     const newNote = {
       title: title,
@@ -162,10 +162,12 @@ const MainContainer = () => {
       date: moment(date).utc().format("YYYY-MM-DD HH:mm:ss"),
       nbID: nbID,
       wsID: wsID,
+      tags: tags,
     };
     APIService.addNewNote(newNote).then(
       setTimeout(() => {
         getAllNotes(nbID);
+        setTags("");
       }, 150)
     );
   };
@@ -242,6 +244,29 @@ const MainContainer = () => {
       setStarStatus(false);
     });
   }
+
+  const addTag = (tags) => {
+    // console.log(tags);
+    console.log(tags);
+    // APIService.insertTag(name);
+    // .then
+    // // setTimeout(() => {
+    // //   getAllNotebooks(defaultWsID, wsID);
+    // // }, 150)
+    // ();
+  };
+
+  const getTagName = (id) => {
+    console.log("getting tag name");
+    const data = [];
+    APIService.fetchTags(id).then((res) => {
+      for (let i = 0; i < res.length; i++) {
+        data.push({ tagName: res[i].name });
+      }
+      console.log(data);
+      setTagNames(data);
+    });
+  };
 
   const getNoteID = (id) => {
     setNoteID(id);
@@ -322,6 +347,8 @@ const MainContainer = () => {
           setSelectedNoteId={setSelectedNoteId}
           setFullTextStatus={setFullTextStatus}
           setLastSaved={setLastSaved}
+          tagNames={tagNames}
+          getTagName={getTagName}
         />
         <NoteView
           id={noteID}
@@ -356,14 +383,16 @@ const MainContainer = () => {
           fullScreenStatus={fullScreenStatus}
           clientId={clientId}
           onSignOutSuccess={onSignOutSuccess}
-          tagName={tagName}
-          setTagName={setTagName}
           lastSaved={lastSaved}
-          // tags={tags}
-          // setTags={setTags}
+          handleDeleteNote={deleteNote}
+          handleAddTag={addTag}
           dp={dp}
           userName={userName}
           mail={mail}
+          tags={tags}
+          setTags={setTags}
+          getTagName={getTagName}
+          tagNames={tagNames}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}

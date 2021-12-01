@@ -5,6 +5,7 @@ import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
 import moment from "moment";
+import EditTags from "./EditTags";
 
 function EditNote({
   handleEditNote,
@@ -24,7 +25,11 @@ function EditNote({
   setFullText,
   fullScreenStatus,
   lastSave,
+  tags,
+  setTags,
+  tagNames,
 }) {
+  console.log(tagNames);
   const handleSaveClick = () => {
     setEditStatus(false);
     // console.log(noteTitle.trim().length);
@@ -91,7 +96,12 @@ function EditNote({
           defaultValue={fullText}
         />
       </Scrollbars>
-
+      <EditTags
+        tags={tags}
+        setTags={setTags}
+        editStatus={editStatus}
+        tagNames={tagNames}
+      />
       <div className='text-end'>
         <button className='save btn btn-dark mt-3' onClick={handleSaveClick}>
           Save

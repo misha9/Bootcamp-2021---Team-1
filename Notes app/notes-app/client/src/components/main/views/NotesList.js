@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../../../styles/NotesList.css";
 
@@ -21,8 +21,10 @@ const NotesList = ({
   setSelectedNoteId,
   setFullTextStatus,
   setLastSaved,
+  tagNames,
 }) => {
-  console.log(notes);
+  console.log(tagNames);
+  // const [noteTag, setNoteTag] = useState([]);
 
   // useEffect(() => {
   //   if (notes.length > 0) {
@@ -57,6 +59,7 @@ const NotesList = ({
                   getNoteID(id);
                   setLastSaved(note.date);
                 }}
+                // tagNames={tagNames}
               />
             ))}
           </div>

@@ -14,9 +14,10 @@ function Note({
   handleDeleteNote,
   selected,
   onSelect,
+  tagNames,
 }) {
-  let newDate = moment(date).local().format("DD/MM/YYYY HH:mm:ss");
-  console.log(notes);
+  // let newDate = moment(date).local().format("DD/MM/YYYY HH:mm:ss");
+  console.log(tagNames);
 
   return (
     <div
@@ -61,12 +62,23 @@ function Note({
           >
             {moment.utc(date).local().startOf("seconds").fromNow().slice(0, -3)}
           </p>
-          <MdDeleteForever
+          {/* <p
+            style={{
+              color: selected ? "#ffffff" : "#BEBEBE",
+              fontSize: "0.75rem",
+              fontWeight: "500",
+            }}
+          >
+            {tagNames.map((tag) => (
+              <span>{tag.tagName}</span>
+            ))}
+          </p> */}
+          {/* <MdDeleteForever
             onClick={() => handleDeleteNote(id)}
             className='delete-icon'
             size='1.3rem'
             style={{ color: selected ? "#ffffff" : "#BEBEBE" }}
-          />
+          /> */}
         </div>
       </div>
     </div>

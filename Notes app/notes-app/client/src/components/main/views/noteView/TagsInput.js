@@ -7,6 +7,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import TextField from "@mui/material/TextField";
 import { APIService } from "../../../../services/apiService";
+import OutlinedInput from "@mui/material/OutlinedInput";
 
 const TagsInput = (props) => {
   const [tags, setTags] = React.useState(props.tags);

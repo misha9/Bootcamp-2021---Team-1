@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
-import TagsInput from "./TagsInput";
+import TagInput from "./TagInput";
 
 function AddNote({
   handleAddNote,
@@ -18,11 +18,9 @@ function AddNote({
   setNoteTitle,
   noteTitle,
   fullScreenStatus,
-  tagName,
-  setTagName,
+  tags,
+  setTags,
 }) {
-  console.log(addNoteStatus);
-
   const handleChange = (value) => {
     setNoteText(value);
     console.log(value);
@@ -31,17 +29,26 @@ function AddNote({
   const handleSaveClick = () => {
     handleAddNoteStatus(false);
     if (noteText.trim().length > 0) {
-      handleAddNote(noteTitle, noteText, notebookID, workspaceID);
+      handleAddNote(noteTitle, noteText, notebookID, workspaceID, tags);
     }
     console.log(noteText);
     setSaveStatus(true);
   };
 
-  const selectedTags = (tags) => {
-    console.log(tags);
-  };
+  // const selectedTags = (tags) => {
+  //   console.log(tags);
+  // };
 
   console.log(addNoteStatus);
+
+  // useEffect(() => {
+  //   if (addNoteStatus) {
+  //     if (noteText.trim().length > 0) {
+  //       handleAddNote(noteTitle, noteText, notebookID, workspaceID);
+  //     }
+  //     setSaveStatus(true);
+  //   }
+  // }, []);
 
   return addNoteStatus ? (
     <div
@@ -61,14 +68,14 @@ function AddNote({
           onChange={(e) => setNoteTitle(e.target.value)}
         />
       </div>
-      <TagsInput
+      {/* <TagsInput
         selectedTags={selectedTags}
         tags={[]}
         // tags={tags}
         // setTags={setTags}
         tagName={tagName}
         setTagName={setTagName}
-      />
+      /> */}
       <Scrollbars style={{ minHeight: "33vh" }}>
         <ReactQuill
           placeholder={"Type content here..."}
@@ -78,6 +85,7 @@ function AddNote({
           style={{ border: "none" }}
         />
       </Scrollbars>
+      <TagInput tags={tags} setTags={setTags} />
 
       <div className='text-end'>
         <button className='save btn btn-dark mt-3' onClick={handleSaveClick}>
