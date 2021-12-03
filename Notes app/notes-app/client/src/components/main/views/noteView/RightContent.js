@@ -19,7 +19,8 @@ function RightContent({
   setFullTextStatus,
   getFullContent,
   contentTitle,
-  starStatus,
+  // starStatus,
+  starredStatus,
   setContentTitle,
   fullScreenStatus,
   getTagName,
@@ -78,7 +79,7 @@ function RightContent({
 
   useEffect(() => {
     APIService.addBookmark(id, bookmarkStatus);
-    if (starStatus === true) {
+    if (starredStatus === true) {
       setTimeout(() => {
         setFullTextStatus(false);
         getAllBookmark(workspaceID);

@@ -1,10 +1,9 @@
 import React from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import "../../../../styles/quill.snow.css";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
-import moment from "moment";
 import EditTags from "./EditTags";
 
 function EditNote({
@@ -53,7 +52,7 @@ function EditNote({
 
   return editStatus ? (
     <div
-      className='new m-auto'
+      className='new m-auto ps-3'
       style={fullScreenStatus ? { width: "100%" } : { maxWidth: "600px" }}
     >
       <div

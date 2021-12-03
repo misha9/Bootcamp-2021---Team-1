@@ -33,7 +33,8 @@ const NoteView = ({
   setNoteTitle,
   noteTitle,
   contentTitle,
-  starStatus,
+  // starStatus,
+  starredStatus,
   setContentTitle,
   handleEditNote,
   setFullScreenStatus,
@@ -91,6 +92,8 @@ const NoteView = ({
         getTagName={getTagName}
         setTags={setTags}
         tagNames={tagNames}
+        addNoteStatus={addNoteStatus}
+        editStatus={editStatus}
       />
       <RightContent
         id={id}
@@ -108,7 +111,8 @@ const NoteView = ({
         setFullTextStatus={setFullTextStatus}
         getFullContent={getFullContent}
         contentTitle={contentTitle}
-        starStatus={starStatus}
+        // starStatus={starStatus}
+        starredStatus={starredStatus}
         setContentTitle={setContentTitle}
         fullScreenStatus={fullScreenStatus}
         getTagName={getTagName}

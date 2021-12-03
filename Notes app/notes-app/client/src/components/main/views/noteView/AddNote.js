@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import "../../../../styles/quill.snow.css";
 import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
@@ -52,7 +52,7 @@ function AddNote({
 
   return addNoteStatus ? (
     <div
-      className='new m-auto p-2'
+      className='new m-auto p-2 ps-3'
       style={fullScreenStatus ? { width: "auto" } : { maxWidth: "600px" }}
     >
       <EditorToolbar toolbarId={"t1"} />
@@ -76,7 +76,7 @@ function AddNote({
         tagName={tagName}
         setTagName={setTagName}
       /> */}
-      <Scrollbars style={{ minHeight: "33vh" }}>
+      <Scrollbars style={{ minHeight: "45vh" }}>
         <ReactQuill
           placeholder={"Type content here..."}
           onChange={handleChange}

@@ -97,31 +97,6 @@ export const QuillToolbar = (props) => {
       {props.toolbarId !== undefined && (
         <div id={props.toolbarId}>
           <span className='ql-formats'>
-            <button className='ql-bold' />
-            <button className='ql-italic' />
-            <button className='ql-underline' />
-            <button className='ql-strike' />
-          </span>
-          <span className='ql-formats'>
-            <select className='ql-font'>
-              <option value='arial'> Arial </option>
-              <option value='comic-sans'>Comic Sans</option>
-              <option value='courier-new'>Courier New</option>
-              <option value='georgia'>Georgia</option>
-              <option value='helvetica'>Helvetica</option>
-              <option value='Inter' selected>
-                Inter
-              </option>
-              <option value='lucida'>Lucida</option>
-            </select>
-            <select className='ql-size'>
-              <option value='extra-small'>Extra Small</option>
-              <option value='small'>Small</option>
-              <option value='medium' selected>
-                Medium
-              </option>
-              <option value='large'>Large</option>
-            </select>
             <select className='ql-header'>
               <option value='1'>Heading 1</option>
               <option value='2'>Heading 2</option>
@@ -133,24 +108,61 @@ export const QuillToolbar = (props) => {
                 Normal
               </option>
             </select>
+            <select className='ql-font'>
+              <option value='arial'> Arial </option>
+              <option value='comic-sans'>Comic Sans</option>
+              <option value='courier-new'>Courier New</option>
+              <option value='georgia'>Georgia</option>
+              <option value='helvetica'>Helvetica</option>
+              <option value='Inter' selected>
+                Inter
+              </option>
+              <option value='lucida'>Lucida</option>
+            </select>
+            {/* <select className='ql-size'>
+              <option value='extra-small'>Extra Small</option>
+              <option value='small'>Small</option>
+              <option value='medium' selected>
+                Medium
+              </option>
+              <option value='large'>Large</option>
+            </select> */}
           </span>
+          <span className='ql-formats'>
+            <button className='ql-bold' />
+            <button className='ql-italic' />
+            <button className='ql-underline' />
+            {/* <button className='ql-strike' /> */}
+          </span>
+
           <span className='ql-formats'>
             <button className='ql-list' value='ordered' />
             <button className='ql-list' value='bullet' />
-            <button className='ql-indent' value='-1' />
-            <button className='ql-indent' value='+1' />
+            <span className='ql-formats'>
+              <select
+                className='ql-align'
+                style={{
+                  position: "relative",
+                  bottom: "3px",
+                }}
+              />
+              {/* <select className='ql-color' />
+              <select className='ql-background' /> */}
+            </span>
+            {/* <button className='ql-indent' value='-1' />
+            <button className='ql-indent' value='+1' /> */}
           </span>
-          <span className='ql-formats'>
+          {/* <span className='ql-formats'>
             <button className='ql-script' value='super' />
             <button className='ql-script' value='sub' />
             <button className='ql-blockquote' />
             <button className='ql-direction' />
-          </span>
-          <span className='ql-formats'>
+          </span> */}
+          {/* <span className='ql-formats'>
             <select className='ql-align' />
             <select className='ql-color' />
             <select className='ql-background' />
-          </span>
+          </span> */}
           <span className='ql-formats'>
             <button className='ql-link' />
             <button className='ql-image' />
@@ -161,14 +173,14 @@ export const QuillToolbar = (props) => {
             <button className='ql-code-block' />
             <button className='ql-clean' />
           </span>
-          <span className='ql-formats'>
+          {/* <span className='ql-formats'>
             <button className='ql-undo'>
               <CustomUndo />
             </button>
             <button className='ql-redo'>
               <CustomRedo />
             </button>
-          </span>
+          </span> */}
         </div>
       )}
     </>

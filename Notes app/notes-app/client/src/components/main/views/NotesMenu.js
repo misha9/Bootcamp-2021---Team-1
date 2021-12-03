@@ -37,10 +37,13 @@ const NotesMenu = ({
   workspace,
   setDefaultWsID,
   defaultWsID,
+  starredStatus,
+  setStarredStatus,
+  recentStatus,
+  setRecentStatus,
+  tagStatus,
+  setTagStatus,
 }) => {
-  const [starredStatus, setStarredStatus] = useState(false);
-  const [recentStatus, setRecentStatus] = useState(false);
-  const [tagStatus, setTagStatus] = useState(false);
   const handleSelectNotebook = (name, id) => {
     getNotes(id);
     setNbName(name);
@@ -65,7 +68,7 @@ const NotesMenu = ({
     getAllBookmark(workspaceID);
     setNbSelect(false);
     setFeatureStatus(true);
-    setStarStatus(true);
+    // setStarStatus(true);
   };
 
   useEffect(() => {
@@ -199,6 +202,9 @@ const NotesMenu = ({
                       setRecentStatus(false);
                       setTagStatus(true);
                       setNbID("");
+                      setNbSelect(false);
+                      setFeatureStatus(false);
+                      // setWorkspaceID("");
                     }}
                   >
                     Tags

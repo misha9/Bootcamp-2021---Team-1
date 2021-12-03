@@ -17,7 +17,7 @@ function EditTags({ tags, setTags, tagNames, setTagNames }) {
   };
   //   console.log(tags);
   return (
-    <div className='tag-area d-flex align-items-center'>
+    <div className='tag-area d-flex'>
       <div className='d-flex align-items-center'>
         <LocalOfferOutlinedIcon
           className='me-2'
@@ -29,7 +29,7 @@ function EditTags({ tags, setTags, tagNames, setTagNames }) {
               <div>
                 {/* {arr.push(JSON.parse(tag))} */}
                 <Chip
-                  className='me-2'
+                  className='me-2 mb-2'
                   size='medium'
                   label={tag.tagName}
                   onDelete={() => console.log(index)}

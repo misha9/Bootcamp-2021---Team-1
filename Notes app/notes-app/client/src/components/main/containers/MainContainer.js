@@ -48,6 +48,10 @@ const MainContainer = () => {
   const [lastSaved, setLastSaved] = useState("");
   const [tags, setTags] = useState([]);
   const [tagNames, setTagNames] = useState([]);
+  const [starredStatus, setStarredStatus] = useState(false);
+  const [recentStatus, setRecentStatus] = useState(false);
+  const [tagStatus, setTagStatus] = useState(false);
+  const [tagDetails, setTagDetails] = useState([]);
 
   const navigate = useNavigate();
 
@@ -170,6 +174,7 @@ const MainContainer = () => {
       setTimeout(() => {
         getAllNotes(nbID);
         setTags("");
+        getAllTags();
       }, 150)
     );
   };
@@ -199,6 +204,7 @@ const MainContainer = () => {
     APIService.editNote(newNote).then(
       setTimeout(() => {
         getAllNotes(nbID);
+        getAllTags();
       }, 150)
     );
   };
@@ -274,6 +280,49 @@ const MainContainer = () => {
     });
   };
 
+  const getAllTags = () => {
+    const data = [];
+    APIService.fetchAllTags().then((res) => {
+      // console.log(res);
+      for (let i = 0; i < res.length; i++) {
+        for (let j = 0; j < res[i].t_name.length; j++) {
+          if (!data.includes(res[i].t_name[j])) {
+            data.push(res[i].t_name[j]);
+          }
+        }
+      }
+    });
+    setTimeout(() => {
+      APIService.fetchTagCount(data).then((res) => {
+        console.log(res);
+        setTagDetails(res);
+      });
+    }, 250);
+
+    console.log(data);
+  };
+
+  const getTagNotes = (nIDs) => {
+    console.log(nIDs);
+    const data = [];
+    APIService.getTagNotes(nIDs).then((res) => {
+      // console.log(res[0][0].n_id);
+      for (let i = 0; i < res.length; i++) {
+        let newDate = formatDate(res[i][0].updated_date);
+
+        data.push({
+          id: res[i][0].n_id,
+          title: res[i][0].title,
+          text: res[i][0].sub,
+          date: newDate,
+          tags: res[i][0].t_name,
+        });
+      }
+      console.log(data);
+      setNotes(data);
+    });
+  };
+
   const getNoteID = (id) => {
     setNoteID(id);
     setAddNoteStatus(false);
@@ -303,6 +352,7 @@ const MainContainer = () => {
   useEffect(() => {
     // setWorkspace(userID);
     getAllWorkspace(userID);
+    getAllTags();
   }, [userID]);
 
   return (
@@ -337,6 +387,12 @@ const MainContainer = () => {
           setSelectedNoteId={setSelectedNoteId}
           notes={notes}
           getNoteID={getNoteID}
+          starredStatus={starredStatus}
+          setStarredStatus={setStarredStatus}
+          recentStatus={recentStatus}
+          setRecentStatus={setRecentStatus}
+          tagStatus={tagStatus}
+          setTagStatus={setTagStatus}
         />
         <NotesList
           notes={notes.filter((note) =>
@@ -355,6 +411,14 @@ const MainContainer = () => {
           setLastSaved={setLastSaved}
           tagNames={tagNames}
           getTagName={getTagName}
+          starredStatus={starredStatus}
+          recentStatus={recentStatus}
+          tagStatus={tagStatus}
+          tagDetails={tagDetails.filter((tagDetails) =>
+            tagDetails.tagName.toLowerCase().includes(searchText)
+          )}
+          getTagNotes={getTagNotes}
+          setFeatureStatus={setFeatureStatus}
         />
         <NoteView
           id={noteID}
@@ -382,7 +446,8 @@ const MainContainer = () => {
           setNoteTitle={setNoteTitle}
           noteTitle={noteTitle}
           contentTitle={contentTitle}
-          starStatus={starStatus}
+          // starStatus={starStatus}
+          starredStatus={starredStatus}
           setContentTitle={setContentTitle}
           handleEditNote={editNote}
           setFullScreenStatus={setFullScreenStatus}

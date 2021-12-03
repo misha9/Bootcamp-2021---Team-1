@@ -3,7 +3,7 @@ import Input from "@mui/material/Input";
 import { MdSearch } from "react-icons/md";
 import FormControl from "@mui/material/FormControl";
 
-function SearchBar({ handleSearchNote }) {
+function SearchBar({ handleSearchNote, tagStatus }) {
   return (
     <div className='small'>
       <FormControl
@@ -14,11 +14,13 @@ function SearchBar({ handleSearchNote }) {
       >
         <Input
           id='input-with-icon-adornment'
-          placeholder='Search Notes'
+          placeholder={tagStatus ? "Search Tags" : "Search Notes"}
           startAdornment={
             <MdSearch position='start' className='me-1' size='1.5rem' />
           }
-          onChange={(event) => handleSearchNote(event.target.value)}
+          onChange={(event) =>
+            handleSearchNote(event.target.value.toLowerCase())
+          }
         />
       </FormControl>
     </div>

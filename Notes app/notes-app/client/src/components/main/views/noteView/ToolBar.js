@@ -18,6 +18,8 @@ function ToolBar({
   fullScreenStatus,
   setFullScreenStatus,
   handleDeleteNote,
+  addNoteStatus,
+  editStatus,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -40,13 +42,7 @@ function ToolBar({
   }
 
   return (
-    <div
-      className={
-        fullScreenStatus
-          ? " mb-5 mt-5"
-          : "d-flex align-items-center justify-content-end mb-3"
-      }
-    >
+    <div className={fullScreenStatus ? " mb-5 mt-5" : "mb-4"}>
       {fullScreenStatus ? (
         <div className='d-flex align-items-center justify-content-between'>
           <div>
@@ -72,55 +68,74 @@ function ToolBar({
           </IconButton>
         </div>
       ) : (
-        <IconButton
-          size='small'
-          color='inherit'
-          onClick={() => setFullScreenStatus(true)}
+        <div
+          className='menu d-flex justify-content-between'
+          style={{ paddingLeft: "2rem" }}
         >
-          <CgMaximize size='1.2rem' className='m-1' />
-        </IconButton>
-      )}
-      {fullScreenStatus ? (
-        ""
-      ) : (
-        <div className='menu'>
-          <IconButton
-            color='inherit'
-            aria-label='more'
-            id='long-button'
-            aria-controls='long-menu'
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup='true'
-            onClick={handleClick}
-            size='small'
-          >
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            id='long-menu'
-            MenuListProps={{
-              "aria-labelledby": "long-button",
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-              style: {
-                maxHeight: ITEM_HEIGHT * 4.5,
-                width: "20ch",
-              },
-            }}
-          >
-            {options.map((option) => (
-              <MenuItem
-                key={option}
-                selected={option === "Pyxis"}
-                onClick={() => handleToolbar(option, id)}
+          <div>
+            {addNoteStatus || editStatus ? (
+              <Button
+                variant='text'
+                color='inherit'
+                startIcon={<ArrowBackIcon />}
+                sx={{
+                  color: "black",
+                  textTransform: "capitalize",
+                }}
+                onClick={() => setFullScreenStatus(false)}
               >
-                {option}
-              </MenuItem>
-            ))}
-          </Menu>
+                Back
+              </Button>
+            ) : (
+              ""
+            )}
+          </div>
+          <div>
+            <IconButton
+              size='small'
+              color='inherit'
+              onClick={() => setFullScreenStatus(true)}
+            >
+              <CgMaximize size='1.2rem' className='m-1' />
+            </IconButton>
+            <IconButton
+              color='inherit'
+              aria-label='more'
+              id='long-button'
+              aria-controls='long-menu'
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup='true'
+              onClick={handleClick}
+              size='small'
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id='long-menu'
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
+              }}
+            >
+              {options.map((option) => (
+                <MenuItem
+                  key={option}
+                  selected={option === "Pyxis"}
+                  onClick={() => handleToolbar(option, id)}
+                >
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
         </div>
       )}
     </div>

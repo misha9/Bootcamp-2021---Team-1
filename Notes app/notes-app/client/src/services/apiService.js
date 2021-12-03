@@ -16,6 +16,9 @@ export const APIService = {
   loginAccess,
   fetchTags,
   // setWorkspace,
+  fetchAllTags,
+  fetchTagCount,
+  getTagNotes,
 };
 
 const AT = localStorage.getItem("token");
@@ -278,11 +281,56 @@ function fetchTags(id) {
   );
 }
 
+function fetchAllTags() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    // body: JSON.stringify({ note_id: id }),
+  };
+  return fetch("http://localhost:5000/api/get-all_tags", requestOptions).then(
+    handleResponse
+  );
+}
+
+function fetchTagCount(data) {
+  const tags = {
+    tagNames: data,
+  };
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    body: JSON.stringify({ tags: tags.tagNames }),
+  };
+  return fetch("http://localhost:5000/api/get-tag_count", requestOptions).then(
+    handleResponse
+  );
+}
+
+function getTagNotes(nIDs) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    body: JSON.stringify({ tags: nIDs }),
+  };
+  return fetch("http://localhost:5000/api/get-tag_notes", requestOptions).then(
+    handleResponse
+  );
+}
+
 function handleResponse(response) {
   console.log(response);
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
-    console.log(data);
+    // console.log(data);
     return data;
   });
 }
