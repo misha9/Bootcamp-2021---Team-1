@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const noteRoutes = require("./src/routes/note/routes");
+const workspaceRoutes = require("./src/routes/workspace/routes");
 const notebookRoutes = require("./src/routes/notebook/routes");
 const loginRoutes = require("./src/routes/login/routes");
 const bookmarkRoutes = require("./src/routes/bookmark/routes");
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use("/api", loginRoutes);
 app.use("/api", noteRoutes);
+app.use("/api", workspaceRoutes);
 app.use("/api", notebookRoutes);
 app.use("/api", bookmarkRoutes);
 app.use("/api", otherRoutes);

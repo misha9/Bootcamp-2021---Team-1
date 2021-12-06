@@ -23,7 +23,7 @@ const addNote = (req, res) => {
   console.log(tagArr);
   let nID = Date.now();
   pool.query(
-    "INSERT INTO note (n_id, title, note_content, note_date, nb_id, unique_id, bookmark, updated_date) VALUES ($1,$2, $3, $4, $5, $6, false, $4)",
+    "INSERT INTO note (n_id, title, note_content, note_date, nb_id, ws_id, bookmark, updated_date) VALUES ($1,$2, $3, $4, $5, $6, false, $4)",
     [
       nID,
       req.body.title,
@@ -36,8 +36,8 @@ const addNote = (req, res) => {
       if (error) throw error;
       console.log("Note added");
       pool.query(
-        "INSERT INTO tag (n_id, t_name) VALUES ($1, $2)",
-        [nID, tagArr],
+        "INSERT INTO tag (n_id, t_name, nb_id) VALUES ($1, $2, $3)",
+        [nID, tagArr, req.body.nb_id],
         (error, results) => {
           if (error) throw error;
           console.log("tag added");

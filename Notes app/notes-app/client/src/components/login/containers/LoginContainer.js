@@ -10,6 +10,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { GoogleLogin } from "react-google-login";
 import { APIService } from "../../../services/apiService";
 import { useNavigate } from "react-router-dom";
+import { MdEventNote } from "react-icons/md";
 
 const clientId =
   "866133952316-a8r10cdbhjlsjroke88n2qrm5ul0jgfj.apps.googleusercontent.com";
@@ -71,6 +72,7 @@ export default function LoginContainer() {
             backgroundImage:
               "url( https://images.unsplash.com/photo-1563121661-cd531f4fb8cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=858&q=80)",
             backgroundRepeat: "no-repeat",
+            // backgroundColor: "black !important",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -93,31 +95,65 @@ export default function LoginContainer() {
               // height: "330px",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              // alignItems: "center",
             }}
             className='m-auto'
             style={{ marginBottom: "0" }}
           >
-            <Avatar sx={{ m: 1, backgroundColor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component='h1' variant='h5' className='m-2'>
-              Sign in
-            </Typography>
-            <Box component='form' noValidate sx={{ mt: 1 }} className='mt-3'>
-              {
-                <div>
-                  <GoogleLogin
-                    clientId={clientId}
-                    buttonText='Sign in With Google'
-                    onSuccess={onLoginSuccess}
-                    onFailure={onLoginFailure}
-                    cookiePolicy={"single_host_origin"}
-                    isSignedIn={true}
-                  />
+            <div>
+              <div className='d-flex align-items-center'>
+                <MdEventNote
+                  // style={{ width: "18%" }}
+                  size='3rem'
+                  color='black'
+                />
+                <div
+                  className='text-dark'
+                  style={{ fontSize: "2rem", fontWeight: "600" }}
+                >
+                  Notes
                 </div>
-              }
-            </Box>
+              </div>
+              <div
+                className='text-secondary '
+                style={{
+                  fontSize: "1.5rem",
+                  fontWeight: "400",
+                  marginBottom: "5rem",
+                }}
+              >
+                Jot down your thoughts and ideas
+              </div>
+            </div>
+            <div className='mb-5 text-center'>
+              <div className='d-flex align-items-center justify-content-center'>
+                {/* <Avatar sx={{ m: 1, backgroundColor: "secondary.main" }}>
+                  <LockOutlinedIcon />
+                </Avatar> */}
+                <Typography
+                  component='h1'
+                  variant='h5'
+                  className='m-2 text-dark'
+                  style={{ fontWeight: "400" }}
+                >
+                  Join with us
+                </Typography>
+              </div>
+              <Box component='form' noValidate sx={{ mt: 1 }} className='mt-3'>
+                {
+                  <div>
+                    <GoogleLogin
+                      clientId={clientId}
+                      buttonText='Sign in With Google'
+                      onSuccess={onLoginSuccess}
+                      onFailure={onLoginFailure}
+                      cookiePolicy={"single_host_origin"}
+                      isSignedIn={true}
+                    />
+                  </div>
+                }
+              </Box>
+            </div>
           </Box>
         </Grid>
       </Grid>

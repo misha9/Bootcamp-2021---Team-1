@@ -34,7 +34,9 @@ function Note({
         <div className='card-body pb-2'>
           <h5
             className='mb-3'
-            style={{ color: selected ? "#ffffff" : "#161308" }}
+            style={{
+              color: selected ? "#ffffff" : "#161308",
+            }}
           >
             {title}
           </h5>
@@ -66,7 +68,7 @@ function Note({
               fontSize: "0.75rem",
               fontWeight: "500",
               whiteSpace: "nowrap",
-              width: "75px",
+              maxWidth: "75px",
               overflow: "hidden",
               textOverflow: "ellipsis",
             }}

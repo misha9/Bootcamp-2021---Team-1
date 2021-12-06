@@ -16,7 +16,7 @@ const addBookmark = (req, res) => {
 
 const getBookmark = (req, res) => {
   pool.query(
-    "select * from prev where bookmark = $1 AND unique_id = $2 ",
+    "select * from prev where bookmark = $1 AND ws_id = $2 ORDER by updated_date DESC",
     [true, req.body.wsID],
     (error, results) => {
       if (error) throw error;

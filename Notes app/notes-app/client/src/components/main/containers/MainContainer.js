@@ -2,6 +2,10 @@ import React from "react";
 import NotesMenu from "../views/NotesMenu";
 import NotesList from "../views/NotesList";
 import NoteView from "../views/NoteView";
+import CreateWorkspace from "../views/CreateWorkspace";
+import RenameWorkspace from "../views/RenameWorkspace";
+import DeleteWorkspace from "../views/DeleteWorkspace";
+
 import CreateNotebook from "../views/CreateNotebook";
 import DeleteNotebook from "../views/DeleteNotebook";
 import RenameNotebook from "../views/RenameNotebook";
@@ -52,6 +56,10 @@ const MainContainer = () => {
   const [recentStatus, setRecentStatus] = useState(false);
   const [tagStatus, setTagStatus] = useState(false);
   const [tagDetails, setTagDetails] = useState([]);
+  const [addWorkspaceStatus, setAddWorkspaceStatus] = useState(false);
+  const [wsRenameStatus, setWsRenameStatus] = useState(false);
+  const [wsDeleteStatus, setWsDeleteStatus] = useState(false);
+  const [wsName, setWsName] = useState("");
 
   const navigate = useNavigate();
 
@@ -78,18 +86,11 @@ const MainContainer = () => {
   const getAllWorkspace = (userID) => {
     console.log("Loaded notebook");
     const data = [];
-    const wsName = ["Work", "Personal", "Home"];
-    const icon = [work, personal, home];
     APIService.fetchWorkspace(userID).then((res) => {
-      console.log(res[0].result);
-      for (let i = 0; i < res[0].result.length; i++) {
+      for (let i = 0; i < res.length; i++) {
         data.push({
-          wsId_s: res[0].result[i].ws_id,
-          wsID: res[0].result[i].unique_id,
-          name: wsName[i],
-          // name: res[0].result[i].name,
-          userID: res[0].result[i].u_id,
-          icon: icon[i],
+          wsID: res[i].ws_id,
+          wsName: res[i].name,
         });
       }
       console.log(data);
@@ -97,14 +98,45 @@ const MainContainer = () => {
     });
   };
 
+  const addWorkspace = (uID, name) => {
+    console.log(uID, name);
+    APIService.addWorkspace(uID, name).then(
+      setTimeout(() => {
+        getAllWorkspace(uID);
+      }, 150)
+    );
+  };
+
+  const renameWorkspace = (name, wsID) => {
+    console.log("renaming workspace", name, wsID);
+    APIService.renameWorkspace(name, wsID).then(
+      setTimeout(() => {
+        getAllWorkspace(userID);
+      }, 250)
+    );
+  };
+
+  const deleteWorkspace = (wsID) => {
+    console.log("deleting workspace", wsID);
+    APIService.deleteWorkspace(wsID).then(
+      setTimeout(() => {
+        getAllWorkspace(userID);
+      }, 250)
+    );
+    const newWorkspace = workspace.filter(
+      (workspace) => workspace.wsID !== wsID
+    );
+    setWorkspace(newWorkspace);
+  };
+
   // const setWorkspace = (userID) => {
   //   APIService.setWorkspace(userID);
   // };
 
-  const getAllNotebooks = (sWID, wsID) => {
+  const getAllNotebooks = (wsID) => {
     console.log("Loaded notebook");
     const data = [];
-    APIService.fetchNotebooks(sWID, wsID).then((res) => {
+    APIService.fetchNotebooks(wsID).then((res) => {
       for (let i = 0; i < res.length; i++) {
         data.push({ id: res[i].nb_id, name: res[i].name });
       }
@@ -118,7 +150,7 @@ const MainContainer = () => {
   const addNotebook = (name, wsID) => {
     APIService.addNewNotebook(name, wsID).then(
       setTimeout(() => {
-        getAllNotebooks(defaultWsID, wsID);
+        getAllNotebooks(wsID);
       }, 150)
     );
   };
@@ -134,7 +166,7 @@ const MainContainer = () => {
     setNbName(name);
     APIService.renameNotebookInDb(id, name).then(
       setTimeout(() => {
-        getAllNotebooks(defaultWsID, ws_id);
+        getAllNotebooks(ws_id);
       }, 250)
     );
   };
@@ -393,6 +425,10 @@ const MainContainer = () => {
           setRecentStatus={setRecentStatus}
           tagStatus={tagStatus}
           setTagStatus={setTagStatus}
+          setAddWorkspaceStatus={setAddWorkspaceStatus}
+          setWsRenameStatus={setWsRenameStatus}
+          setWsName={setWsName}
+          setWsDeleteStatus={setWsDeleteStatus}
         />
         <NotesList
           notes={notes.filter((note) =>
@@ -465,6 +501,25 @@ const MainContainer = () => {
           getTagName={getTagName}
           tagNames={tagNames}
           setTagNames={setTagNames}
+        />
+        <CreateWorkspace
+          addWorkspaceStatus={addWorkspaceStatus}
+          setAddWorkspaceStatus={setAddWorkspaceStatus}
+          userID={userID}
+          addWorkspace={addWorkspace}
+        />
+        <RenameWorkspace
+          handleRenameWorkspace={renameWorkspace}
+          wsRenameStatus={wsRenameStatus}
+          setWsRenameStatus={setWsRenameStatus}
+          wsName={wsName}
+          workspaceID={workspaceID}
+        />
+        <DeleteWorkspace
+          wsDeleteStatus={wsDeleteStatus}
+          setWsDeleteStatus={setWsDeleteStatus}
+          workspaceID={workspaceID}
+          handleDeleteWorkspace={deleteWorkspace}
         />
         <CreateNotebook
           displayNotebookStatus={notebookStatus}

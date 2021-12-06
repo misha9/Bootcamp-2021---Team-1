@@ -37,7 +37,7 @@ function EditNote({
     // console.log(fullText.trim().length);
     // handleEditNote(id, noteTitle, noteText, notebookID);
     if (fullText.trim().length > 0) {
-      handleEditNote(id, noteTitle, fullText, notebookID, tagNames);
+      handleEditNote(id, contentTitle, fullText, notebookID, tagNames);
     }
     // else if (noteTitle.trim().length > 0) {
     //   handleEditNote(id, noteTitle, noteText, notebookID);

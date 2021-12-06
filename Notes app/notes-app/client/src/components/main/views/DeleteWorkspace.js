@@ -1,21 +1,19 @@
 import React from "react";
-import "../../../styles/DeleteNotebook.css";
 
-function DeleteNotebook({
-  nbDeleteStatus,
-  setNbDeleteStatus,
-  notebookID,
-  handleDeleteNotebook,
-  setNbSelect,
+function DeleteWorkspace({
+  wsDeleteStatus,
+  setWsDeleteStatus,
+  handleDeleteWorkspace,
+  workspaceID,
 }) {
   const handleDelete = () => {
-    console.log("Delete notebook");
-    setNbDeleteStatus(false);
-    handleDeleteNotebook(notebookID);
-    setNbSelect(false);
+    console.log("Delete workspace");
+    // setNbDeleteStatus(false);
+    handleDeleteWorkspace(workspaceID);
+    setWsDeleteStatus(false);
+    // setNbSelect(false);
   };
-
-  return nbDeleteStatus ? (
+  return wsDeleteStatus ? (
     <div
       className='delete-nb position-fixed'
       style={{
@@ -34,7 +32,7 @@ function DeleteNotebook({
             alt='close-icon'
             width='24px'
             style={{ top: "1.375rem", right: "1.5rem" }}
-            onClick={() => setNbDeleteStatus(false)}
+            onClick={() => setWsDeleteStatus(false)}
           />
           <div class='card-body pb-2' style={{ padding: "1.375rem" }}>
             <h5
@@ -44,15 +42,15 @@ function DeleteNotebook({
               Delete ?
             </h5>
             <p className='mb-2'>
-              All the notes in this notebook also get deleted.
+              All the notebooks and notes in this workspace also get deleted.
             </p>
-            <p className='mb-0'>You want to delete the notebook ?</p>
+            <p className='mb-0'>You want to delete the workspace ?</p>
           </div>
           <div className='button d-flex justify-content-end me-3 mb-4'>
             <button
               type='button'
               className='btn btn-secondary border-0 pe-3 ps-3 me-2 btn-sm'
-              onClick={() => setNbDeleteStatus(false)}
+              onClick={() => setWsDeleteStatus(false)}
             >
               Cancel
             </button>
@@ -72,4 +70,4 @@ function DeleteNotebook({
   );
 }
 
-export default DeleteNotebook;
+export default DeleteWorkspace;

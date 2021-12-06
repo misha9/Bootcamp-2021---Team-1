@@ -19,6 +19,9 @@ export const APIService = {
   fetchAllTags,
   fetchTagCount,
   getTagNotes,
+  addWorkspace,
+  renameWorkspace,
+  deleteWorkspace,
 };
 
 const AT = localStorage.getItem("token");
@@ -70,7 +73,7 @@ function fetchNotes(id) {
   );
 }
 
-function fetchNotebooks(sWId, wsID) {
+function fetchNotebooks(wsID) {
   console.log("fetch");
   const requestOptions = {
     method: "PATCH",
@@ -78,7 +81,7 @@ function fetchNotebooks(sWId, wsID) {
       "Content-type": "application/json",
       Authorization: `Bearer ${AT}`,
     },
-    body: JSON.stringify({ ws_id: wsID, s_wsID: sWId }),
+    body: JSON.stringify({ ws_id: wsID }),
   };
   return fetch("http://localhost:5000/api/get-notebooks", requestOptions).then(
     handleResponse
@@ -93,11 +96,58 @@ function fetchWorkspace(userID) {
       "Content-type": "application/json",
       Authorization: `Bearer ${AT}`,
     },
-    body: JSON.stringify({ user_id: userID }),
+    body: JSON.stringify({ uID: userID }),
   };
   return fetch("http://localhost:5000/api/get-workspace", requestOptions).then(
     handleResponse
   );
+}
+
+function addWorkspace(uID, name) {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    body: JSON.stringify({
+      name: name,
+      uID: uID,
+    }),
+  };
+  return fetch("http://localhost:5000/api/add-workspace", requestOptions);
+}
+
+function renameWorkspace(name, id) {
+  const data = {
+    wsID: id,
+    name: name,
+  };
+  return fetch("http://localhost:5000/api/rename-workspace", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+function deleteWorkspace(wsID) {
+  const data = {
+    wsID: wsID,
+  };
+  return fetch("http://localhost:5000/api/delete-workspace", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    body: JSON.stringify(data),
+  });
 }
 
 function addNewNotebook(name, wsID) {

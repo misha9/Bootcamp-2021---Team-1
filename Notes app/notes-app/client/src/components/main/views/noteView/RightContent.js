@@ -102,7 +102,10 @@ function RightContent({
       >
         <h2
           className={fullScreenStatus ? "ps-1" : ""}
-          style={{ color: "#161308", fontWeight: "600" }}
+          style={{
+            color: "#161308",
+            fontWeight: "600",
+          }}
         >
           {contentTitle}
         </h2>

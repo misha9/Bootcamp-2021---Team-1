@@ -29,10 +29,11 @@ function TagInput({ tags, setTags }) {
                   className='me-2'
                   size='medium'
                   label={tag.name}
-                  onDelete={() => console.log(index)}
-                  deleteIcon={
-                    <TagOption removeTags={() => removeTags(index)} />
-                  }
+                  onDelete={() => removeTags(index)}
+                  // variant='outlined'
+                  // deleteIcon={
+                  //   <TagOption removeTags={() => removeTags(index)} />
+                  // }
                   sx={{ borderRadius: "5px" }}
                 />
               </div>
