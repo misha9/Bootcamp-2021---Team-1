@@ -14,7 +14,7 @@ function SearchBar({ handleSearchNote, tagStatus }) {
       >
         <Input
           id='input-with-icon-adornment'
-          placeholder={tagStatus ? "Search Tags" : "Search Notes"}
+          placeholder={tagStatus ? "Search Tags" : "Search"}
           startAdornment={
             <MdSearch position='start' className='me-1' size='1.5rem' />
           }

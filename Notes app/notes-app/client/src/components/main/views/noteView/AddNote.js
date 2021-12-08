@@ -20,6 +20,8 @@ function AddNote({
   fullScreenStatus,
   tags,
   setTags,
+  allTags,
+  setAllTags,
 }) {
   const handleChange = (value) => {
     setNoteText(value);
@@ -28,7 +30,8 @@ function AddNote({
 
   const handleSaveClick = () => {
     handleAddNoteStatus(false);
-    if (noteText.trim().length > 0) {
+    if (noteText.trim().length > 0 || noteTitle.trim().length > 0) {
+      console.log("clicking save");
       handleAddNote(noteTitle, noteText, notebookID, workspaceID, tags);
     }
     console.log(noteText);
@@ -85,7 +88,12 @@ function AddNote({
           style={{ border: "none" }}
         />
       </Scrollbars>
-      <TagInput tags={tags} setTags={setTags} />
+      <TagInput
+        tags={tags}
+        setTags={setTags}
+        allTags={allTags}
+        setAllTags={setAllTags}
+      />
 
       <div className='text-end'>
         <button className='save btn btn-dark mt-3' onClick={handleSaveClick}>

@@ -60,6 +60,7 @@ const MainContainer = () => {
   const [wsRenameStatus, setWsRenameStatus] = useState(false);
   const [wsDeleteStatus, setWsDeleteStatus] = useState(false);
   const [wsName, setWsName] = useState("");
+  const [allTags, setAllTags] = useState([]);
 
   const navigate = useNavigate();
 
@@ -123,10 +124,10 @@ const MainContainer = () => {
         getAllWorkspace(userID);
       }, 250)
     );
-    const newWorkspace = workspace.filter(
-      (workspace) => workspace.wsID !== wsID
-    );
-    setWorkspace(newWorkspace);
+    // const newWorkspace = workspace.filter(
+    //   (workspace) => workspace.wsID !== wsID
+    // );
+    // setNotebooks([]);
   };
 
   // const setWorkspace = (userID) => {
@@ -192,6 +193,7 @@ const MainContainer = () => {
   };
 
   const addNote = (title, text, nbID, wsID, tags) => {
+    console.log(title, text, nbID, wsID, tags);
     const date = new Date();
     const newNote = {
       title: title,
@@ -202,6 +204,7 @@ const MainContainer = () => {
       wsID: wsID,
       tags: tags,
     };
+    console.log(newNote);
     APIService.addNewNote(newNote).then(
       setTimeout(() => {
         getAllNotes(nbID);
@@ -314,16 +317,19 @@ const MainContainer = () => {
 
   const getAllTags = () => {
     const data = [];
+    const tags = [];
     APIService.fetchAllTags().then((res) => {
       // console.log(res);
       for (let i = 0; i < res.length; i++) {
         for (let j = 0; j < res[i].t_name.length; j++) {
           if (!data.includes(res[i].t_name[j])) {
             data.push(res[i].t_name[j]);
+            tags.push({ name: res[i].t_name[j] });
           }
         }
       }
     });
+    setAllTags(tags);
     setTimeout(() => {
       APIService.fetchTagCount(data).then((res) => {
         console.log(res);
@@ -388,7 +394,7 @@ const MainContainer = () => {
   }, [userID]);
 
   return (
-    <div className='ms-4 me-4'>
+    <div className='me-4'>
       <div className={fullScreenStatus ? "row justify-content-center" : "row"}>
         <NotesMenu
           handleNotebookStatus={getNotebookStatus}
@@ -455,6 +461,8 @@ const MainContainer = () => {
           )}
           getTagNotes={getTagNotes}
           setFeatureStatus={setFeatureStatus}
+          setNoteTitle={setNoteTitle}
+          setNoteText={setNoteText}
         />
         <NoteView
           id={noteID}
@@ -501,6 +509,8 @@ const MainContainer = () => {
           getTagName={getTagName}
           tagNames={tagNames}
           setTagNames={setTagNames}
+          allTags={allTags}
+          setAllTags={setAllTags}
         />
         <CreateWorkspace
           addWorkspaceStatus={addWorkspaceStatus}
@@ -546,6 +556,7 @@ const MainContainer = () => {
           workspaceID={workspaceID}
           setFeatureStatus={setFeatureStatus}
         />
+        {/* <IconSearch /> */}
       </div>
     </div>
   );

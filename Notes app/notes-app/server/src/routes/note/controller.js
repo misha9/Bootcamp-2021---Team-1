@@ -16,9 +16,11 @@ const getNotes = (req, res) => {
 const addNote = (req, res) => {
   console.log(req.body, "adding a note");
   const tagArr = [];
-  console.log(req.body.tags[0].name, "tag names");
-  for (let i = 0; i < req.body.tags.length; i++) {
-    tagArr.push(req.body.tags[i].name);
+  // console.log(req.body.tags[0].name, "tag names");
+  if (req.body.tags.length > 0) {
+    for (let i = 0; i < req.body.tags.length; i++) {
+      tagArr.push(req.body.tags[i].name);
+    }
   }
   console.log(tagArr);
   let nID = Date.now();
@@ -27,17 +29,17 @@ const addNote = (req, res) => {
     [
       nID,
       req.body.title,
-      req.body.note_content,
-      req.body.note_date,
-      req.body.nb_id,
-      req.body.ws_id,
+      req.body.text,
+      req.body.date,
+      req.body.nbID,
+      req.body.wsID,
     ],
     (error, results) => {
       if (error) throw error;
       console.log("Note added");
       pool.query(
         "INSERT INTO tag (n_id, t_name, nb_id) VALUES ($1, $2, $3)",
-        [nID, tagArr, req.body.nb_id],
+        [nID, tagArr, req.body.nbID],
         (error, results) => {
           if (error) throw error;
           console.log("tag added");

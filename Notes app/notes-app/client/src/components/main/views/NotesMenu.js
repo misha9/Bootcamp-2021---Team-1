@@ -7,12 +7,13 @@ import { Scrollbars } from "react-custom-scrollbars";
 
 import { MdEventNote, MdStarBorder } from "react-icons/md";
 import { CgHashtag } from "react-icons/cg";
-import { IoIosAddCircle } from "react-icons/io";
+import { IoIosAddCircle, IoIosAdd } from "react-icons/io";
 import { GiBackwardTime } from "react-icons/gi";
 import { VscNote } from "react-icons/vsc";
 import AddIcon from "@mui/icons-material/Add";
 import NotebookOption from "./notesMenu/NotebookOption";
 import WorkspaceOptions from "./notesMenu/WorkspaceOptions";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 
 const NotesMenu = ({
   handleNotebookStatus,
@@ -91,8 +92,8 @@ const NotesMenu = ({
   }, [saveStatus]);
 
   useEffect(() => {
-    if (workspace.length === 3) {
-      handleGetNotebooks(1, workspace[0].wsID);
+    if (workspace.length > 0) {
+      handleGetNotebooks(workspace[0].wsID);
     }
   }, [workspace]);
 
@@ -104,10 +105,10 @@ const NotesMenu = ({
 
   return (
     <div
-      className='col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 pt-3'
+      className='col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 pt-3 ps-4'
       style={{ height: "100vh", backgroundColor: "#EDEDED38" }}
     >
-      <div className='menuBar'>
+      <div className='menuBar ms-2'>
         <div className='logo mb-5'>
           <div className='d-flex align-items-center'>
             <MdEventNote className='me-1' size='1x' style={{ width: "18%" }} />
@@ -126,24 +127,44 @@ const NotesMenu = ({
                 >
                   workspace
                 </p>
-                <AddIcon onClick={() => setAddWorkspaceStatus(true)} />
+                {/* <IoIosAdd
+                  className='mb-2 add-icon'
+                  onClick={() => {
+                    setAddWorkspaceStatus(true);
+                  }}
+                  src='./add-icon.svg'
+                  alt='add-icon'
+                  size='1.4rem'
+                  style={{
+                    // color: "white",
+                    // backgroundColor: "black",
+                    borderRadius: "100%",
+                  }}
+                /> */}
+                <AddIcon
+                  className='add-icon me-2'
+                  style={{ borderRadius: "100%" }}
+                  onClick={() => setAddWorkspaceStatus(true)}
+                />
               </div>
               <ul className='list-unstyled'>
                 {workspace.map((ws) => (
                   <li className='d-flex align-items-center justify-content-between position-relative'>
                     <div>
-                      <VscNote className='me-3' size='1.5rem' />
+                      <WorkOutlineOutlinedIcon className='me-3' size='1.5rem' />
                       <button
                         type='button'
                         className='text-decoration-none p-0 border-0 bg-transparent'
                         onClick={() => {
                           handleGetNotebooks(ws.wsID);
                           setWsName(ws.wsName);
+                          setTagStatus(false);
                         }}
                         style={{
                           fontWeight: "500",
                           color:
                             workspaceID === ws.wsID ? "#000000" : "#B4B4B4",
+                          textTransform: "capitalize",
                         }}
                       >
                         {ws.wsName}
@@ -151,6 +172,7 @@ const NotesMenu = ({
                     </div>
                     {ws.wsID === workspaceID ? (
                       <div
+                        className='me-2'
                         style={{
                           position: "absolute",
                           right: "0",
@@ -170,14 +192,18 @@ const NotesMenu = ({
               </ul>
             </div>
             <div className='notebook'>
-              <div className='d-flex justify-content-between align-items-center mb-4 mt-4'>
+              <div className='d-flex justify-content-between align-items-center mb-3 mt-4'>
                 <p
                   className='text-uppercase small'
                   style={{ color: "#CECECE", margin: "auto 0" }}
                 >
                   notebook
                 </p>
-                <AddIcon onClick={() => handleNotebookStatus(true)} />
+                <AddIcon
+                  className='add-icon me-2'
+                  style={{ borderRadius: "100%" }}
+                  onClick={() => handleNotebookStatus(true)}
+                />
               </div>
               <ul className='list-unstyled'>
                 {notebooks.map((notebook) => (
@@ -205,6 +231,7 @@ const NotesMenu = ({
                       </a>
                       {notebook.id === nbID ? (
                         <div
+                          className='me-2'
                           style={{
                             position: "absolute",
                             right: "0",
@@ -290,7 +317,7 @@ const NotesMenu = ({
               </ul>
             </div>
           </Scrollbars>
-          <div className='add-notebook d-flex align-items-center mt-2'>
+          {/* <div className='add-notebook d-flex align-items-center mt-2'>
             <p>
               <IoIosAddCircle
                 size='1.7rem'
@@ -299,7 +326,7 @@ const NotesMenu = ({
               />
             </p>
             <p style={{ color: "#4F4F4F" }}>New Notebook</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -28,6 +28,7 @@ function EditNote({
   setTags,
   tagNames,
   setTagNames,
+  allTags,
 }) {
   console.log(tagNames);
   console.log(lastSaved);
@@ -36,7 +37,7 @@ function EditNote({
     // console.log(noteTitle.trim().length);
     // console.log(fullText.trim().length);
     // handleEditNote(id, noteTitle, noteText, notebookID);
-    if (fullText.trim().length > 0) {
+    if (fullText.trim().length > 0 || contentTitle.trim().length > 0) {
       handleEditNote(id, contentTitle, fullText, notebookID, tagNames);
     }
     // else if (noteTitle.trim().length > 0) {
@@ -101,6 +102,7 @@ function EditNote({
         editStatus={editStatus}
         tagNames={tagNames}
         setTagNames={setTagNames}
+        allTags={allTags}
       />
       <div className='text-end'>
         <button className='save btn btn-dark mt-3' onClick={handleSaveClick}>

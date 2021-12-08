@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { APIService } from "../../../../services/apiService";
 import ReactHtmlParser from "react-html-parser";
 import { Scrollbars } from "react-custom-scrollbars";
+import { MdEditNote } from "react-icons/md";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 function RightContent({
   id,
@@ -109,11 +111,18 @@ function RightContent({
         >
           {contentTitle}
         </h2>
-        <div>
+        <div className='d-flex align-items-center'>
+          <DeleteOutlinedIcon className='m-2' style={{ cursor: "pointer" }} />
+          <MdEditNote
+            className='m-2'
+            style={{ cursor: "pointer" }}
+            size='1.8rem'
+          />
           <i
             className={`icon m-2 ${
               bookmarkStatus != true ? " far fa-star" : " fas fa-star"
             }`}
+            style={{ cursor: "pointer" }}
             onClick={bookmarkChangeHandler}
           ></i>
         </div>

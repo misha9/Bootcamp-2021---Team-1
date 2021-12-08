@@ -3,8 +3,16 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
-const options = ["Rename notebook", "Delete notebook"];
+const options = [
+  { icon: <DriveFileRenameOutlineIcon />, option: "Rename" },
+  { icon: <ContentCopyIcon />, option: "Duplicate" },
+  { icon: <DeleteOutlineIcon />, option: "Delete" },
+];
+// const icons = [, <DeleteOutlineIcon />];
 
 const ITEM_HEIGHT = 48;
 
@@ -19,10 +27,10 @@ function NotebookOption({ setRenameNbStatus, setDeleteNbStatus }) {
   };
 
   function handleToolbar(option) {
-    if (option === "Rename notebook") {
+    if (option === "Rename") {
       setRenameNbStatus(true);
       handleClose();
-    } else {
+    } else if (option === "Delete") {
       setDeleteNbStatus(true);
       handleClose();
     }
@@ -52,17 +60,20 @@ function NotebookOption({ setRenameNbStatus, setDeleteNbStatus }) {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch",
+            maxWidth: "25ch",
           },
         }}
       >
         {options.map((option) => (
           <MenuItem
-            key={option}
-            selected={option === "Pyxis"}
-            onClick={() => handleToolbar(option)}
+            key={option.option}
+            selected={option.option === "Pyxis"}
+            onClick={() => handleToolbar(option.option)}
           >
-            {option}
+            <div className='d-flex align-items-center'>
+              <div className='me-2'>{option.icon}</div>
+              <div className='m-0'>{option.option}</div>
+            </div>
           </MenuItem>
         ))}
       </Menu>

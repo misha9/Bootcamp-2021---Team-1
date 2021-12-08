@@ -3,7 +3,7 @@ const pool = require("../../../dbService");
 const getWorkspace = (req, res) => {
   console.log("For work notebooks", req.body.uID);
   pool.query(
-    "select * from workspace where u_id=$1 ORDER BY ws_id DESC",
+    "select * from workspace where u_id=$1 ORDER BY ws_id ASC",
     [req.body.uID],
     (error, results) => {
       if (error) throw error;

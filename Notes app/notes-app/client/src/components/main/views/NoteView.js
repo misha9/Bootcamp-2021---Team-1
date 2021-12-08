@@ -52,6 +52,8 @@ const NoteView = ({
   getTagName,
   tagNames,
   setTagNames,
+  allTags,
+  setAllTags,
 }) => {
   return (
     <div
@@ -137,6 +139,8 @@ const NoteView = ({
         handleAddTag={handleAddTag}
         tags={tags}
         setTags={setTags}
+        allTags={allTags}
+        setAllTags={setAllTags}
       />
       <EditNote
         notebookID={notebookID}
@@ -164,6 +168,7 @@ const NoteView = ({
         setTags={setTags}
         tagNames={tagNames}
         setTagNames={setTagNames}
+        allTags={allTags}
       />
     </div>
   );

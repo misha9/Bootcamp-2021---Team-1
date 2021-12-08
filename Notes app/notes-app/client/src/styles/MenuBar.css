@@ -10,6 +10,16 @@
   color: #212529;
 }
 
+/* .menuBar .add-icon {
+  color: white;
+  background-color: #cecece;
+} */
+
+.menuBar .add-icon:hover {
+  color: white;
+  background-color: black;
+}
+
 .menuBar .notebook a:hover {
   font-weight: 600;
   cursor: pointer;

@@ -2,6 +2,9 @@ import React from "react";
 import { useState } from "react";
 
 import TextField from "@mui/material/TextField";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
+import * as Icons from "@mui/icons-material";
+import SearchBar from "./noteList/SearchBar";
 
 function CreateWorkspace({
   addWorkspaceStatus,
@@ -10,6 +13,8 @@ function CreateWorkspace({
   addWorkspace,
 }) {
   const [workspaceName, setWorkspaceName] = useState("");
+  // const icons = ["MdAccountBalance", "MdAssignmentReturned", "MdCardTravel"];
+  // console.log(Icons);
   return addWorkspaceStatus ? (
     <div
       className='position-fixed'
@@ -38,13 +43,34 @@ function CreateWorkspace({
             >
               Create Workspace
             </h5>
-            <TextField
-              id='standard-basic'
-              label='Enter workspace title here'
-              variant='standard'
-              fullWidth
-              onChange={(event) => setWorkspaceName(event.target.value)}
-            />
+            <div className='d-flex'>
+              <div className='btn-group'>
+                <button
+                  type='button'
+                  className='btn shadow-none p-0 pt-3 me-2'
+                  data-bs-toggle='dropdown'
+                  aria-expanded='false'
+                  // onMouseEnter={() => setLogoutStatus(false)}
+                >
+                  <WorkOutlineOutlinedIcon />
+                </button>
+                <ul className='dropdown-menu p-0 mt-1'>
+                  <li className='p-2'>
+                    <SearchBar />
+                  </li>
+                  <li className='p-2'>
+                    <span>{/* <MdCardTravel /> */}</span>
+                  </li>
+                </ul>
+              </div>
+              <TextField
+                id='standard-basic'
+                label='Enter workspace title here'
+                variant='standard'
+                fullWidth
+                onChange={(event) => setWorkspaceName(event.target.value)}
+              />
+            </div>
           </div>
           <div className='d-flex justify-content-end me-3 mb-4'>
             <button

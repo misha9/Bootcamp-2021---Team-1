@@ -2,9 +2,28 @@ import React, { useState, useEffect } from "react";
 import Chip from "@mui/material/Chip";
 import TagOption from "./TagOption";
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
-function EditTags({ tags, setTags, tagNames, setTagNames }) {
+function EditTags({ tags, setTags, tagNames, setTagNames, allTags }) {
   const [tagStatus, setTagStatus] = useState(false);
+
+  const useStyles = makeStyles({
+    customTextField: {
+      "& input::placeholder": {
+        fontSize: "14px",
+      },
+      "& input": {
+        fontSize: "14px",
+      },
+      "& input::label": {
+        fontSize: "14px",
+      },
+    },
+  });
+  const classes = useStyles();
+
   const removeTags = (indexToRemove) => {
     setTagNames([...tagNames.filter((_, index) => index !== indexToRemove)]);
   };
@@ -32,10 +51,7 @@ function EditTags({ tags, setTags, tagNames, setTagNames }) {
                   className='me-2 mb-2'
                   size='medium'
                   label={tag.tagName}
-                  onDelete={() => console.log(index)}
-                  deleteIcon={
-                    <TagOption removeTags={() => removeTags(index)} />
-                  }
+                  onDelete={() => removeTags(index)}
                   sx={{ borderRadius: "5px" }}
                 />
               </div>
@@ -44,14 +60,34 @@ function EditTags({ tags, setTags, tagNames, setTagNames }) {
       </div>
 
       {tagStatus ? (
-        <input
-          className='form-control form-control-sm'
-          type='text'
-          placeholder='Type to add...'
-          style={{ maxWidth: "124px" }}
-          onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
+        <Autocomplete
+          // id="tags-standard"
+          // id="clear-on-escape"
+          clearOnEscape
+          options={allTags}
+          getOptionLabel={(option) => option.name}
+          // defaultValue={[options]}
+          renderInput={(params) => (
+            <TextField
+              classes={{ root: classes.customTextField }}
+              {...params}
+              className='form-control form-control-sm'
+              variant='standard'
+              placeholder='Type to add...'
+              style={{ width: "125px" }}
+              // inputProps={{ style: { fontSize: "14px" } }}
+              onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
+            />
+          )}
         />
       ) : (
+        // <input
+        //   className='form-control form-control-sm'
+        //   type='text'
+        //   placeholder='Type to add...'
+        //   style={{ maxWidth: "124px" }}
+        //   onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
+        // />
         <Chip
           label='Add Tags'
           sx={{

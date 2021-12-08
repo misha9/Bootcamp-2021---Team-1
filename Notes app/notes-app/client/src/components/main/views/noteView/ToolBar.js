@@ -6,8 +6,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CgMaximize, CgMinimize } from "react-icons/cg";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { MdEditNote } from "react-icons/md";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
-const options = ["Edit note", "Delete note"];
+const options = [
+  { icon: <MdEditNote size='1.55rem' />, option: "Edit note" },
+  { icon: <DeleteOutlinedIcon />, option: "Delete note" },
+];
 
 const ITEM_HEIGHT = 48;
 
@@ -127,11 +132,12 @@ function ToolBar({
             >
               {options.map((option) => (
                 <MenuItem
-                  key={option}
-                  selected={option === "Pyxis"}
-                  onClick={() => handleToolbar(option, id)}
+                  key={option.option}
+                  selected={option.option === "Pyxis"}
+                  onClick={() => handleToolbar(option.option, id)}
                 >
-                  {option}
+                  <div className='me-2'>{option.icon}</div>
+                  {option.option}
                 </MenuItem>
               ))}
             </Menu>

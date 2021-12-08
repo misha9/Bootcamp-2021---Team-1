@@ -1,0 +1,14 @@
+.tags .tag {
+  color: black;
+  background-color: #fbfbfb;
+}
+
+.tags .tag:hover {
+  color: white;
+  background-color: #ffab45;
+}
+
+/* .tags .tag-name:hover {
+  color: white;
+  background-color: #ffab45;
+} */

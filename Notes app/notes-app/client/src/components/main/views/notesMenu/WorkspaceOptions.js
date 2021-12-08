@@ -3,8 +3,13 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-const options = ["Rename workspace", "Delete workspace"];
+const options = [
+  { icon: <DriveFileRenameOutlineIcon />, option: "Rename" },
+  { icon: <DeleteOutlineIcon />, option: "Delete" },
+];
 
 const ITEM_HEIGHT = 48;
 
@@ -52,17 +57,18 @@ function WorkspaceOptions({ setWsRenameStatus, setWsDeleteStatus }) {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: "20ch",
+            maxWidth: "25ch",
           },
         }}
       >
         {options.map((option) => (
           <MenuItem
-            key={option}
-            selected={option === "Pyxis"}
-            onClick={() => handleToolbar(option)}
+            key={option.option}
+            selected={option.option === "Pyxis"}
+            onClick={() => handleToolbar(option.option)}
           >
-            {option}
+            <div className='me-2'>{option.icon}</div>
+            {option.option}
           </MenuItem>
         ))}
       </Menu>

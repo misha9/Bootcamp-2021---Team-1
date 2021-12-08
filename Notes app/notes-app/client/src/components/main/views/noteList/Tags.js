@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "../../../../styles/Tags.css";
 import SearchBar from "./SearchBar";
 import { Scrollbars } from "react-custom-scrollbars";
 import Note from "./Note";
@@ -7,6 +8,8 @@ import Stack from "@mui/material/Stack";
 import DoneIcon from "@mui/icons-material/Done";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 function Tags({
   tagStatus,
@@ -19,11 +22,16 @@ function Tags({
   getNoteID,
   setFeatureStatus,
   handleSearchNote,
+  allTags,
 }) {
+  console.log(tagDetails);
   const [tagSelect, setTagSelect] = useState(false);
   const [tagName, setTagName] = useState("");
+  const [expand, setExpand] = useState(false);
+  const [selected, setSelected] = useState();
+
   return (
-    <div>
+    <div className='tags'>
       <h4
         className='mb-3'
         style={{
@@ -37,24 +45,61 @@ function Tags({
         Tags
       </h4>
 
-      {tagSelect ? (
-        <div>
-          <Chip
-            label={tagName}
-            // onClick={handleClick}
-            onDelete={() => {
-              setTagSelect(false);
-            }}
-            deleteIcon={<CloseIcon />}
+      <div>
+        <SearchBar tagStatus={tagStatus} handleSearchNote={handleSearchNote} />
+        <div className='card mt-3' style={{ borderRadius: "20px" }}>
+          <div
+            className='card-body small d-flex flex-wrap'
             style={{
-              backgroundColor: "transparent",
-              border: "1px solid #AFAFAF",
-              fontWeight: "500",
-              color: "#FFAB45",
+              height: expand ? "auto" : "140px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
-          />
+          >
+            {tagDetails.map((tag, index) => (
+              <div
+                className='me-1 tag-name p-1 ps-2 pe-2'
+                style={{
+                  borderRadius: "20px",
+                  cursor: "pointer",
+                  color: selected === index ? "white" : "black",
+                  backgroundColor: selected === index ? "#ffab45" : "white",
+                }}
+                onClick={() => {
+                  getTagNotes(tag.noteIDs);
+                  setTagSelect(true);
+                  setFeatureStatus(false);
+                  setTagName(tag.tagName);
+                  setSelected(index);
+                }}
+              >
+                #{tag.tagName}
+              </div>
+            ))}
+          </div>
+          <div
+            className='d-flex align-items-center justify-content-end p-2 ps-3 pe-3 small'
+            style={{ borderTop: "1px solid rgba(0,0,0,.125)" }}
+            onClick={() => setExpand(!expand)}
+          >
+            <div
+              className='text-muted'
+              style={{ fontWeight: "500", fontSize: "0.75rem" }}
+            >
+              {expand ? "Close" : "Show more"}
+            </div>
+            <div>
+              {expand ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </div>
+          </div>
+        </div>
+        {tagSelect ? (
           <Scrollbars
-            style={{ height: "68vh", width: "360px", marginTop: "1rem" }}
+            style={{
+              height: expand ? "30vh" : "39.8vh",
+              width: "360px",
+              marginTop: "1rem",
+            }}
           >
             <div className='notes-list'>
               {notes.map((note, ind) => (
@@ -76,39 +121,10 @@ function Tags({
               ))}
             </div>
           </Scrollbars>
-        </div>
-      ) : (
-        <div>
-          <SearchBar
-            tagStatus={tagStatus}
-            handleSearchNote={handleSearchNote}
-          />
-          <Scrollbars
-            style={{ height: "65vh", width: "360px", marginTop: "1rem" }}
-          >
-            {tagDetails.map((tag) => (
-              <div
-                className='d-flex justify-content-between mb-3'
-                style={{
-                  backgroundColor: "#FBFBFB",
-                  borderRadius: "20px",
-                  maxWidth: "340px",
-                  padding: "0.875rem 1.5rem",
-                }}
-                onClick={() => {
-                  getTagNotes(tag.noteIDs);
-                  setTagSelect(true);
-                  setFeatureStatus(false);
-                  setTagName(tag.tagName);
-                }}
-              >
-                <p className='m-0 small'>{tag.tagName}</p>
-                <p className='m-0 small'>{tag.noteIDs.length}</p>
-              </div>
-            ))}
-          </Scrollbars>
-        </div>
-      )}
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 }

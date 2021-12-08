@@ -206,6 +206,7 @@ function renameNotebookInDb(id, name) {
 }
 
 function addNewNote(newNote) {
+  console.log(newNote);
   const requestOptions = {
     method: "POST",
     headers: {
@@ -213,14 +214,7 @@ function addNewNote(newNote) {
       "Content-type": "application/json",
       Authorization: `Bearer ${AT}`,
     },
-    body: JSON.stringify({
-      title: newNote.title,
-      note_content: newNote.text,
-      note_date: newNote.date,
-      nb_id: newNote.nbID,
-      ws_id: newNote.wsID,
-      tags: newNote.tags,
-    }),
+    body: JSON.stringify(newNote),
   };
   return fetch("http://localhost:5000/api/add-notes", requestOptions);
 }

@@ -17,14 +17,18 @@ function SignOut({ dp, userName, mail, clientId, onSignOutSuccess }) {
             className='rounded-circle m-0'
             style={{ maxWidth: "32px", height: "auto" }}
             src={dp}
-            alt=''
+            alt='profile_photo'
           />
         </button>
         <ul className='dropdown-menu p-0 mt-1'>
           <li className='p-2'>
             <div className='p-3 text-center'>
               <div className='p-2'>
-                <img src={dp} className='rounded-circle m-0' alt='' />
+                <img
+                  src={dp}
+                  className='rounded-circle m-0'
+                  alt='profile_photo'
+                />
               </div>
               <div>{userName}</div>
               <div className='small text-secondary p'>{mail}</div>

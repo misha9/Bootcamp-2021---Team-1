@@ -28,6 +28,8 @@ const NotesList = ({
   tagDetails,
   getTagNotes,
   setFeatureStatus,
+  setNoteTitle,
+  setNoteText,
 }) => {
   console.log(tagNames);
   // const [noteTag, setNoteTag] = useState([]);
@@ -124,6 +126,8 @@ const NotesList = ({
                   onClick={() => {
                     handleAddNoteStatus(true);
                     setFullTextStatus(false);
+                    setNoteTitle("");
+                    setNoteText("");
                   }}
                   src='./add-icon.svg'
                   alt='add-icon'
