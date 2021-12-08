@@ -84,7 +84,11 @@ function Tags({
           >
             <div
               className='text-muted'
-              style={{ fontWeight: "500", fontSize: "0.75rem" }}
+              style={{
+                fontWeight: "500",
+                fontSize: "0.75rem",
+                cursor: "pointer",
+              }}
             >
               {expand ? "Close" : "Show more"}
             </div>

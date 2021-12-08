@@ -53,11 +53,11 @@ function EditNote({
 
   return editStatus ? (
     <div
-      className='new m-auto ps-3'
+      className='new m-auto ps-3 mt-5'
       style={fullScreenStatus ? { width: "100%" } : { maxWidth: "600px" }}
     >
       <div
-        className='bg-light p-2 mb-3 text-center'
+        className='bg-light p-2 mb-4  text-center'
         style={{
           maxWidth: "182px",
           fontSize: "12px",

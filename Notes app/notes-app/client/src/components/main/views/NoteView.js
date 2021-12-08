@@ -72,7 +72,7 @@ const NoteView = ({
           : { height: "100vh" }
       }
     >
-      {fullScreenStatus ? (
+      {/* {fullScreenStatus ? (
         ""
       ) : (
         <SignOut
@@ -82,7 +82,7 @@ const NoteView = ({
           userName={userName}
           mail={mail}
         />
-      )}
+      )} */}
       <ToolBar
         id={id}
         fullText={fullText}
@@ -96,6 +96,9 @@ const NoteView = ({
         tagNames={tagNames}
         addNoteStatus={addNoteStatus}
         editStatus={editStatus}
+        setAddNoteStatus={handleAddNoteStatus}
+        clientId={clientId}
+        onSignOutSuccess={onSignOutSuccess}
       />
       <RightContent
         id={id}
@@ -121,6 +124,8 @@ const NoteView = ({
         tagNames={tagNames}
         setTagNames={setTagNames}
         workspaceID={workspaceID}
+        handleDeleteNote={handleDeleteNote}
+        setEditStatus={setEditStatus}
       />
       <AddNote
         addNoteStatus={addNoteStatus}

@@ -29,6 +29,8 @@ function RightContent({
   tagNames,
   setTagNames,
   workspaceID,
+  setEditStatus,
+  handleDeleteNote,
 }) {
   const bookmarkChangeHandler = () => {
     setBookmarkStatus(!bookmarkStatus);
@@ -95,28 +97,23 @@ function RightContent({
 
   return fullTextStatus ? (
     <div className='right-content'>
-      <div
-        className={
-          fullScreenStatus
-            ? "d-flex justify-content-between"
-            : "d-flex justify-content-between ps-5"
-        }
-      >
-        <h2
-          className={fullScreenStatus ? "ps-1" : ""}
-          style={{
-            color: "#161308",
-            fontWeight: "600",
-          }}
-        >
-          {contentTitle}
-        </h2>
+      <div className='d-flex justify-content-end'>
         <div className='d-flex align-items-center'>
-          <DeleteOutlinedIcon className='m-2' style={{ cursor: "pointer" }} />
+          <DeleteOutlinedIcon
+            className='m-2'
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              handleDeleteNote(id);
+            }}
+          />
           <MdEditNote
             className='m-2'
             style={{ cursor: "pointer" }}
             size='1.8rem'
+            onClick={() => {
+              setFullTextStatus(false);
+              setEditStatus(true);
+            }}
           />
           <i
             className={`icon m-2 ${
@@ -127,6 +124,15 @@ function RightContent({
           ></i>
         </div>
       </div>
+      <h2
+        className={fullScreenStatus ? "ps-1" : "ps-5"}
+        style={{
+          color: "#161308",
+          fontWeight: "600",
+        }}
+      >
+        {contentTitle}
+      </h2>
       <div
         className={fullScreenStatus ? "ps-2" : "ps-5"}
         style={{ color: "#FFAB45", fontSize: "0.75rem", fontWeight: "500" }}
@@ -135,7 +141,7 @@ function RightContent({
           <span className='me-2'>#{tag.tagName}</span>
         ))}
       </div>
-      <Scrollbars style={{ minHeight: "70vh" }}>
+      <Scrollbars style={{ minHeight: "60vh" }}>
         <div className={fullScreenStatus ? "ps-2" : "mt-2 ps-5"}>
           <p
             className='mt-3 pe-3 small'

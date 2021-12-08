@@ -55,7 +55,7 @@ function AddNote({
 
   return addNoteStatus ? (
     <div
-      className='new m-auto p-2 ps-3'
+      className='new m-auto p-2 ps-3 mt-5'
       style={fullScreenStatus ? { width: "auto" } : { maxWidth: "600px" }}
     >
       <EditorToolbar toolbarId={"t1"} />

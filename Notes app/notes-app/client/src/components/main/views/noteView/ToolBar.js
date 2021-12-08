@@ -6,13 +6,11 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CgMaximize, CgMinimize } from "react-icons/cg";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { MdEditNote } from "react-icons/md";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-
-const options = [
-  { icon: <MdEditNote size='1.55rem' />, option: "Edit note" },
-  { icon: <DeleteOutlinedIcon />, option: "Delete note" },
-];
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import Logout from "./Logout";
 
 const ITEM_HEIGHT = 48;
 
@@ -25,8 +23,24 @@ function ToolBar({
   handleDeleteNote,
   addNoteStatus,
   editStatus,
+  setAddNoteStatus,
+  clientId,
+  onSignOutSuccess,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const options = [
+    { icon: <PermIdentityIcon />, option: "Profile" },
+    { icon: <SettingsOutlinedIcon />, option: "Settings" },
+    { icon: <LockOutlinedIcon />, option: "Lock page" },
+    {
+      icon: <LogoutOutlinedIcon />,
+      option: (
+        <Logout clientId={clientId} onSignOutSuccess={onSignOutSuccess} />
+      ),
+    },
+  ];
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,7 +61,7 @@ function ToolBar({
   }
 
   return (
-    <div className={fullScreenStatus ? " mb-5 mt-5" : "mb-4"}>
+    <div className={fullScreenStatus ? " mb-5 mt-5" : "mb-4 mt-1"}>
       {fullScreenStatus ? (
         <div className='d-flex align-items-center justify-content-between'>
           <div>
@@ -87,7 +101,11 @@ function ToolBar({
                   color: "black",
                   textTransform: "capitalize",
                 }}
-                onClick={() => setFullScreenStatus(false)}
+                onClick={() => {
+                  setFullScreenStatus(false);
+                  setEditStatus(false);
+                  setAddNoteStatus(false);
+                }}
               >
                 Back
               </Button>
