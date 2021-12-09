@@ -3,8 +3,34 @@ import { useState } from "react";
 
 import TextField from "@mui/material/TextField";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
-import * as Icons from "@mui/icons-material";
+// import * as Icons from "@mui/icons-material";
+// import {
+//   WorkOutlineOutlinedIcon,
+//   HomeOutlinedIcon,
+//   PersonOutlineOutlinedIcon,
+// } from "@mui/icons-material";
+// import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
 import SearchBar from "./noteList/SearchBar";
+
+const icons = ["HomeOutlinedIcon", "PersonOutlineOutlinedIcon"];
+
+// const icons = [
+//   {
+//     path: "@mui/icons-material/WorkOutlineOutlined",
+//     name: "WorkOutlineOutlinedIcon",
+//   },
+//   {
+//     path: "@mui/icons-material/HomeOutlined",
+//     name: "HomeOutlinedIcon",
+//   },
+//   {
+//     path: "@mui/icons-material/PersonOutlineOutlined",
+//     name: "PersonOutlineOutlinedIcon",
+//   },
+// ];
+// icons.map((icon) => {
+//   return "import ${icon.name} from (icon.path)";
+// });
 
 function CreateWorkspace({
   addWorkspaceStatus,
@@ -13,6 +39,7 @@ function CreateWorkspace({
   addWorkspace,
 }) {
   const [workspaceName, setWorkspaceName] = useState("");
+
   // const icons = ["MdAccountBalance", "MdAssignmentReturned", "MdCardTravel"];
   // console.log(Icons);
   return addWorkspaceStatus ? (

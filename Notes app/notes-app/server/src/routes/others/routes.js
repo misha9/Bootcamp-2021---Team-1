@@ -9,5 +9,6 @@ router.patch(
   authenticate.authenticateToken,
   controller.getRecent
 );
+router.get("/is-verify", authenticate.authenticateToken, controller.getToken);
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
+import "../../../styles/RenameWorkspace.css";
 
 function RenameWorkspace({
   wsRenameStatus,
@@ -16,7 +17,7 @@ function RenameWorkspace({
   };
   return wsRenameStatus ? (
     <div
-      className='rename-nb position-fixed'
+      className='rename-ws position-fixed'
       style={{
         width: "100%",
         height: "100vh",
@@ -25,7 +26,7 @@ function RenameWorkspace({
         right: "0px",
       }}
     >
-      <div className='rename-notebook d-flex justify-content-center mt-5'>
+      <div className='rename-workspace d-flex justify-content-center mt-5'>
         <div class='card position-related' style={{ minWidth: "444px" }}>
           <img
             src='./close-icon.svg'
@@ -35,9 +36,9 @@ function RenameWorkspace({
             style={{ top: "1.375rem", right: "1.5rem" }}
             onClick={() => setWsRenameStatus(false)}
           />
-          <div class='card-body' style={{ padding: "1.375rem" }}>
+          <div className='card-body' style={{ padding: "1.375rem" }}>
             <h5
-              class='card-title mb-3'
+              className='card-title mb-3'
               style={{ fontSize: "1.25rem", fontWeight: "600" }}
             >
               Rename Workspace title

@@ -25,7 +25,7 @@ function WorkspaceOptions({ setWsRenameStatus, setWsDeleteStatus }) {
   };
 
   function handleToolbar(option) {
-    if (option === "Rename workspace") {
+    if (option === "Rename") {
       setWsRenameStatus(true);
       handleClose();
     } else {

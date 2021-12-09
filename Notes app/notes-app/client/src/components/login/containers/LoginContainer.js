@@ -1,27 +1,25 @@
 import React from "react";
-import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { GoogleLogin } from "react-google-login";
 import { APIService } from "../../../services/apiService";
 import { useNavigate } from "react-router-dom";
 import { MdEventNote } from "react-icons/md";
-import MdPhone from "@mui/icons-material/Phone";
-import Chip from "@mui/material/Chip";
 import GoogleIcon from "../views/GoogleIcon";
 import AppleIcon from "@mui/icons-material/Apple";
+import ImageSlide from "../views/ImageSlide";
+import ImageSlider from "../views/ImageSlider";
+import BootstrapSlider from "../views/BootstrapSlider";
 
 const clientId =
   "866133952316-a8r10cdbhjlsjroke88n2qrm5ul0jgfj.apps.googleusercontent.com";
 
 const theme = createTheme();
 
-export default function LoginContainer() {
+export default function LoginContainer({ setAuth }) {
   const navigate = useNavigate();
 
   const onLoginSuccess = (res) => {
@@ -44,16 +42,19 @@ export default function LoginContainer() {
       const AT = res[1].AccessToken;
       localStorage.removeItem("token");
       localStorage.setItem("token", AT);
+
       //Storing_login_status
       const LS = res[2].LoginStatus;
       localStorage.removeItem("loginStatus");
       localStorage.setItem("loginStatus", LS);
       console.log(LS);
+
       if (LS === "True") {
         localStorage.setItem("profilePic", profilePic);
         localStorage.setItem("userName", userName);
         localStorage.setItem("userMail", userMail);
-        navigate("/main");
+        // navigate("/main");
+        setAuth(true);
       }
     });
   };
@@ -66,21 +67,11 @@ export default function LoginContainer() {
     <ThemeProvider theme={theme}>
       <Grid container component='main' sx={{ height: "100vh" }}>
         <CssBaseline />
-        <Grid
-          className='leftPart'
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage:
-              "url( https://images.unsplash.com/photo-1563121661-cd531f4fb8cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=858&q=80)",
-            backgroundRepeat: "no-repeat",
-            // backgroundColor: "black !important",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+        <Grid className='leftPart' item xs={false} sm={4} md={7}>
+          {/* <ImageSlide /> */}
+          {/* <ImageSlider /> */}
+          <BootstrapSlider />
+        </Grid>
         <Grid
           item
           xs={12}

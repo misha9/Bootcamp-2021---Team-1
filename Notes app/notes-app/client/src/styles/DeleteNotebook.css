@@ -5,3 +5,13 @@
 .delete-notebook .card .close-icon:hover {
   cursor: pointer;
 }
+
+.delete-nb .delete-notebook .btn {
+  background-color: #ffab45;
+  border-radius: 4px;
+}
+
+.delete-nb .delete-notebook .btn:hover {
+  background-color: #fc9a22;
+  border-radius: 4px;
+}

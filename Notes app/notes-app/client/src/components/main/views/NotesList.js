@@ -136,7 +136,7 @@ const NotesList = ({
               </div>
             </div>
           </div>
-          <Scrollbars style={{ height: "75vh", width: "360px" }}>
+          <Scrollbars style={{ height: "76.5vh", width: "360px" }}>
             <div className='notes-list'>
               {notes.map((note, ind) => (
                 <Note

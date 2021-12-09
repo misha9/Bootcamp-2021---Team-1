@@ -47,9 +47,9 @@ function Tags({
 
       <div>
         <SearchBar tagStatus={tagStatus} handleSearchNote={handleSearchNote} />
-        <div className='card mt-3' style={{ borderRadius: "20px" }}>
+        <div className='mt-4 border-0'>
           <div
-            className='card-body small d-flex flex-wrap'
+            className='small d-flex flex-wrap'
             style={{
               height: expand ? "auto" : "140px",
               overflow: "hidden",
@@ -58,10 +58,11 @@ function Tags({
           >
             {tagDetails.map((tag, index) => (
               <div
-                className='me-1 tag-name p-1 ps-2 pe-2'
+                className='me-1 mb-1 tag-name p-1 ps-2 pe-2'
                 style={{
                   borderRadius: "20px",
                   cursor: "pointer",
+                  maxHeight: "2rem",
                   color: selected === index ? "white" : "black",
                   backgroundColor: selected === index ? "#ffab45" : "white",
                 }}
@@ -78,8 +79,8 @@ function Tags({
             ))}
           </div>
           <div
-            className='d-flex align-items-center justify-content-end p-2 ps-3 pe-3 small'
-            style={{ borderTop: "1px solid rgba(0,0,0,.125)" }}
+            className='d-flex align-items-center justify-content-end small'
+            // style={{ borderTop: "1px solid rgba(0,0,0,.125)" }}
             onClick={() => setExpand(!expand)}
           >
             <div

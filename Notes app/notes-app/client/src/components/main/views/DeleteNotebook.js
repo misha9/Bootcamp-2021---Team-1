@@ -27,7 +27,7 @@ function DeleteNotebook({
       }}
     >
       <div className='delete-notebook d-flex justify-content-center mt-5'>
-        <div class='card position-related' style={{ minWidth: "444px" }}>
+        <div className='card position-related' style={{ minWidth: "444px" }}>
           <img
             src='./close-icon.svg'
             className='position-absolute close-icon'
@@ -36,17 +36,17 @@ function DeleteNotebook({
             style={{ top: "1.375rem", right: "1.5rem" }}
             onClick={() => setNbDeleteStatus(false)}
           />
-          <div class='card-body pb-2' style={{ padding: "1.375rem" }}>
+          <div className='card-body pb-2' style={{ padding: "1.375rem" }}>
             <h5
-              class='card-title mb-4'
+              className='card-title mb-4'
               style={{ fontSize: "1.25rem", fontWeight: "600" }}
             >
-              Delete ?
+              Deleting Notebook
             </h5>
             <p className='mb-2'>
-              All the notes in this notebook also get deleted.
+              All the notes in the notebook also get deleted.
             </p>
-            <p className='mb-0'>You want to delete the notebook ?</p>
+            <p className='mb-0'>You want to delete the notebook?</p>
           </div>
           <div className='button d-flex justify-content-end me-3 mb-4'>
             <button
@@ -58,7 +58,7 @@ function DeleteNotebook({
             </button>
             <button
               type='button'
-              className='btn btn-danger border-0 pe-3 ps-3 btn-sm'
+              className='btn btn-danger border-0 pe-3 ps-3 btn-sm btn-delete'
               onClick={() => handleDelete()}
             >
               Delete

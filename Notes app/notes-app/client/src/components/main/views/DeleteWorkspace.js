@@ -39,7 +39,7 @@ function DeleteWorkspace({
               class='card-title mb-4'
               style={{ fontSize: "1.25rem", fontWeight: "600" }}
             >
-              Delete ?
+              Deleting Workspace
             </h5>
             <p className='mb-2'>
               All the notebooks and notes in this workspace also get deleted.

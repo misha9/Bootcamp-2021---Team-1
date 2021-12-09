@@ -12,4 +12,13 @@ const getRecent = (req, res) => {
   );
 };
 
-module.exports = { getRecent };
+const getToken = (req, res) => {
+  try {
+    res.json(true);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json("Server Error");
+  }
+};
+
+module.exports = { getRecent, getToken };

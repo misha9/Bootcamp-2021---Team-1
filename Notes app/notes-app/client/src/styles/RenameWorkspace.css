@@ -1,0 +1,17 @@
+.rename-ws .rename-workspace .card {
+  border-radius: 8px;
+}
+
+.rename-workspace .card .close-icon:hover {
+  cursor: pointer;
+}
+
+.rename-ws .rename-workspace .btn-primary {
+  background-color: #ffab45;
+  border-radius: 4px;
+}
+
+.rename-ws .rename-workspace .btn-primary:hover {
+  background-color: #fc9a22;
+  border-radius: 4px;
+}

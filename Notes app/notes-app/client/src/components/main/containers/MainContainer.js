@@ -19,7 +19,7 @@ import { BiUser } from "react-icons/bi";
 import { MdOutlineHome, MdWorkOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-const MainContainer = () => {
+const MainContainer = ({ setAuth }) => {
   const [notes, setNotes] = useState([]);
   const [noteID, setNoteID] = useState();
   const [addNoteStatus, setAddNoteStatus] = useState(false);
@@ -381,7 +381,8 @@ const MainContainer = () => {
     localStorage.removeItem("token");
 
     setTimeout(() => {
-      navigate("/");
+      // navigate("/");
+      setAuth(false);
     }, 500);
   };
 
