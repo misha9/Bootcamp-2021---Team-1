@@ -51,7 +51,7 @@ function DeleteNotebook({
           <div className='button d-flex justify-content-end me-3 mb-4'>
             <button
               type='button'
-              className='btn btn-secondary border-0 pe-3 ps-3 me-2 btn-sm'
+              className='btn btn-outline-warning pe-3 ps-3 me-2 btn-sm btn-cancel'
               onClick={() => setNbDeleteStatus(false)}
             >
               Cancel

@@ -8,7 +8,9 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 function TagInput({ tags, setTags, allTags, setAllTags }) {
   const [tagStatus, setTagStatus] = useState(false);
-  const [tagName, setTagName] = useState("");
+  const [tagExist, setTagExist] = useState("");
+  const [tagExistStatus, setTagExistStatus] = useState(false);
+  // const [tagName, setTagName] = useState("");
   const removeTags = (indexToRemove) => {
     setTags([...tags.filter((_, index) => index !== indexToRemove)]);
   };
@@ -29,8 +31,20 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
 
   const handleTag = (e) => {
     let obj = { id: Date.now(), name: e.target.value };
-    setTags([...tags, obj]);
-    setTagStatus(false);
+    const found = tags.some((el) => el.name === e.target.value);
+    // console.log(e.target.value.trim().length);
+    if (!found && e.target.value.trim().length > 0) {
+      setTags([...tags, obj]);
+      setTagStatus(false);
+    } else if (e.target.value.trim().length === 0) {
+      setTagExist("");
+    } else {
+      setTagExistStatus(true);
+      setTagExist("Tag already exists");
+      setTagStatus(true);
+    }
+    // setTags([...tags, obj]);
+    // setTagStatus(false);
   };
 
   // const options = [
@@ -40,7 +54,7 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
   console.log(tags);
   return (
     <div className='tag-area d-flex align-items-center mt-3'>
-      <div className='d-flex align-items-center'>
+      <div className='d-flex align-items-center mt-2 mb-3'>
         <LocalOfferOutlinedIcon
           className='me-2'
           fontSize='medium'
@@ -66,26 +80,52 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
       </div>
 
       {tagStatus ? (
-        <Autocomplete
-          // id="tags-standard"
-          // id="clear-on-escape"
-          clearOnEscape
-          options={allTags}
-          getOptionLabel={(option) => option.name}
-          // defaultValue={[options]}
-          renderInput={(params) => (
-            <TextField
-              classes={{ root: classes.customTextField }}
-              {...params}
-              className='form-control form-control-sm'
-              variant='standard'
-              placeholder='Type to add...'
-              style={{ width: "125px" }}
-              // inputProps={{ style: { fontSize: "14px" } }}
-              onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
-            />
-          )}
-        />
+        <div className='absolute'>
+          <Autocomplete
+            // id="tags-standard"
+            // id="clear-on-escape"
+            // clearOnEscape
+            sx={{
+              position: "relative",
+              top: tagExistStatus ? "10px" : "-1px",
+            }}
+            // id="tags-standard"
+            // id="clear-on-escape"
+            disableClearable={true}
+            options={allTags}
+            getOptionLabel={(option) => option.name}
+            // defaultValue={[options]}
+            renderInput={(params) => (
+              <TextField
+                error={tagExistStatus}
+                classes={{ root: classes.customTextField }}
+                {...params}
+                className='form-control form-control-sm'
+                variant='standard'
+                placeholder='Type to add...'
+                style={{ width: "125px" }}
+                // inputProps={{ style: { fontSize: "14px" } }}
+                onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
+                onChange={(e) => {
+                  console.log(e.target.value.trim().length);
+                  const found = tags.some((el) => el.name === e.target.value);
+
+                  if (!found) {
+                    setTagExist("");
+                    setTagExistStatus(false);
+                  } else if (e.target.value.trim().length === 0) {
+                    setTagExist("");
+                    setTagExistStatus(false);
+                  } else if (found) {
+                    setTagExistStatus(true);
+                    setTagExist("Tag already exists");
+                  }
+                }}
+                helperText={tagExist}
+              />
+            )}
+          />
+        </div>
       ) : (
         // <input
         //   className='form-control form-control-sm'
@@ -94,15 +134,17 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
         //   style={{ maxWidth: "124px" }}
         //   onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
         // />
-        <Chip
-          label='Add Tags'
-          sx={{
-            fontWeight: "500",
-            background: "transparent",
-            borderRadius: "5px",
-          }}
-          onClick={() => setTagStatus(true)}
-        />
+        <div className='mt-2 mb-3'>
+          <Chip
+            label='Add Tags'
+            sx={{
+              fontWeight: "500",
+              background: "transparent",
+              borderRadius: "5px",
+            }}
+            onClick={() => setTagStatus(true)}
+          />
+        </div>
       )}
     </div>
   );

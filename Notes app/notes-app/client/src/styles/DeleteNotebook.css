@@ -6,12 +6,24 @@
   cursor: pointer;
 }
 
-.delete-nb .delete-notebook .btn {
+.delete-nb .delete-notebook .btn-delete {
   background-color: #ffab45;
   border-radius: 4px;
 }
 
-.delete-nb .delete-notebook .btn:hover {
+.delete-nb .delete-notebook .btn-delete:hover {
   background-color: #fc9a22;
+  border-radius: 4px;
+}
+
+.delete-nb .delete-notebook .btn-outline-warning {
+  border-radius: 4px;
+  border-color: #ffab45;
+  color: #ffab45;
+}
+
+.delete-nb .delete-notebook .btn-outline-warning:hover {
+  background-color: #ffab45;
+  color: rgb(255, 255, 255);
   border-radius: 4px;
 }

@@ -16,8 +16,8 @@ const getWorkspace = (req, res) => {
 const addWorkspace = (req, res) => {
   console.log("adding workspace", req.body);
   pool.query(
-    "INSERT INTO workspace (u_id, name) VALUES ($1, $2)",
-    [req.body.uID, req.body.name],
+    "INSERT INTO workspace (u_id, name, icon) VALUES ($1, $2, $3)",
+    [req.body.uID, req.body.name, req.body.icon],
     (error, results) => {
       if (error) throw error;
       res.status(200).send("Workspace added successfully");

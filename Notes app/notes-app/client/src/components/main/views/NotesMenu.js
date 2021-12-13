@@ -14,6 +14,8 @@ import AddIcon from "@mui/icons-material/Add";
 import NotebookOption from "./notesMenu/NotebookOption";
 import WorkspaceOptions from "./notesMenu/WorkspaceOptions";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
+import ReactHtmlParser from "react-html-parser";
+import Icon from "@mui/material/Icon";
 
 const NotesMenu = ({
   handleNotebookStatus,
@@ -48,8 +50,10 @@ const NotesMenu = ({
   setWsName,
   setWsRenameStatus,
   setWsDeleteStatus,
+  setOpenWsIcons,
 }) => {
   console.log(workspace);
+
   const handleSelectNotebook = (name, id) => {
     getNotes(id);
     setNbName(name);
@@ -144,14 +148,21 @@ const NotesMenu = ({
                 <AddIcon
                   className='add-icon me-2'
                   style={{ borderRadius: "100%" }}
-                  onClick={() => setAddWorkspaceStatus(true)}
+                  onClick={() => {
+                    setAddWorkspaceStatus(true);
+                    setOpenWsIcons(true);
+                  }}
                 />
               </div>
               <ul className='list-unstyled'>
                 {workspace.map((ws) => (
                   <li className='d-flex align-items-center justify-content-between position-relative'>
-                    <div>
-                      <WorkOutlineOutlinedIcon className='me-3' size='1.5rem' />
+                    <div className='d-flex align-items-center'>
+                      <span className='me-3'>
+                        <Icon>{ws.icon}</Icon>
+
+                        {/* <WorkOutlineOutlinedIcon /> */}
+                      </span>
                       <button
                         type='button'
                         className='text-decoration-none p-0 border-0 bg-transparent'

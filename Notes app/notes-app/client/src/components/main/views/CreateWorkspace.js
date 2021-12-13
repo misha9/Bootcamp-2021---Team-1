@@ -2,46 +2,27 @@ import React from "react";
 import { useState } from "react";
 
 import TextField from "@mui/material/TextField";
-import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
-// import * as Icons from "@mui/icons-material";
-// import {
-//   WorkOutlineOutlinedIcon,
-//   HomeOutlinedIcon,
-//   PersonOutlineOutlinedIcon,
-// } from "@mui/icons-material";
-// import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
-import SearchBar from "./noteList/SearchBar";
+import Icon from "@mui/material/Icon";
+import { Scrollbars } from "react-custom-scrollbars";
 
-const icons = ["HomeOutlinedIcon", "PersonOutlineOutlinedIcon"];
-
-// const icons = [
-//   {
-//     path: "@mui/icons-material/WorkOutlineOutlined",
-//     name: "WorkOutlineOutlinedIcon",
-//   },
-//   {
-//     path: "@mui/icons-material/HomeOutlined",
-//     name: "HomeOutlinedIcon",
-//   },
-//   {
-//     path: "@mui/icons-material/PersonOutlineOutlined",
-//     name: "PersonOutlineOutlinedIcon",
-//   },
-// ];
-// icons.map((icon) => {
-//   return "import ${icon.name} from (icon.path)";
-// });
+import SearchIcon from "./SearchIcon";
 
 function CreateWorkspace({
   addWorkspaceStatus,
   setAddWorkspaceStatus,
   userID,
   addWorkspace,
+  setOpenWsIcons,
+  setWsIcon,
+  wsIcon,
+  getAllIcons,
+  icons,
+  handleSearchIcon,
 }) {
   const [workspaceName, setWorkspaceName] = useState("");
+  const [tagString, setTagString] = useState("");
+  console.log(icons);
 
-  // const icons = ["MdAccountBalance", "MdAssignmentReturned", "MdCardTravel"];
-  // console.log(Icons);
   return addWorkspaceStatus ? (
     <div
       className='position-fixed'
@@ -79,15 +60,36 @@ function CreateWorkspace({
                   aria-expanded='false'
                   // onMouseEnter={() => setLogoutStatus(false)}
                 >
-                  <WorkOutlineOutlinedIcon />
+                  {/* {<wsIcon />} */}
+                  {/* {wsIcon} */}
+                  {/* <WorkOutlineOutlinedIcon /> */}
+                  <Icon onClick={getAllIcons}>{wsIcon}</Icon>
                 </button>
-                <ul className='dropdown-menu p-0 mt-1'>
+                <ul
+                  className='dropdown-menu p-0 mt-1'
+                  style={{ minWidth: "250px" }}
+                >
                   <li className='p-2'>
-                    <SearchBar />
+                    <SearchIcon handleSearchIcon={handleSearchIcon} />
                   </li>
-                  <li className='p-2'>
-                    <span>{/* <MdCardTravel /> */}</span>
-                  </li>
+                  <Scrollbars style={{ height: "50vh" }}>
+                    <li className='p-2 d-flex flex-wrap'>
+                      {icons.map((icon) => (
+                        <div
+                          className='m-3'
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            setWsIcon(icon);
+                            // setTagString(icon.tagString);
+                            // console.log(wsIcon);
+                            // console.log(tagString);
+                          }}
+                        >
+                          <Icon>{icon}</Icon>
+                        </div>
+                      ))}
+                    </li>
+                  </Scrollbars>
                 </ul>
               </div>
               <TextField
@@ -104,8 +106,9 @@ function CreateWorkspace({
               type='button'
               className='btn btn-primary border-0'
               onClick={() => {
-                addWorkspace(userID, workspaceName);
+                addWorkspace(userID, workspaceName, wsIcon);
                 setAddWorkspaceStatus(false);
+                setOpenWsIcons(false);
               }}
             >
               Create

@@ -17,6 +17,7 @@ import { APIService } from "../../../services/apiService";
 import { Link } from "react-router-dom";
 import { BiUser } from "react-icons/bi";
 import { MdOutlineHome, MdWorkOutline } from "react-icons/md";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import { useNavigate } from "react-router-dom";
 
 const MainContainer = ({ setAuth }) => {
@@ -61,6 +62,9 @@ const MainContainer = ({ setAuth }) => {
   const [wsDeleteStatus, setWsDeleteStatus] = useState(false);
   const [wsName, setWsName] = useState("");
   const [allTags, setAllTags] = useState([]);
+  const [openWsIcons, setOpenWsIcons] = useState(false);
+  const [icons, setIcons] = useState([]);
+  const [wsIcon, setWsIcon] = useState(<WorkOutlineOutlinedIcon />);
 
   const navigate = useNavigate();
 
@@ -89,9 +93,11 @@ const MainContainer = ({ setAuth }) => {
     const data = [];
     APIService.fetchWorkspace(userID).then((res) => {
       for (let i = 0; i < res.length; i++) {
+        // let iconTag = typeof res[i].icon;
         data.push({
           wsID: res[i].ws_id,
           wsName: res[i].name,
+          icon: res[i].icon,
         });
       }
       console.log(data);
@@ -99,9 +105,9 @@ const MainContainer = ({ setAuth }) => {
     });
   };
 
-  const addWorkspace = (uID, name) => {
+  const addWorkspace = (uID, name, icon) => {
     console.log(uID, name);
-    APIService.addWorkspace(uID, name).then(
+    APIService.addWorkspace(uID, name, icon).then(
       setTimeout(() => {
         getAllWorkspace(uID);
       }, 150)
@@ -375,6 +381,12 @@ const MainContainer = ({ setAuth }) => {
     setNotebookStatus(status);
   };
 
+  const getAllIcons = () => {
+    APIService.getAllIcons().then((res) => {
+      setIcons(res[0].icon_names);
+    });
+  };
+
   const onSignOutSuccess = () => {
     //api call here => remove access token from db, clear the local storage
     // console.clear();
@@ -436,6 +448,7 @@ const MainContainer = ({ setAuth }) => {
           setWsRenameStatus={setWsRenameStatus}
           setWsName={setWsName}
           setWsDeleteStatus={setWsDeleteStatus}
+          setOpenWsIcons={setOpenWsIcons}
         />
         <NotesList
           notes={notes.filter((note) =>
@@ -518,6 +531,16 @@ const MainContainer = ({ setAuth }) => {
           setAddWorkspaceStatus={setAddWorkspaceStatus}
           userID={userID}
           addWorkspace={addWorkspace}
+          setOpenWsIcons={setOpenWsIcons}
+          setWsIcon={setWsIcon}
+          wsIcon={wsIcon}
+          getAllIcons={getAllIcons}
+          icons={icons}
+          // icons={icons.filter().includes(searchText)}
+          // {tagDetails.filter((tagDetails) =>
+          //   tagDetails.tagName.toLowerCase().includes(searchText)
+          // )}
+          handleSearchIcon={setSearchText}
         />
         <RenameWorkspace
           handleRenameWorkspace={renameWorkspace}

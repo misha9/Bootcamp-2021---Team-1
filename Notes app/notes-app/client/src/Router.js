@@ -31,9 +31,15 @@ const Router = () => {
   useEffect(() => {
     isAuth();
   });
+
   return (
     <BrowserRouter>
       <Routes>
+        {/* {!isLogged ? (
+          <Route path='/' element={<LoginContainer setAuth={setAuth} />} />
+        ) : (
+          <Route path='/main' element={<MainContainer setAuth={setAuth} />} />
+        )} */}
         <Route
           path='/'
           element={

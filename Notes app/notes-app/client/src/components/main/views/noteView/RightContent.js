@@ -4,6 +4,7 @@ import ReactHtmlParser from "react-html-parser";
 import { Scrollbars } from "react-custom-scrollbars";
 import { MdEditNote } from "react-icons/md";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import "../../../../styles/RightContent.css";
 
 function RightContent({
   id,
@@ -141,10 +142,10 @@ function RightContent({
           <span className='me-2'>#{tag.tagName}</span>
         ))}
       </div>
-      <Scrollbars style={{ minHeight: "60vh" }}>
+      <Scrollbars style={{ minHeight: "71vh" }}>
         <div className={fullScreenStatus ? "ps-2" : "mt-2 ps-5"}>
           <p
-            className='mt-3 pe-3 small'
+            className='mt-3 pe-3 small full-content'
             style={
               fullScreenStatus
                 ? { width: "auto", color: "#B5B5B5" }

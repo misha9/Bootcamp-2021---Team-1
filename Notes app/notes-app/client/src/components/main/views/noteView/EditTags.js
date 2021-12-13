@@ -8,6 +8,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 function EditTags({ tags, setTags, tagNames, setTagNames, allTags }) {
   const [tagStatus, setTagStatus] = useState(false);
+  const [tagExist, setTagExist] = useState("");
+  const [tagExistStatus, setTagExistStatus] = useState(false);
 
   const useStyles = makeStyles({
     customTextField: {
@@ -30,14 +32,24 @@ function EditTags({ tags, setTags, tagNames, setTagNames, allTags }) {
   console.log(tagNames);
   const handleTag = (e) => {
     let obj = { tagName: e.target.value.replace(/ +/g, "") };
-    console.log(e.target.value);
-    setTagNames([...tagNames, obj]);
-    setTagStatus(false);
+    // console.log(e.target.value);
+    const found = tagNames.some((el) => el.tagName === e.target.value);
+    if (!found && e.target.value.trim().length > 0) {
+      setTagNames([...tagNames, obj]);
+      setTagStatus(false);
+      setTagExist("");
+    } else if (e.target.value.trim().length === 0) {
+      setTagExist("");
+    } else {
+      setTagExistStatus(true);
+      setTagExist("Tag already exists");
+      setTagStatus(true);
+    }
   };
-  //   console.log(tags);
+
   return (
     <div className='tag-area d-flex'>
-      <div className='d-flex align-items-center'>
+      <div className='d-flex align-items-center mt-2 mb-2'>
         <LocalOfferOutlinedIcon
           className='me-2'
           fontSize='medium'
@@ -46,7 +58,6 @@ function EditTags({ tags, setTags, tagNames, setTagNames, allTags }) {
         {tagNames.length > 0
           ? tagNames.map((tag, index) => (
               <div>
-                {/* {arr.push(JSON.parse(tag))} */}
                 <Chip
                   className='me-2 mb-2'
                   size='medium'
@@ -60,26 +71,58 @@ function EditTags({ tags, setTags, tagNames, setTagNames, allTags }) {
       </div>
 
       {tagStatus ? (
-        <Autocomplete
-          // id="tags-standard"
-          // id="clear-on-escape"
-          clearOnEscape
-          options={allTags}
-          getOptionLabel={(option) => option.name}
-          // defaultValue={[options]}
-          renderInput={(params) => (
-            <TextField
-              classes={{ root: classes.customTextField }}
-              {...params}
-              className='form-control form-control-sm'
-              variant='standard'
-              placeholder='Type to add...'
-              style={{ width: "125px" }}
-              // inputProps={{ style: { fontSize: "14px" } }}
-              onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
-            />
-          )}
-        />
+        <div className='absolute'>
+          <Autocomplete
+            sx={{
+              position: "relative",
+              top: "10px",
+            }}
+            // id="tags-standard"
+            // id="clear-on-escape"
+            disableClearable={true}
+            // clearOnEscape
+            options={allTags}
+            getOptionLabel={(option) => option.name}
+            // defaultValue={[options]}
+            renderInput={(params) => (
+              <TextField
+                error={tagExistStatus}
+                classes={{ root: classes.customTextField }}
+                {...params}
+                className='form-control form-control-sm'
+                variant='standard'
+                placeholder='Type to add...'
+                style={{ width: "125px" }}
+                // inputProps={{ style: { fontSize: "14px" } }}
+                onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
+                // onKeyUp={(e) => (e.key === "Escape" ? setTagExist("") : null)}
+                onChange={(e) => {
+                  const found = tagNames.some(
+                    (el) => el.tagName === e.target.value
+                  );
+                  if (!found) {
+                    setTagExist("");
+                    setTagExistStatus(false);
+                  } else {
+                    setTagExistStatus(true);
+                    setTagExist("Tag already exists");
+                  }
+                }}
+                // onSelects={(e) => {
+                //   const found = tagNames.some(
+                //     (el) => el.tagName === e.target.value
+                //   );
+                //   if (!found) {
+                //     setTagExist("");
+                //   } else {
+                //     setTagExist("Tag already exist");
+                //   }
+                // }}
+                helperText={tagExist}
+              />
+            )}
+          />
+        </div>
       ) : (
         // <input
         //   className='form-control form-control-sm'
@@ -89,6 +132,7 @@ function EditTags({ tags, setTags, tagNames, setTagNames, allTags }) {
         //   onKeyUp={(e) => (e.key === "Enter" ? handleTag(e) : null)}
         // />
         <Chip
+          className='mt-2 mb-2'
           label='Add Tags'
           sx={{
             fontWeight: "500",

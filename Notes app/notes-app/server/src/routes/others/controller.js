@@ -12,6 +12,13 @@ const getRecent = (req, res) => {
   );
 };
 
+const getIcons = (req, res) => {
+  pool.query("SELECT * FROM icons", (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
 const getToken = (req, res) => {
   try {
     res.json(true);
@@ -21,4 +28,4 @@ const getToken = (req, res) => {
   }
 };
 
-module.exports = { getRecent, getToken };
+module.exports = { getRecent, getToken, getIcons };

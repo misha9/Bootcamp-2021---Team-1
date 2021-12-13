@@ -1,11 +1,50 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
+import coverPhoto from "../../../images/login.png";
 
 function BootstrapSlider() {
   return (
     <div>
-      <Carousel fade={true} controls={false}>
-        <Carousel.Item interval={2000}>
+      <Carousel fade={true} controls={false} indicators={false}>
+        <Carousel.Item interval={3000}>
+          <div
+            className='d-block w-100 text-center'
+            style={{ height: "100vh", backgroundColor: "#FFAC46" }}
+          >
+            <h2
+              className='text-white position-relative'
+              style={{ fontWeight: "600", top: "4rem" }}
+            >
+              One Workspace for all notes
+            </h2>
+            <img
+              className=''
+              src={coverPhoto}
+              alt='cover-photo'
+              style={{ maxWidth: "500px", height: "auto" }}
+            />
+          </div>
+        </Carousel.Item>
+        <Carousel.Item interval={3000}>
+          <div
+            className='d-block w-100 text-center'
+            style={{ height: "100vh", backgroundColor: "#464646" }}
+          >
+            <h2
+              className='text-white position-relative'
+              style={{ fontWeight: "600", top: "4rem" }}
+            >
+              One Workspace for all notes
+            </h2>
+            <img
+              className=''
+              src={coverPhoto}
+              alt='cover-photo'
+              style={{ maxWidth: "500px", height: "auto" }}
+            />
+          </div>
+        </Carousel.Item>
+        {/* <Carousel.Item interval={2000}>
           <img
             className='d-block w-100'
             style={{ height: "100vh" }}
@@ -42,7 +81,7 @@ function BootstrapSlider() {
               Praesent commodo cursus magna, vel scelerisque nisl consectetur.
             </p>
           </Carousel.Caption>
-        </Carousel.Item>
+        </Carousel.Item> */}
       </Carousel>
     </div>
   );

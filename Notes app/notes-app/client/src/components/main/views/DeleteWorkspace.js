@@ -49,14 +49,14 @@ function DeleteWorkspace({
           <div className='button d-flex justify-content-end me-3 mb-4'>
             <button
               type='button'
-              className='btn btn-secondary border-0 pe-3 ps-3 me-2 btn-sm'
+              className='btn btn-outline-warning pe-3 ps-3 me-2 btn-sm cancel'
               onClick={() => setWsDeleteStatus(false)}
             >
               Cancel
             </button>
             <button
               type='button'
-              className='btn btn-danger border-0 pe-3 ps-3 btn-sm'
+              className='btn btn-danger border-0 pe-3 ps-3 btn-sm btn-delete'
               onClick={() => handleDelete()}
             >
               Delete
