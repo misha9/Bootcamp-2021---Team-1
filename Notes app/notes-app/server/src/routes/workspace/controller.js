@@ -29,8 +29,8 @@ const addWorkspace = (req, res) => {
 const renameWorkspace = (req, res) => {
   console.log(req.body, "rename workspace");
   pool.query(
-    "UPDATE workspace SET name = $1 WHERE ws_id=$2",
-    [req.body.name, req.body.wsID],
+    "UPDATE workspace SET name = $1, icon = $2 WHERE ws_id=$3",
+    [req.body.name, req.body.icon, req.body.wsID],
     (error, results) => {
       if (error) throw error;
       res.status(200).send("workspace name updated successfully");

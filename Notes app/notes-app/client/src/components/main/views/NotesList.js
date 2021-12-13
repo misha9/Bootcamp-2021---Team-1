@@ -32,7 +32,6 @@ const NotesList = ({
   setNoteText,
 }) => {
   console.log(tagNames);
-  // const [noteTag, setNoteTag] = useState([]);
 
   // useEffect(() => {
   //   if (notes.length > 0) {

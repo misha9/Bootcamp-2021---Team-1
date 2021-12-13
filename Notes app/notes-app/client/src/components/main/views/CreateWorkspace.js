@@ -17,11 +17,10 @@ function CreateWorkspace({
   wsIcon,
   getAllIcons,
   icons,
+  setIcons,
   handleSearchIcon,
 }) {
   const [workspaceName, setWorkspaceName] = useState("");
-  const [tagString, setTagString] = useState("");
-  console.log(icons);
 
   return addWorkspaceStatus ? (
     <div
@@ -55,14 +54,11 @@ function CreateWorkspace({
               <div className='btn-group'>
                 <button
                   type='button'
-                  className='btn shadow-none p-0 pt-3 me-2'
+                  className='btn shadow-none mt-3 ps-0'
                   data-bs-toggle='dropdown'
                   aria-expanded='false'
                   // onMouseEnter={() => setLogoutStatus(false)}
                 >
-                  {/* {<wsIcon />} */}
-                  {/* {wsIcon} */}
-                  {/* <WorkOutlineOutlinedIcon /> */}
                   <Icon onClick={getAllIcons}>{wsIcon}</Icon>
                 </button>
                 <ul
@@ -80,6 +76,7 @@ function CreateWorkspace({
                           style={{ cursor: "pointer" }}
                           onClick={() => {
                             setWsIcon(icon);
+                            setIcons([]);
                             // setTagString(icon.tagString);
                             // console.log(wsIcon);
                             // console.log(tagString);

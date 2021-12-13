@@ -9,7 +9,13 @@ router.patch(
   authenticate.authenticateToken,
   controller.getRecent
 );
-router.get("/get-icons", authenticate.authenticateToken, controller.getIcons);
+router.post(
+  "/update-icon",
+  authenticate.authenticateToken,
+  controller.updateIcon
+);
+
+router.get("/get-icons", controller.getIcons);
 
 router.get("/is-verify", authenticate.authenticateToken, controller.getToken);
 

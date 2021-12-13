@@ -14,7 +14,6 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { APIService } from "../../../services/apiService";
 
-import { Link } from "react-router-dom";
 import { BiUser } from "react-icons/bi";
 import { MdOutlineHome, MdWorkOutline } from "react-icons/md";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
@@ -80,20 +79,11 @@ const MainContainer = ({ setAuth }) => {
   const userName = localStorage.getItem("userName");
   const mail = localStorage.getItem("userMail");
 
-  console.log(dp, userName, mail);
-
-  const work = <MdWorkOutline className='me-3' size='1.3rem' />;
-  const personal = <BiUser className='me-3' size='1.3rem' />;
-  const home = <MdOutlineHome className='me-3' size='1.3rem' />;
-
-  console.log(userID);
-
   const getAllWorkspace = (userID) => {
     console.log("Loaded notebook");
     const data = [];
     APIService.fetchWorkspace(userID).then((res) => {
       for (let i = 0; i < res.length; i++) {
-        // let iconTag = typeof res[i].icon;
         data.push({
           wsID: res[i].ws_id,
           wsName: res[i].name,
@@ -114,9 +104,8 @@ const MainContainer = ({ setAuth }) => {
     );
   };
 
-  const renameWorkspace = (name, wsID) => {
-    console.log("renaming workspace", name, wsID);
-    APIService.renameWorkspace(name, wsID).then(
+  const renameWorkspace = (name, wsID, wsIcon) => {
+    APIService.renameWorkspace(name, wsID, wsIcon).then(
       setTimeout(() => {
         getAllWorkspace(userID);
       }, 250)
@@ -130,15 +119,7 @@ const MainContainer = ({ setAuth }) => {
         getAllWorkspace(userID);
       }, 250)
     );
-    // const newWorkspace = workspace.filter(
-    //   (workspace) => workspace.wsID !== wsID
-    // );
-    // setNotebooks([]);
   };
-
-  // const setWorkspace = (userID) => {
-  //   APIService.setWorkspace(userID);
-  // };
 
   const getAllNotebooks = (wsID) => {
     console.log("Loaded notebook");
@@ -297,17 +278,6 @@ const MainContainer = ({ setAuth }) => {
     });
   }
 
-  const addTag = (tags) => {
-    // console.log(tags);
-    console.log(tags);
-    // APIService.insertTag(name);
-    // .then
-    // // setTimeout(() => {
-    // //   getAllNotebooks(defaultWsID, wsID);
-    // // }, 150)
-    // ();
-  };
-
   const getTagName = (id) => {
     console.log("getting tag name");
     const data = [];
@@ -367,6 +337,15 @@ const MainContainer = ({ setAuth }) => {
     });
   };
 
+  const updateIcon = (wsID, icon, uID) => {
+    console.log(wsID, icon);
+    APIService.updateIcon(wsID, icon).then(
+      setTimeout(() => {
+        getAllWorkspace(userID);
+      }, 150)
+    );
+  };
+
   const getNoteID = (id) => {
     setNoteID(id);
     setAddNoteStatus(false);
@@ -388,7 +367,6 @@ const MainContainer = ({ setAuth }) => {
   };
 
   const onSignOutSuccess = () => {
-    //api call here => remove access token from db, clear the local storage
     // console.clear();
     localStorage.removeItem("token");
 
@@ -398,10 +376,7 @@ const MainContainer = ({ setAuth }) => {
     }, 500);
   };
 
-  // const getUserID = () => {};
-
   useEffect(() => {
-    // setWorkspace(userID);
     getAllWorkspace(userID);
     getAllTags();
   }, [userID]);
@@ -449,6 +424,13 @@ const MainContainer = ({ setAuth }) => {
           setWsName={setWsName}
           setWsDeleteStatus={setWsDeleteStatus}
           setOpenWsIcons={setOpenWsIcons}
+          wsIcon={wsIcon}
+          setWsIcon={setWsIcon}
+          getAllIcons={getAllIcons}
+          icons={icons}
+          handleSearchIcon={setSearchText}
+          updateIcon={updateIcon}
+          setIcons={setIcons}
         />
         <NotesList
           notes={notes.filter((note) =>
@@ -504,7 +486,6 @@ const MainContainer = ({ setAuth }) => {
           setNoteTitle={setNoteTitle}
           noteTitle={noteTitle}
           contentTitle={contentTitle}
-          // starStatus={starStatus}
           starredStatus={starredStatus}
           setContentTitle={setContentTitle}
           handleEditNote={editNote}
@@ -514,7 +495,6 @@ const MainContainer = ({ setAuth }) => {
           onSignOutSuccess={onSignOutSuccess}
           lastSaved={lastSaved}
           handleDeleteNote={deleteNote}
-          handleAddTag={addTag}
           dp={dp}
           userName={userName}
           mail={mail}
@@ -540,6 +520,7 @@ const MainContainer = ({ setAuth }) => {
           // {tagDetails.filter((tagDetails) =>
           //   tagDetails.tagName.toLowerCase().includes(searchText)
           // )}
+          setIcons={setIcons}
           handleSearchIcon={setSearchText}
         />
         <RenameWorkspace
@@ -548,6 +529,16 @@ const MainContainer = ({ setAuth }) => {
           setWsRenameStatus={setWsRenameStatus}
           wsName={wsName}
           workspaceID={workspaceID}
+          setWsIcon={setWsIcon}
+          wsIcon={wsIcon}
+          getAllIcons={getAllIcons}
+          icons={icons}
+          // icons={icons.filter().includes(searchText)}
+          // {tagDetails.filter((tagDetails) =>
+          //   tagDetails.tagName.toLowerCase().includes(searchText)
+          // )}
+          setIcons={setIcons}
+          handleSearchIcon={setSearchText}
         />
         <DeleteWorkspace
           wsDeleteStatus={wsDeleteStatus}
@@ -580,7 +571,6 @@ const MainContainer = ({ setAuth }) => {
           workspaceID={workspaceID}
           setFeatureStatus={setFeatureStatus}
         />
-        {/* <IconSearch /> */}
       </div>
     </div>
   );

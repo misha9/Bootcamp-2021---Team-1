@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import "../../../styles/RenameWorkspace.css";
+import Icon from "@mui/material/Icon";
+import { Scrollbars } from "react-custom-scrollbars";
+
+import SearchIcon from "./SearchIcon";
 
 function RenameWorkspace({
   wsRenameStatus,
@@ -8,11 +12,17 @@ function RenameWorkspace({
   handleRenameWorkspace,
   wsName,
   workspaceID,
+  icons,
+  setIcons,
+  wsIcon,
+  setWsIcon,
+  handleSearchIcon,
+  getAllIcons,
 }) {
   const [renameWs, setRenameWs] = useState("");
   const handleRename = () => {
     console.log("Rename workspace");
-    handleRenameWorkspace(renameWs, workspaceID);
+    handleRenameWorkspace(renameWs, workspaceID, wsIcon);
     setWsRenameStatus(false);
   };
   return wsRenameStatus ? (
@@ -43,17 +53,53 @@ function RenameWorkspace({
             >
               Rename Workspace title
             </h5>
-            <TextField
-              id='standard-basic'
-              label='Enter workspace title here'
-              variant='standard'
-              // placeholder=""
-              defaultValue={wsName}
-              fullWidth
-              onChange={(event) => {
-                setRenameWs(event.target.value);
-              }}
-            />
+            <div className='d-flex'>
+              <div className='btn-group'>
+                <button
+                  type='button'
+                  className='btn shadow-none mt-3 ps-0'
+                  data-bs-toggle='dropdown'
+                  aria-expanded='false'
+                >
+                  <Icon onClick={getAllIcons}>{wsIcon}</Icon>
+                </button>
+                <ul
+                  className='dropdown-menu p-0 mt-1'
+                  style={{ minWidth: "250px" }}
+                >
+                  <li className='p-2'>
+                    <SearchIcon handleSearchIcon={handleSearchIcon} />
+                  </li>
+                  <Scrollbars style={{ height: "50vh" }}>
+                    <li className='p-2 d-flex flex-wrap'>
+                      {icons.map((icon) => (
+                        <div
+                          className='m-3'
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            setWsIcon(icon);
+                            setIcons([]);
+                          }}
+                        >
+                          <Icon>{icon}</Icon>
+                        </div>
+                      ))}
+                    </li>
+                  </Scrollbars>
+                </ul>
+              </div>
+              <TextField
+                id='standard-basic'
+                label='Enter workspace title here'
+                variant='standard'
+                // placeholder=""
+                defaultValue={wsName}
+                fullWidth
+                onChange={(event) => {
+                  setRenameWs(event.target.value);
+                }}
+              />
+            </div>
           </div>
           <div className='d-flex justify-content-end me-3 mb-4'>
             <button

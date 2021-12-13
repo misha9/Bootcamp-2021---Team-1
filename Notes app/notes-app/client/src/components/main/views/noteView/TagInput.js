@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Chip from "@mui/material/Chip";
-import TagOption from "./TagOption";
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
@@ -10,7 +9,6 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
   const [tagStatus, setTagStatus] = useState(false);
   const [tagExist, setTagExist] = useState("");
   const [tagExistStatus, setTagExistStatus] = useState(false);
-  // const [tagName, setTagName] = useState("");
   const removeTags = (indexToRemove) => {
     setTags([...tags.filter((_, index) => index !== indexToRemove)]);
   };
@@ -43,14 +41,8 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
       setTagExist("Tag already exists");
       setTagStatus(true);
     }
-    // setTags([...tags, obj]);
-    // setTagStatus(false);
   };
 
-  // const options = [
-  //   { id: 0, name: "Idea" },
-  //   { id: 1, name: "Project" },
-  // ];
   console.log(tags);
   return (
     <div className='tag-area d-flex align-items-center mt-3'>
@@ -68,10 +60,6 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
                   size='medium'
                   label={tag.name}
                   onDelete={() => removeTags(index)}
-                  // variant='outlined'
-                  // deleteIcon={
-                  //   <TagOption removeTags={() => removeTags(index)} />
-                  // }
                   sx={{ borderRadius: "5px" }}
                 />
               </div>
@@ -84,7 +72,6 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
           <Autocomplete
             // id="tags-standard"
             // id="clear-on-escape"
-            // clearOnEscape
             sx={{
               position: "relative",
               top: tagExistStatus ? "10px" : "-1px",

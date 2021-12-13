@@ -23,6 +23,7 @@ export const APIService = {
   renameWorkspace,
   deleteWorkspace,
   getAllIcons,
+  updateIcon,
 };
 
 const AT = localStorage.getItem("token");
@@ -121,11 +122,13 @@ function addWorkspace(uID, name, icon) {
   return fetch("http://localhost:5000/api/add-workspace", requestOptions);
 }
 
-function renameWorkspace(name, id) {
+function renameWorkspace(name, id, icon) {
   const data = {
     wsID: id,
     name: name,
+    icon: icon,
   };
+  console.log(data);
   return fetch("http://localhost:5000/api/rename-workspace", {
     method: "POST",
     headers: {
@@ -372,12 +375,26 @@ function getTagNotes(nIDs) {
   );
 }
 
+function updateIcon(wsID, icon) {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${AT}`,
+    },
+    body: JSON.stringify({ wsID: wsID, icon: icon }),
+  };
+  return fetch("http://localhost:5000/api/update-icon", requestOptions).then(
+    handleResponse
+  );
+}
+
 function getAllIcons() {
   const requestOptions = {
     method: "GET",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      // Authorization: `Bearer ${AT}`,
     },
     // body: JSON.stringify({ tags: nIDs }),
   };

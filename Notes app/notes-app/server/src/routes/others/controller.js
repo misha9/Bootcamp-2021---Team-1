@@ -19,6 +19,19 @@ const getIcons = (req, res) => {
   });
 };
 
+const updateIcon = (req, res) => {
+  console.log(req.body.icon, req.body.wsID);
+  pool.query(
+    "update workspace set icon = $1 where ws_id = $2",
+    [req.body.icon, req.body.wsID],
+    (error, results) => {
+      if (error) throw error;
+      console.log("Updated the icon");
+      res.status(200).send("Icon updated successfully");
+    }
+  );
+};
+
 const getToken = (req, res) => {
   try {
     res.json(true);
@@ -28,4 +41,4 @@ const getToken = (req, res) => {
   }
 };
 
-module.exports = { getRecent, getToken, getIcons };
+module.exports = { getRecent, getToken, getIcons, updateIcon };

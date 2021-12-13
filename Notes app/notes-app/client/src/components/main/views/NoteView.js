@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import ToolBar from "./noteView/ToolBar";
 import RightContent from "./noteView/RightContent";
 import AddNote from "./noteView/AddNote";
 import EditNote from "./noteView/EditNote";
-
-import SignOut from "./noteView/SignOut";
 
 const NoteView = ({
   id,
@@ -33,7 +31,6 @@ const NoteView = ({
   setNoteTitle,
   noteTitle,
   contentTitle,
-  // starStatus,
   starredStatus,
   setContentTitle,
   handleEditNote,
@@ -46,7 +43,6 @@ const NoteView = ({
   userName,
   mail,
   handleDeleteNote,
-  handleAddTag,
   tags,
   setTags,
   getTagName,
@@ -116,7 +112,6 @@ const NoteView = ({
         setFullTextStatus={setFullTextStatus}
         getFullContent={getFullContent}
         contentTitle={contentTitle}
-        // starStatus={starStatus}
         starredStatus={starredStatus}
         setContentTitle={setContentTitle}
         fullScreenStatus={fullScreenStatus}
@@ -141,7 +136,6 @@ const NoteView = ({
         setNoteTitle={setNoteTitle}
         noteTitle={noteTitle}
         fullScreenStatus={fullScreenStatus}
-        handleAddTag={handleAddTag}
         tags={tags}
         setTags={setTags}
         allTags={allTags}

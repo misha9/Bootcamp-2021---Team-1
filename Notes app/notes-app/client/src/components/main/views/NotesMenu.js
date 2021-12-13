@@ -1,21 +1,18 @@
 import React from "react";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "../../../styles/MenuBar.css";
 
 import { Scrollbars } from "react-custom-scrollbars";
 
 import { MdEventNote, MdStarBorder } from "react-icons/md";
 import { CgHashtag } from "react-icons/cg";
-import { IoIosAddCircle, IoIosAdd } from "react-icons/io";
 import { GiBackwardTime } from "react-icons/gi";
 import { VscNote } from "react-icons/vsc";
 import AddIcon from "@mui/icons-material/Add";
 import NotebookOption from "./notesMenu/NotebookOption";
 import WorkspaceOptions from "./notesMenu/WorkspaceOptions";
-import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
-import ReactHtmlParser from "react-html-parser";
-import Icon from "@mui/material/Icon";
+import WorkspaceIcon from "./notesMenu/WorkspaceIcon";
 
 const NotesMenu = ({
   handleNotebookStatus,
@@ -51,9 +48,14 @@ const NotesMenu = ({
   setWsRenameStatus,
   setWsDeleteStatus,
   setOpenWsIcons,
+  wsIcon,
+  setWsIcon,
+  getAllIcons,
+  icons,
+  handleSearchIcon,
+  updateIcon,
+  setIcons,
 }) => {
-  console.log(workspace);
-
   const handleSelectNotebook = (name, id) => {
     getNotes(id);
     setNbName(name);
@@ -66,7 +68,6 @@ const NotesMenu = ({
   const handleGetNotebooks = (wsID) => {
     getNotebooks(wsID);
     setWorkspaceID(wsID);
-    // setDefaultWsID(sWID);
     setNbSelect(false);
     setFeatureStatus(false);
     setStarStatus(false);
@@ -78,7 +79,6 @@ const NotesMenu = ({
     getAllBookmark(workspaceID);
     setNbSelect(false);
     setFeatureStatus(true);
-    // setStarStatus(true);
   };
 
   useEffect(() => {
@@ -131,20 +131,6 @@ const NotesMenu = ({
                 >
                   workspace
                 </p>
-                {/* <IoIosAdd
-                  className='mb-2 add-icon'
-                  onClick={() => {
-                    setAddWorkspaceStatus(true);
-                  }}
-                  src='./add-icon.svg'
-                  alt='add-icon'
-                  size='1.4rem'
-                  style={{
-                    // color: "white",
-                    // backgroundColor: "black",
-                    borderRadius: "100%",
-                  }}
-                /> */}
                 <AddIcon
                   className='add-icon me-2'
                   style={{ borderRadius: "100%" }}
@@ -156,16 +142,24 @@ const NotesMenu = ({
               </div>
               <ul className='list-unstyled'>
                 {workspace.map((ws) => (
-                  <li className='d-flex align-items-center justify-content-between position-relative'>
+                  <li className='d-flex align-items-center justify-content-between position-relative mb-2'>
                     <div className='d-flex align-items-center'>
                       <span className='me-3'>
-                        <Icon>{ws.icon}</Icon>
-
-                        {/* <WorkOutlineOutlinedIcon /> */}
+                        <WorkspaceIcon
+                          wsIcon={wsIcon}
+                          setWsIcon={setWsIcon}
+                          getAllIcons={getAllIcons}
+                          icons={icons}
+                          handleSearchIcon={handleSearchIcon}
+                          workspaceIcon={ws.icon}
+                          wsID={ws.wsID}
+                          updateIcon={updateIcon}
+                          setIcons={setIcons}
+                        />
                       </span>
                       <button
                         type='button'
-                        className='text-decoration-none p-0 border-0 bg-transparent'
+                        className='text-decoration-none p-0 border-0 bg-transparent mb-1'
                         onClick={() => {
                           handleGetNotebooks(ws.wsID);
                           setWsName(ws.wsName);
@@ -187,7 +181,7 @@ const NotesMenu = ({
                         style={{
                           position: "absolute",
                           right: "0",
-                          bottom: "2px",
+                          bottom: "7px",
                         }}
                       >
                         <WorkspaceOptions
@@ -219,7 +213,6 @@ const NotesMenu = ({
               <ul className='list-unstyled'>
                 {notebooks.map((notebook) => (
                   <li className='d-flex align-items-center position-relative'>
-                    {/* <VscNote className='me-3' size='1.5rem' /> */}
                     <div className='notebook-area d-flex align-items-center'>
                       <VscNote className='me-3' size='1.5rem' />
                       <a
@@ -309,7 +302,6 @@ const NotesMenu = ({
                   <GiBackwardTime className='me-3' size='1.3rem' />
                   <button
                     className='text-decoration-none p-0 border-0 bg-transparent'
-                    // onClick={getAllRecentNotes}
                     onClick={() => {
                       getAllRecentNotes(workspaceID);
                       setRecentStatus(true);
@@ -328,16 +320,6 @@ const NotesMenu = ({
               </ul>
             </div>
           </Scrollbars>
-          {/* <div className='add-notebook d-flex align-items-center mt-2'>
-            <p>
-              <IoIosAddCircle
-                size='1.7rem'
-                className='me-2 add-icon'
-                onClick={() => handleNotebookStatus(true)}
-              />
-            </p>
-            <p style={{ color: "#4F4F4F" }}>New Notebook</p>
-          </div> */}
         </div>
       </div>
     </div>
