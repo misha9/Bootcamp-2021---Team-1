@@ -5,6 +5,10 @@ import EditorToolbar, { modules, formats } from "./EditorToolbar";
 import TextField from "@mui/material/TextField";
 import { Scrollbars } from "react-custom-scrollbars";
 import EditTags from "./EditTags";
+import IconButton from "@mui/material/IconButton";
+import { CgMaximize } from "react-icons/cg";
+import Button from "@mui/material/Button";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function EditNote({
   handleEditNote,
@@ -29,9 +33,9 @@ function EditNote({
   tagNames,
   setTagNames,
   allTags,
+  setFullScreenStatus,
+  handleAddNoteStatus,
 }) {
-  console.log(tagNames);
-  console.log(lastSaved);
   const handleSaveClick = () => {
     setEditStatus(false);
     // console.log(noteTitle.trim().length);
@@ -53,19 +57,33 @@ function EditNote({
 
   return editStatus ? (
     <div
-      className='new m-auto ps-3 mt-5'
-      style={fullScreenStatus ? { width: "100%" } : { maxWidth: "600px" }}
+      className='new m-auto ps-3 mt-1'
+      style={fullScreenStatus ? { width: "100%" } : { maxWidth: "640px" }}
     >
-      <div
-        className='bg-light p-2 mb-4  text-center'
-        style={{
-          maxWidth: "182px",
-          fontSize: "12px",
-          borderRadius: "50px",
-          color: "#9B9B9B",
-        }}
-      >
-        Last saved {lastSaved}
+      <div className='d-flex align-items-center justify-content-between mb-4 mt-4'>
+        <div
+          className='bg-light p-2  text-center'
+          style={{
+            maxWidth: "182px",
+            fontSize: "12px",
+            borderRadius: "50px",
+            color: "#9B9B9B",
+          }}
+        >
+          Last saved {lastSaved}
+        </div>
+        {fullScreenStatus ? (
+          ""
+        ) : (
+          <IconButton
+            size='small'
+            className=''
+            color='inherit'
+            onClick={() => setFullScreenStatus(true)}
+          >
+            <CgMaximize size='1.2rem' className='m-1 p-0' />
+          </IconButton>
+        )}
       </div>
       <EditorToolbar toolbarId={"t1"} />
 
@@ -83,7 +101,7 @@ function EditNote({
           }}
         />
       </div>
-      <Scrollbars style={{ minHeight: "40vh" }}>
+      <Scrollbars style={{ minHeight: "45vh" }}>
         <ReactQuill
           placeholder={"Type content here..."}
           onChange={(e) => {

@@ -3,25 +3,15 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-
-const options = [
-  { icon: <DriveFileRenameOutlineIcon />, option: "Rename" },
-  { icon: <DeleteOutlineIcon />, option: "Delete" },
-];
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 const ITEM_HEIGHT = 48;
 
-function WorkspaceOptions({
-  setWsRenameStatus,
-  setWsDeleteStatus,
-  icon,
-  setWsIcon,
-}) {
+const options = [{ icon: <DeleteOutlinedIcon />, option: "Delete note" }];
+
+function NoteOptions({ id, handleDeleteNote }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -29,22 +19,20 @@ function WorkspaceOptions({
     setAnchorEl(null);
   };
 
-  function handleToolbar(option) {
-    if (option === "Rename") {
-      setWsRenameStatus(true);
-      setWsIcon(icon);
-      handleClose();
-    } else {
-      setWsDeleteStatus(true);
+  function handleToolbar(option, id) {
+    if (option === "Delete note") {
+      handleDeleteNote(id);
       handleClose();
     }
   }
+
   return (
-    <div className='menu'>
+    <div>
       <IconButton
+        size='small'
+        color='inherit'
         aria-label='more'
         id='long-button'
-        className='p-0'
         aria-controls='long-menu'
         aria-expanded={open ? "true" : undefined}
         aria-haspopup='true'
@@ -63,7 +51,7 @@ function WorkspaceOptions({
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            maxWidth: "25ch",
+            width: "20ch",
           },
         }}
       >
@@ -71,7 +59,8 @@ function WorkspaceOptions({
           <MenuItem
             key={option.option}
             selected={option.option === "Pyxis"}
-            onClick={() => handleToolbar(option.option)}
+            // onClick={handleClose}
+            onClick={() => handleToolbar(option.option, id)}
           >
             <div className='me-2'>{option.icon}</div>
             {option.option}
@@ -82,4 +71,4 @@ function WorkspaceOptions({
   );
 }
 
-export default WorkspaceOptions;
+export default NoteOptions;

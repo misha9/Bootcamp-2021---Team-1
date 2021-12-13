@@ -528,6 +528,7 @@ const MainContainer = ({ setAuth }) => {
           wsRenameStatus={wsRenameStatus}
           setWsRenameStatus={setWsRenameStatus}
           wsName={wsName}
+          setWsName={setWsName}
           workspaceID={workspaceID}
           setWsIcon={setWsIcon}
           wsIcon={wsIcon}

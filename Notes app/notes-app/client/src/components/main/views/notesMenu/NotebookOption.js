@@ -12,7 +12,6 @@ const options = [
   { icon: <ContentCopyIcon />, option: "Duplicate" },
   { icon: <DeleteOutlineIcon />, option: "Delete" },
 ];
-// const icons = [, <DeleteOutlineIcon />];
 
 const ITEM_HEIGHT = 48;
 

@@ -18,11 +18,12 @@ function RenameWorkspace({
   setWsIcon,
   handleSearchIcon,
   getAllIcons,
+  setWsName,
 }) {
-  const [renameWs, setRenameWs] = useState("");
+  // const [renameWs, setRenameWs] = useState("");
   const handleRename = () => {
     console.log("Rename workspace");
-    handleRenameWorkspace(renameWs, workspaceID, wsIcon);
+    handleRenameWorkspace(wsName, workspaceID, wsIcon);
     setWsRenameStatus(false);
   };
   return wsRenameStatus ? (
@@ -89,6 +90,7 @@ function RenameWorkspace({
                 </ul>
               </div>
               <TextField
+                required
                 id='standard-basic'
                 label='Enter workspace title here'
                 variant='standard'
@@ -96,7 +98,7 @@ function RenameWorkspace({
                 defaultValue={wsName}
                 fullWidth
                 onChange={(event) => {
-                  setRenameWs(event.target.value);
+                  setWsName(event.target.value);
                 }}
               />
             </div>

@@ -48,8 +48,8 @@ function EditTags({ tags, setTags, tagNames, setTagNames, allTags }) {
   };
 
   return (
-    <div className='tag-area d-flex'>
-      <div className='d-flex align-items-center mt-2 mb-2'>
+    <div className='tag-area d-flex mt-2'>
+      <div className='d-flex align-items-center mt-2 mb-1'>
         <LocalOfferOutlinedIcon
           className='me-2'
           fontSize='medium'

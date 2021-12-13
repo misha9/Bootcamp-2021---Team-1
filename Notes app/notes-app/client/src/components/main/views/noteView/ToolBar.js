@@ -26,6 +26,7 @@ function ToolBar({
   setAddNoteStatus,
   clientId,
   onSignOutSuccess,
+  dp,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -61,7 +62,7 @@ function ToolBar({
   }
 
   return (
-    <div className={fullScreenStatus ? " mb-5 mt-5" : "mb-4 mt-1"}>
+    <div className={fullScreenStatus ? " mb-3 mt-5" : "mb-3 mt-1"}>
       {fullScreenStatus ? (
         <div className='d-flex align-items-center justify-content-between'>
           <div>
@@ -88,7 +89,7 @@ function ToolBar({
         </div>
       ) : (
         <div
-          className='menu d-flex justify-content-between'
+          className='menu d-flex align-items-center justify-content-between'
           style={{ paddingLeft: "2rem" }}
         >
           <div>
@@ -96,6 +97,7 @@ function ToolBar({
               <Button
                 variant='text'
                 color='inherit'
+                className='mt-1'
                 startIcon={<ArrowBackIcon />}
                 sx={{
                   color: "black",
@@ -115,13 +117,6 @@ function ToolBar({
           </div>
           <div>
             <IconButton
-              size='small'
-              color='inherit'
-              onClick={() => setFullScreenStatus(true)}
-            >
-              <CgMaximize size='1.2rem' className='m-1' />
-            </IconButton>
-            <IconButton
               color='inherit'
               aria-label='more'
               id='long-button'
@@ -131,7 +126,13 @@ function ToolBar({
               onClick={handleClick}
               size='small'
             >
-              <MoreVertIcon />
+              {/* <MoreVertIcon /> */}
+              <img
+                className='rounded-circle m-0'
+                style={{ maxWidth: "32px", height: "auto" }}
+                src={dp}
+                alt='profile_photo'
+              />
             </IconButton>
             <Menu
               id='long-menu'

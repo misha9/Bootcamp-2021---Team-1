@@ -95,6 +95,7 @@ const NoteView = ({
         setAddNoteStatus={handleAddNoteStatus}
         clientId={clientId}
         onSignOutSuccess={onSignOutSuccess}
+        dp={dp}
       />
       <RightContent
         id={id}
@@ -121,6 +122,7 @@ const NoteView = ({
         workspaceID={workspaceID}
         handleDeleteNote={handleDeleteNote}
         setEditStatus={setEditStatus}
+        setFullScreenStatus={setFullScreenStatus}
       />
       <AddNote
         addNoteStatus={addNoteStatus}
@@ -140,6 +142,7 @@ const NoteView = ({
         setTags={setTags}
         allTags={allTags}
         setAllTags={setAllTags}
+        setFullScreenStatus={setFullScreenStatus}
       />
       <EditNote
         notebookID={notebookID}
@@ -168,6 +171,7 @@ const NoteView = ({
         tagNames={tagNames}
         setTagNames={setTagNames}
         allTags={allTags}
+        setFullScreenStatus={setFullScreenStatus}
       />
     </div>
   );

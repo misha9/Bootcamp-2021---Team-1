@@ -4,6 +4,12 @@ import ReactHtmlParser from "react-html-parser";
 import { Scrollbars } from "react-custom-scrollbars";
 import { MdEditNote } from "react-icons/md";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import IconButton from "@mui/material/IconButton";
+import { CgMaximize } from "react-icons/cg";
+import NoteOptions from "./NoteOptions";
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import StarIcon from "@mui/icons-material/Star";
+
 import "../../../../styles/RightContent.css";
 
 function RightContent({
@@ -32,6 +38,7 @@ function RightContent({
   workspaceID,
   setEditStatus,
   handleDeleteNote,
+  setFullScreenStatus,
 }) {
   const bookmarkChangeHandler = () => {
     setBookmarkStatus(!bookmarkStatus);
@@ -100,29 +107,43 @@ function RightContent({
     <div className='right-content'>
       <div className='d-flex justify-content-end'>
         <div className='d-flex align-items-center'>
-          <DeleteOutlinedIcon
-            className='m-2'
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              handleDeleteNote(id);
-            }}
-          />
-          <MdEditNote
-            className='m-2'
-            style={{ cursor: "pointer" }}
-            size='1.8rem'
-            onClick={() => {
-              setFullTextStatus(false);
-              setEditStatus(true);
-            }}
-          />
-          <i
-            className={`icon m-2 ${
-              bookmarkStatus != true ? " far fa-star" : " fas fa-star"
-            }`}
-            style={{ cursor: "pointer" }}
-            onClick={bookmarkChangeHandler}
-          ></i>
+          <IconButton className='p-0' color='inherit'>
+            <MdEditNote
+              className='m-1'
+              // color='inherit'
+              style={{ cursor: "pointer" }}
+              size='1.8rem'
+              onClick={() => {
+                setFullTextStatus(false);
+                setEditStatus(true);
+              }}
+            />
+          </IconButton>
+          <IconButton className='p-2' color='inherit' size='1.2rem'>
+            {bookmarkStatus != true ? (
+              <StarOutlineIcon
+                style={{ cursor: "pointer" }}
+                onClick={bookmarkChangeHandler}
+              />
+            ) : (
+              <StarIcon
+                style={{ cursor: "pointer" }}
+                onClick={bookmarkChangeHandler}
+              />
+            )}
+          </IconButton>
+          {fullScreenStatus ? (
+            ""
+          ) : (
+            <IconButton
+              size='small'
+              color='inherit'
+              onClick={() => setFullScreenStatus(true)}
+            >
+              <CgMaximize size='1.2rem' className='m-1' />
+            </IconButton>
+          )}
+          <NoteOptions id={id} handleDeleteNote={handleDeleteNote} />
         </div>
       </div>
       <h2
@@ -142,7 +163,7 @@ function RightContent({
           <span className='me-2'>#{tag.tagName}</span>
         ))}
       </div>
-      <Scrollbars style={{ minHeight: "71vh" }}>
+      <Scrollbars style={{ minHeight: "65vh" }}>
         <div className={fullScreenStatus ? "ps-2" : "mt-2 ps-5"}>
           <p
             className='mt-3 pe-3 small full-content'

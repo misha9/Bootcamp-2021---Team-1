@@ -187,6 +187,8 @@ const NotesMenu = ({
                         <WorkspaceOptions
                           setWsRenameStatus={setWsRenameStatus}
                           setWsDeleteStatus={setWsDeleteStatus}
+                          icon={ws.icon}
+                          setWsIcon={setWsIcon}
                         />
                       </div>
                     ) : (
