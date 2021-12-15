@@ -148,13 +148,13 @@ const NotesMenu = ({
                         <WorkspaceIcon
                           wsIcon={wsIcon}
                           setWsIcon={setWsIcon}
-                          getAllIcons={getAllIcons}
                           icons={icons}
                           handleSearchIcon={handleSearchIcon}
                           workspaceIcon={ws.icon}
                           wsID={ws.wsID}
                           updateIcon={updateIcon}
                           setIcons={setIcons}
+                          getAllIcons={getAllIcons}
                         />
                       </span>
                       <button

@@ -25,8 +25,9 @@ function WorkspaceIcon({
             data-bs-toggle='dropdown'
             aria-expanded='false'
             // onMouseEnter={() => setLogoutStatus(false)}
+            onClick={getAllIcons}
           >
-            <Icon onClick={getAllIcons}>{workspaceIcon}</Icon>
+            <Icon>{workspaceIcon}</Icon>
           </button>
           <ul
             className='dropdown-menu p-0'
@@ -48,7 +49,7 @@ function WorkspaceIcon({
                     onClick={() => {
                       // setWsIcon(icon);
                       updateIcon(wsID, icon);
-                      setIcons([]);
+                      setIcons([""]);
                     }}
                   >
                     <Icon fontSize='small'>{icon}</Icon>

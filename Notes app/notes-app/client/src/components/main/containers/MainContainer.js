@@ -63,7 +63,8 @@ const MainContainer = ({ setAuth }) => {
   const [allTags, setAllTags] = useState([]);
   const [openWsIcons, setOpenWsIcons] = useState(false);
   const [icons, setIcons] = useState([]);
-  const [wsIcon, setWsIcon] = useState(<WorkOutlineOutlinedIcon />);
+  const [wsIcon, setWsIcon] = useState("work_outline");
+  const [searchIcon, setSearchIcon] = useState("");
 
   const navigate = useNavigate();
 
@@ -361,7 +362,12 @@ const MainContainer = ({ setAuth }) => {
   };
 
   const getAllIcons = () => {
+    // const data = [];
+    // console.log(res[0].icon_names.length);
     APIService.getAllIcons().then((res) => {
+      // for (let i = 0; i < res[0].icon_names.length; i++) {
+      //   data.push({ iconName: res[0].icon_names[i] });
+      // }
       setIcons(res[0].icon_names);
     });
   };
@@ -428,7 +434,7 @@ const MainContainer = ({ setAuth }) => {
           setWsIcon={setWsIcon}
           getAllIcons={getAllIcons}
           icons={icons}
-          handleSearchIcon={setSearchText}
+          handleSearchIcon={setSearchIcon}
           updateIcon={updateIcon}
           setIcons={setIcons}
         />
@@ -516,7 +522,9 @@ const MainContainer = ({ setAuth }) => {
           wsIcon={wsIcon}
           getAllIcons={getAllIcons}
           icons={icons}
-          // icons={icons.filter().includes(searchText)}
+          // icons={icons.filter((icons) =>
+          //   icons.iconName.toLowerCase().includes(searchIcon)
+          // )}
           // {tagDetails.filter((tagDetails) =>
           //   tagDetails.tagName.toLowerCase().includes(searchText)
           // )}

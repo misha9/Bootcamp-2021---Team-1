@@ -152,6 +152,10 @@ function RightContent({
           color: "#161308",
           fontWeight: "600",
         }}
+        onClick={() => {
+          setFullTextStatus(false);
+          setEditStatus(true);
+        }}
       >
         {contentTitle}
       </h2>
@@ -172,6 +176,10 @@ function RightContent({
                 ? { width: "auto", color: "#B5B5B5" }
                 : { maxWidth: "605px", color: "#B5B5B5" }
             }
+            onClick={() => {
+              setFullTextStatus(false);
+              setEditStatus(true);
+            }}
           >
             {ReactHtmlParser(fullText)}
           </p>

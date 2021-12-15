@@ -21,7 +21,7 @@ function CreateWorkspace({
   handleSearchIcon,
 }) {
   const [workspaceName, setWorkspaceName] = useState("");
-
+  // console.log(icons);
   return addWorkspaceStatus ? (
     <div
       className='position-fixed'
