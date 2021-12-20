@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -40,12 +40,13 @@ export default function LoginContainer({ setAuth }) {
 
       //Storing_access_token
       const AT = res[1].AccessToken;
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
       localStorage.setItem("token", AT);
 
+      console.log(res);
       //Storing_login_status
       const LS = res[2].LoginStatus;
-      localStorage.removeItem("loginStatus");
+      // localStorage.removeItem("loginStatus");
       localStorage.setItem("loginStatus", LS);
       console.log(LS);
 
@@ -53,7 +54,7 @@ export default function LoginContainer({ setAuth }) {
         localStorage.setItem("profilePic", profilePic);
         localStorage.setItem("userName", userName);
         localStorage.setItem("userMail", userMail);
-        // navigate("/main");
+
         setAuth(true);
       }
     });
@@ -65,9 +66,9 @@ export default function LoginContainer({ setAuth }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component='main' sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
-        <Grid className='leftPart' item xs={false} sm={4} md={7}>
+        <Grid className="leftPart" item xs={false} sm={4} md={7}>
           {/* <ImageSlide /> */}
           {/* <ImageSlider /> */}
           <BootstrapSlider />
@@ -83,14 +84,14 @@ export default function LoginContainer({ setAuth }) {
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <Box>
-            <Box component='form' noValidate sx={{ mt: 1 }} className='mt-3'>
+            <Box component="form" noValidate sx={{ mt: 1 }} className="mt-3">
               {
-                <div className='text-center'>
+                <div className="text-center">
                   <div
-                    className='d-flex align-items-center justify-content-center mt-5'
+                    className="d-flex align-items-center justify-content-center mt-5"
                     style={{ marginBottom: "7rem" }}
                   >
-                    <MdEventNote size='3.5rem' />
+                    <MdEventNote size="3.5rem" />
                     <div style={{ fontSize: "2rem", fontWeight: "600" }}>
                       Notes
                     </div>
@@ -107,10 +108,10 @@ export default function LoginContainer({ setAuth }) {
                   </p>
                   <GoogleLogin
                     clientId={clientId}
-                    buttonText='Sign in With Google'
+                    buttonText="Sign in With Google"
                     render={(renderProps) => (
                       <div
-                        className='d-flex align-items-center'
+                        className="d-flex align-items-center"
                         style={{
                           maxWidth: "387px",
                           border: "1px solid #DEDEDE",
@@ -120,7 +121,7 @@ export default function LoginContainer({ setAuth }) {
                         }}
                         onClick={renderProps.onClick}
                       >
-                        <div className='me-2'>
+                        <div className="me-2">
                           <GoogleIcon />
                         </div>
                         <div style={{ color: "#464646" }}>
@@ -134,7 +135,7 @@ export default function LoginContainer({ setAuth }) {
                     isSignedIn={true}
                   />
                   <div
-                    className='d-flex align-items-center mt-3'
+                    className="d-flex align-items-center mt-3"
                     style={{
                       maxWidth: "387px",
                       border: "1px solid #DEDEDE",
@@ -143,8 +144,8 @@ export default function LoginContainer({ setAuth }) {
                       cursor: "pointer",
                     }}
                   >
-                    <div className='mb-1 me-2'>
-                      <AppleIcon fontSize='medium' />
+                    <div className="mb-1 me-2">
+                      <AppleIcon fontSize="medium" />
                     </div>
                     <div style={{ color: "#464646" }}>Connect with apple</div>
                   </div>

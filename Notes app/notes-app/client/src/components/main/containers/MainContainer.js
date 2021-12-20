@@ -76,6 +76,7 @@ const MainContainer = ({ setAuth }) => {
     "866133952316-a8r10cdbhjlsjroke88n2qrm5ul0jgfj.apps.googleusercontent.com";
 
   const userID = localStorage.getItem("uID");
+  const AT = localStorage.getItem("token");
   const dp = localStorage.getItem("profilePic");
   const userName = localStorage.getItem("userName");
   const mail = localStorage.getItem("userMail");
@@ -373,22 +374,23 @@ const MainContainer = ({ setAuth }) => {
   };
 
   const onSignOutSuccess = () => {
+    setAuth(false);
     // console.clear();
     localStorage.removeItem("token");
-
-    setTimeout(() => {
-      // navigate("/");
-      setAuth(false);
-    }, 500);
+    const LS = false;
+    localStorage.setItem("loginStatus", LS);
   };
 
   useEffect(() => {
     getAllWorkspace(userID);
     getAllTags();
+
+    // console.log(localStorage.getItem("token"));
+    // console.log(userID);
   }, [userID]);
 
   return (
-    <div className='me-4'>
+    <div className="me-4">
       <div className={fullScreenStatus ? "row justify-content-center" : "row"}>
         <NotesMenu
           handleNotebookStatus={getNotebookStatus}

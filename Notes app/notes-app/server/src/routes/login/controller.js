@@ -124,11 +124,20 @@ const login = async (req, res) => {
 };
 
 function authenticateToken(req, res, next) {
+  // console.log(req.headers, req.headers["authorization"], "kjjkdasn");
   try {
+    console.log(req.headers);
     const authHeader = req.headers["authorization"]; //Bearer TOKEN
     const token = authHeader && authHeader.split(" ")[1];
-    console.log(token);
+
+    console.log(
+      token,
+      "jkdaskjahsdkahsdkjahsdkjsahjkdhaskjdhaskdaskjdhaskjdas"
+    );
     if (!token) {
+      console.log("my name is rashad");
+
+      // res.json(false);
       throw new Error("Authentication failed!");
     }
     const decodedToken = jwt.verify(token, "qwertyuiop1234567890");
@@ -139,6 +148,7 @@ function authenticateToken(req, res, next) {
     next();
   } catch (err) {
     console.log("Not a valid access_token");
+    // res.json(false);
     throw err;
   }
 }

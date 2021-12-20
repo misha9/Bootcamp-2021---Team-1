@@ -28,8 +28,10 @@ export const APIService = {
 
 const AT = localStorage.getItem("token");
 
+console.log(AT);
+
 function loginAccess(userData) {
-  console.log(AT);
+  // console.log(AT);
   const data = { userInfo: userData };
   const requestOptions = {
     method: "PATCH",
@@ -66,7 +68,7 @@ function fetchNotes(id) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ notebook_id: id }),
   };
@@ -81,7 +83,7 @@ function fetchNotebooks(wsID) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ ws_id: wsID }),
   };
@@ -92,11 +94,14 @@ function fetchNotebooks(wsID) {
 
 function fetchWorkspace(userID) {
   console.log("fetching workspace");
+
+  console.log(localStorage.getItem("token"));
+
   const requestOptions = {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ uID: userID }),
   };
@@ -111,7 +116,7 @@ function addWorkspace(uID, name, icon) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
       name: name,
@@ -134,7 +139,7 @@ function renameWorkspace(name, id, icon) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(data),
   });
@@ -149,7 +154,7 @@ function deleteWorkspace(wsID) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(data),
   });
@@ -168,7 +173,7 @@ function addNewNotebook(name, wsID) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
       name: newNotebook.text,
@@ -188,7 +193,7 @@ function deleteNotebookFromDb(id) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(data),
   });
@@ -204,7 +209,7 @@ function renameNotebookInDb(id, name) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(data),
   });
@@ -217,7 +222,7 @@ function addNewNote(newNote) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(newNote),
   };
@@ -231,7 +236,7 @@ function editNote(newNote) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
       noteID: newNote.noteID,
@@ -250,7 +255,7 @@ function deleteNoteFromDb(data) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(data),
   });
@@ -262,7 +267,7 @@ function fetchBookmarkedNotes(workspaceID) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ wsID: workspaceID }),
   };
@@ -276,7 +281,7 @@ function fetchRecentNotes(wsID) {
     headers: {
       Accept: "application/json",
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ wsID: wsID }),
   };
@@ -290,7 +295,7 @@ function getFullText(id) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ note_id: id }),
   };
@@ -304,16 +309,18 @@ function addBookmark(id, bookMarkStatus) {
     id: id,
     flag: bookMarkStatus,
   };
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
-    },
-    body: JSON.stringify({ id: markBookmark.id, flag: markBookmark.flag }),
-  };
-  fetch("http://localhost:5000/api/add-bookmark", requestOptions);
+  setTimeout(() => {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ id: markBookmark.id, flag: markBookmark.flag }),
+    };
+    fetch("http://localhost:5000/api/add-bookmark", requestOptions);
+  }, 500);
 }
 
 function fetchTags(id) {
@@ -321,7 +328,7 @@ function fetchTags(id) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ note_id: id }),
   };
@@ -335,7 +342,7 @@ function fetchAllTags() {
     method: "GET",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     // body: JSON.stringify({ note_id: id }),
   };
@@ -352,7 +359,7 @@ function fetchTagCount(data) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ tags: tags.tagNames }),
   };
@@ -366,7 +373,7 @@ function getTagNotes(nIDs) {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ tags: nIDs }),
   };
@@ -380,7 +387,7 @@ function updateIcon(wsID, icon) {
     method: "POST",
     headers: {
       "Content-type": "application/json",
-      Authorization: `Bearer ${AT}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({ wsID: wsID, icon: icon }),
   };
