@@ -109,30 +109,30 @@ const NotesMenu = ({
 
   return (
     <div
-      className='col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 pt-3 ps-4'
+      className="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 pt-3 ps-4"
       style={{ height: "100vh", backgroundColor: "#EDEDED38" }}
     >
-      <div className='menuBar ms-2'>
-        <div className='logo mb-5'>
-          <div className='d-flex align-items-center'>
-            <MdEventNote className='me-1' size='1x' style={{ width: "18%" }} />
+      <div className="menuBar ms-2">
+        <div className="logo mb-5">
+          <div className="d-flex align-items-center">
+            <MdEventNote className="me-1" size="1x" style={{ width: "18%" }} />
             <span>
               <h3 style={{ margin: "auto 0" }}>Notes</h3>
             </span>
           </div>
         </div>
-        <div className='menu ms-1'>
+        <div className="menu ms-1">
           <Scrollbars style={{ height: "75vh" }}>
-            <div className='workspace'>
-              <div className='d-flex justify-content-between align-items-center mb-3'>
+            <div className="workspace">
+              <div className="d-flex justify-content-between align-items-center mb-3">
                 <p
-                  className='text-uppercase small'
+                  className="text-uppercase small"
                   style={{ color: "#CECECE", margin: "auto 0" }}
                 >
                   workspace
                 </p>
                 <AddIcon
-                  className='add-icon me-2'
+                  className="add-icon me-2"
                   style={{ borderRadius: "100%" }}
                   onClick={() => {
                     setAddWorkspaceStatus(true);
@@ -140,11 +140,11 @@ const NotesMenu = ({
                   }}
                 />
               </div>
-              <ul className='list-unstyled'>
+              <ul className="list-unstyled">
                 {workspace.map((ws) => (
-                  <li className='d-flex align-items-center justify-content-between position-relative mb-2'>
-                    <div className='d-flex align-items-center'>
-                      <span className='me-3'>
+                  <li className="d-flex align-items-center justify-content-between position-relative mb-2">
+                    <div className="d-flex align-items-center">
+                      <span className="me-3">
                         <WorkspaceIcon
                           wsIcon={wsIcon}
                           setWsIcon={setWsIcon}
@@ -158,8 +158,8 @@ const NotesMenu = ({
                         />
                       </span>
                       <button
-                        type='button'
-                        className='text-decoration-none p-0 border-0 bg-transparent mb-1'
+                        type="button"
+                        className="text-decoration-none p-0 border-0 bg-transparent mb-1"
                         onClick={() => {
                           handleGetNotebooks(ws.wsID);
                           setWsName(ws.wsName);
@@ -177,7 +177,7 @@ const NotesMenu = ({
                     </div>
                     {ws.wsID === workspaceID ? (
                       <div
-                        className='me-2'
+                        className="me-2"
                         style={{
                           position: "absolute",
                           right: "0",
@@ -198,28 +198,28 @@ const NotesMenu = ({
                 ))}
               </ul>
             </div>
-            <div className='notebook'>
-              <div className='d-flex justify-content-between align-items-center mb-3 mt-4'>
+            <div className="notebook">
+              <div className="d-flex justify-content-between align-items-center mb-3 mt-4">
                 <p
-                  className='text-uppercase small'
+                  className="text-uppercase small"
                   style={{ color: "#CECECE", margin: "auto 0" }}
                 >
                   notebook
                 </p>
                 <AddIcon
-                  className='add-icon me-2'
+                  className="add-icon me-2"
                   style={{ borderRadius: "100%" }}
                   onClick={() => handleNotebookStatus(true)}
                 />
               </div>
-              <ul className='list-unstyled'>
+              <ul className="list-unstyled">
                 {notebooks.map((notebook) => (
-                  <li className='d-flex align-items-center position-relative'>
-                    <div className='notebook-area d-flex align-items-center'>
-                      <VscNote className='me-3' size='1.5rem' />
+                  <li className="d-flex align-items-center position-relative">
+                    <div className="notebook-area d-flex align-items-center">
+                      <VscNote className="me-3" size="1.5rem" />
                       <a
-                        className='text-decoration-none'
-                        onMouseEnter={() => {
+                        className="text-decoration-none"
+                        onClick={() => {
                           handleSelectNotebook(notebook.name, notebook.id);
                           setStarredStatus(false);
                           setRecentStatus(false);
@@ -237,7 +237,7 @@ const NotesMenu = ({
                       </a>
                       {notebook.id === nbID ? (
                         <div
-                          className='me-2'
+                          className="me-2"
                           style={{
                             position: "absolute",
                             right: "0",
@@ -257,12 +257,12 @@ const NotesMenu = ({
                 ))}
               </ul>
             </div>
-            <div className='special'>
-              <ul className='list-unstyled'>
-                <li className='mt-4 d-flex align-items-center'>
-                  <CgHashtag className='me-3' size='1.3rem' />
+            <div className="special">
+              <ul className="list-unstyled">
+                <li className="mt-4 d-flex align-items-center">
+                  <CgHashtag className="me-3" size="1.3rem" />
                   <button
-                    className='text-decoration-none p-0 border-0 bg-transparent'
+                    className="text-decoration-none p-0 border-0 bg-transparent"
                     style={{
                       fontWeight: "500",
                       color: tagStatus ? "#000000" : "#B4B4B4",
@@ -280,10 +280,10 @@ const NotesMenu = ({
                     Tags
                   </button>
                 </li>
-                <li className='d-flex align-items-center'>
-                  <MdStarBorder className='me-3' size='1.3rem' />
+                <li className="d-flex align-items-center">
+                  <MdStarBorder className="me-3" size="1.3rem" />
                   <button
-                    className='text-decoration-none p-0 border-0 bg-transparent'
+                    className="text-decoration-none p-0 border-0 bg-transparent"
                     // onClick={getBookmarkNotes}
                     onClick={() => {
                       getBookmarkNotes(workspaceID);
@@ -300,10 +300,10 @@ const NotesMenu = ({
                     Starred
                   </button>
                 </li>
-                <li className='d-flex align-items-center'>
-                  <GiBackwardTime className='me-3' size='1.3rem' />
+                <li className="d-flex align-items-center">
+                  <GiBackwardTime className="me-3" size="1.3rem" />
                   <button
-                    className='text-decoration-none p-0 border-0 bg-transparent'
+                    className="text-decoration-none p-0 border-0 bg-transparent"
                     onClick={() => {
                       getAllRecentNotes(workspaceID);
                       setRecentStatus(true);

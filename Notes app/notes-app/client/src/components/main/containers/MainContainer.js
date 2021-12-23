@@ -377,8 +377,7 @@ const MainContainer = ({ setAuth }) => {
     setAuth(false);
     // console.clear();
     localStorage.removeItem("token");
-    const LS = false;
-    localStorage.setItem("loginStatus", LS);
+    localStorage.setItem("loginStatus", false);
   };
 
   useEffect(() => {

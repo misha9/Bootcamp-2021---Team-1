@@ -137,7 +137,7 @@ function authenticateToken(req, res, next) {
     if (!token) {
       console.log("my name is rashad");
 
-      // res.json(false);
+      res.json(false);
       throw new Error("Authentication failed!");
     }
     const decodedToken = jwt.verify(token, "qwertyuiop1234567890");
@@ -148,7 +148,7 @@ function authenticateToken(req, res, next) {
     next();
   } catch (err) {
     console.log("Not a valid access_token");
-    // res.json(false);
+    res.json(false);
     throw err;
   }
 }

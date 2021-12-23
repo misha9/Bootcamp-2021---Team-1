@@ -19,21 +19,21 @@ function Note({
 
   return (
     <div
-      className='note mb-3'
-      onMouseEnter={() => {
+      className="note mb-3"
+      onClick={() => {
         onSelect(id);
         setLastSaved(lastSave);
       }}
     >
       <div
-        className='card'
+        className="card"
         style={{
           backgroundColor: selected ? "#ffab45" : "#FBFBFB",
         }}
       >
-        <div className='card-body pb-2'>
+        <div className="card-body pb-2">
           <h5
-            className='mb-3'
+            className="mb-3"
             style={{
               color: selected ? "#ffffff" : "#161308",
             }}
@@ -41,7 +41,7 @@ function Note({
             {title}
           </h5>
           <div
-            className='card-text text-start'
+            className="card-text text-start"
             style={{
               height: "60px",
               fontSize: "0.875rem",
@@ -51,7 +51,7 @@ function Note({
             {ReactHtmlParser(text)}
           </div>
         </div>
-        <div className='footer d-flex justify-content-between ps-3 pe-3'>
+        <div className="footer d-flex justify-content-between ps-3 pe-3">
           {/* <p className='small'>{newDate.substring(0, 11)}</p> */}
           <p
             style={{
@@ -74,7 +74,7 @@ function Note({
             }}
           >
             {tags.map((tag) => (
-              <span className='me-2'>#{tag}</span>
+              <span className="me-2">#{tag}</span>
             ))}
           </p>
         </div>
