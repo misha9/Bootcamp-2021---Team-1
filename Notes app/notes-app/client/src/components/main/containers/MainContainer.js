@@ -5,15 +5,12 @@ import NoteView from '../views/NoteView';
 import CreateWorkspace from '../views/CreateWorkspace';
 import RenameWorkspace from '../views/RenameWorkspace';
 import DeleteWorkspace from '../views/DeleteWorkspace';
-
 import CreateNotebook from '../views/CreateNotebook';
 import DeleteNotebook from '../views/DeleteNotebook';
 import RenameNotebook from '../views/RenameNotebook';
 import moment from 'moment';
-
 import { useEffect, useState } from 'react';
 import { APIService } from '../../../services/apiService';
-
 import { BiUser } from 'react-icons/bi';
 import { MdOutlineHome, MdWorkOutline } from 'react-icons/md';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
@@ -369,7 +366,7 @@ const MainContainer = ({ setAuth }) => {
 			// for (let i = 0; i < res[0].icon_names.length; i++) {
 			//   data.push({ iconName: res[0].icon_names[i] });
 			// }
-			setIcons(res[0].icon_names);
+			setIcons([...res[0].icon_names]);
 		});
 	};
 
@@ -534,7 +531,7 @@ const MainContainer = ({ setAuth }) => {
 					//   tagDetails.tagName.toLowerCase().includes(searchText)
 					// )}
 					setIcons={setIcons}
-					handleSearchIcon={setSearchText}
+					handleSearchIcon={setSearchIcon}
 				/>
 				<RenameWorkspace
 					handleRenameWorkspace={renameWorkspace}

@@ -46,7 +46,6 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
 		}
 	};
 
-	console.log(tags);
 	return (
 		<div className='tag-area d-flex align-items-center mt-3'>
 			<div className='d-flex align-items-center mt-2 mb-3'>
@@ -99,7 +98,7 @@ function TagInput({ tags, setTags, allTags, setAllTags }) {
 									e.key === 'Enter' ? handleTag(e) : null
 								}
 								onChange={(e) => {
-									console.log(e.target.value.trim().length);
+									//console.log(e.target.value.trim().length);
 									const found = tags.some(
 										(el) => el.name === e.target.value
 									);
