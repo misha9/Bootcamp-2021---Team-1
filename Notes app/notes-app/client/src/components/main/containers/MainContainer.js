@@ -8,6 +8,7 @@ import DeleteWorkspace from '../views/DeleteWorkspace';
 import CreateNotebook from '../views/CreateNotebook';
 import DeleteNotebook from '../views/DeleteNotebook';
 import RenameNotebook from '../views/RenameNotebook';
+import DeleteNote from '../views/noteView/DeleteNote';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { APIService } from '../../../services/apiService';
@@ -62,6 +63,7 @@ const MainContainer = ({ setAuth }) => {
 	const [icons, setIcons] = useState([]);
 	const [wsIcon, setWsIcon] = useState('work_outline');
 	const [searchIcon, setSearchIcon] = useState('');
+	const [deleteNoteStatus, setDeleteNoteStatus] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -79,7 +81,6 @@ const MainContainer = ({ setAuth }) => {
 	const mail = localStorage.getItem('userMail');
 
 	const getAllWorkspace = (userID) => {
-		//console.log('Loaded notebook');
 		const data = [];
 		APIService.fetchWorkspace(userID).then((res) => {
 			for (let i = 0; i < res.length; i++) {
@@ -89,13 +90,11 @@ const MainContainer = ({ setAuth }) => {
 					icon: res[i].icon,
 				});
 			}
-			//console.log(data);
 			setWorkspace(data);
 		});
 	};
 
 	const addWorkspace = (uID, name, icon) => {
-		//console.log(uID, name);
 		APIService.addWorkspace(uID, name, icon).then(
 			setTimeout(() => {
 				getAllWorkspace(uID);
@@ -112,7 +111,6 @@ const MainContainer = ({ setAuth }) => {
 	};
 
 	const deleteWorkspace = (wsID) => {
-		//console.log('deleting workspace', wsID);
 		APIService.deleteWorkspace(wsID).then(
 			setTimeout(() => {
 				getAllWorkspace(userID);
@@ -121,18 +119,14 @@ const MainContainer = ({ setAuth }) => {
 	};
 
 	const getAllNotebooks = (wsID) => {
-		//console.log('Loaded notebook');
 		const data = [];
 		APIService.fetchNotebooks(wsID).then((res) => {
 			for (let i = 0; i < res.length; i++) {
 				data.push({ id: res[i].nb_id, name: res[i].name });
 			}
-			//console.log(data);
 			setNotebooks(data);
 		});
 	};
-
-	//console.log(notebooks);
 
 	const addNotebook = (name, wsID) => {
 		APIService.addNewNotebook(name, wsID).then(
@@ -149,7 +143,6 @@ const MainContainer = ({ setAuth }) => {
 	};
 
 	const renameNotebook = (id, name, ws_id) => {
-		//console.log('renaming at main', ws_id);
 		setNbName(name);
 		APIService.renameNotebookInDb(id, name).then(
 			setTimeout(() => {
@@ -159,10 +152,8 @@ const MainContainer = ({ setAuth }) => {
 	};
 
 	const getAllNotes = (id) => {
-		//console.log('Loaded', id);
 		const data = [];
 		APIService.fetchNotes(id).then((res) => {
-			//console.log(res);
 			for (let i = 0; i < res.length; i++) {
 				let newDate = formatDate(res[i].updated_date);
 
@@ -179,18 +170,15 @@ const MainContainer = ({ setAuth }) => {
 	};
 
 	const addNote = (title, text, nbID, wsID, tags) => {
-		//console.log(title, text, nbID, wsID, tags);
 		const date = new Date();
 		const newNote = {
 			title: title,
 			text: text,
-			// date: date.toLocaleDateString(),
 			date: moment(date).utc().format('YYYY-MM-DD HH:mm:ss'),
 			nbID: nbID,
 			wsID: wsID,
 			tags: tags,
 		};
-		//console.log(newNote);
 		APIService.addNewNote(newNote).then(
 			setTimeout(() => {
 				getAllNotes(nbID);
@@ -217,11 +205,9 @@ const MainContainer = ({ setAuth }) => {
 			noteID: id,
 			title: title,
 			text: text,
-			// date: date.toLocaleDateString(),
 			date: moment(date).utc().format('YYYY-MM-DD HH:mm:ss'),
 			tags: tags,
 		};
-		//console.log(newNote);
 		APIService.editNote(newNote).then(
 			setTimeout(() => {
 				getAllNotes(nbID);
@@ -250,7 +236,6 @@ const MainContainer = ({ setAuth }) => {
 					date: newDate,
 					tags: res[i].t_name,
 				});
-				//console.log(res[0].n_id);
 			}
 			setNotes(data);
 		});
@@ -269,7 +254,6 @@ const MainContainer = ({ setAuth }) => {
 					tags: res[j].t_name,
 				});
 			}
-			//console.log(data);
 			setNotes(data);
 			setNbSelect(false);
 			setFeatureStatus(true);
@@ -278,14 +262,11 @@ const MainContainer = ({ setAuth }) => {
 	}
 
 	const getTagName = (id) => {
-		//console.log('getting tag name');
 		const data = [];
 		APIService.fetchTags(id).then((res) => {
-			//console.log(res[0].t_name.length);
 			for (let i = 0; i < res[0].t_name.length; i++) {
 				data.push({ tagName: res[0].t_name[i] });
 			}
-			//console.log(data);
 			setTagNames(data);
 		});
 	};
@@ -294,7 +275,6 @@ const MainContainer = ({ setAuth }) => {
 		const data = [];
 		const tags = [];
 		APIService.fetchAllTags().then((res) => {
-			// console.log(res);
 			for (let i = 0; i < res.length; i++) {
 				for (let j = 0; j < res[i].t_name.length; j++) {
 					if (!data.includes(res[i].t_name[j])) {
@@ -307,22 +287,16 @@ const MainContainer = ({ setAuth }) => {
 		setAllTags(tags);
 		setTimeout(() => {
 			APIService.fetchTagCount(data).then((res) => {
-				//console.log(res);
 				setTagDetails(res);
 			});
 		}, 250);
-
-		//console.log(data);
 	};
 
 	const getTagNotes = (nIDs) => {
-		//console.log(nIDs);
 		const data = [];
 		APIService.getTagNotes(nIDs).then((res) => {
-			// console.log(res[0][0].n_id);
 			for (let i = 0; i < res.length; i++) {
 				let newDate = formatDate(res[i][0].updated_date);
-
 				data.push({
 					id: res[i][0].n_id,
 					title: res[i][0].title,
@@ -331,13 +305,11 @@ const MainContainer = ({ setAuth }) => {
 					tags: res[i][0].t_name,
 				});
 			}
-			//console.log(data);
 			setNotes(data);
 		});
 	};
 
 	const updateIcon = (wsID, icon, uID) => {
-		//console.log(wsID, icon);
 		APIService.updateIcon(wsID, icon).then(
 			setTimeout(() => {
 				getAllWorkspace(userID);
@@ -360,8 +332,6 @@ const MainContainer = ({ setAuth }) => {
 	};
 
 	const getAllIcons = () => {
-		// const data = [];
-		// console.log(res[0].icon_names.length);
 		APIService.getAllIcons().then((res) => {
 			// for (let i = 0; i < res[0].icon_names.length; i++) {
 			//   data.push({ iconName: res[0].icon_names[i] });
@@ -372,7 +342,6 @@ const MainContainer = ({ setAuth }) => {
 
 	const onSignOutSuccess = () => {
 		setAuth(false);
-		// console.clear();
 		localStorage.removeItem('token');
 		localStorage.setItem('loginStatus', false);
 	};
@@ -380,9 +349,6 @@ const MainContainer = ({ setAuth }) => {
 	useEffect(() => {
 		getAllWorkspace(userID);
 		getAllTags();
-
-		// console.log(localStorage.getItem("token"));
-		// console.log(userID);
 	}, [userID]);
 
 	return (
@@ -435,7 +401,9 @@ const MainContainer = ({ setAuth }) => {
 					wsIcon={wsIcon}
 					setWsIcon={setWsIcon}
 					getAllIcons={getAllIcons}
-					icons={icons}
+					icons={icons.filter((icon) =>
+						icon.toLowerCase().includes(searchIcon)
+					)}
 					handleSearchIcon={setSearchIcon}
 					updateIcon={updateIcon}
 					setIcons={setIcons}
@@ -513,6 +481,7 @@ const MainContainer = ({ setAuth }) => {
 					setTagNames={setTagNames}
 					allTags={allTags}
 					setAllTags={setAllTags}
+					setDeleteNoteStatus={setDeleteNoteStatus}
 				/>
 				<CreateWorkspace
 					addWorkspaceStatus={addWorkspaceStatus}
@@ -523,10 +492,9 @@ const MainContainer = ({ setAuth }) => {
 					setWsIcon={setWsIcon}
 					wsIcon={wsIcon}
 					getAllIcons={getAllIcons}
-					icons={icons}
-					// icons={icons.filter((icons) =>
-					//   icons.iconName.toLowerCase().includes(searchIcon)
-					// )}
+					icons={icons.filter((icon) =>
+						icon.toLowerCase().includes(searchIcon)
+					)}
 					// {tagDetails.filter((tagDetails) =>
 					//   tagDetails.tagName.toLowerCase().includes(searchText)
 					// )}
@@ -543,13 +511,14 @@ const MainContainer = ({ setAuth }) => {
 					setWsIcon={setWsIcon}
 					wsIcon={wsIcon}
 					getAllIcons={getAllIcons}
-					icons={icons}
-					// icons={icons.filter().includes(searchText)}
+					icons={icons.filter((icon) =>
+						icon.toLowerCase().includes(searchIcon)
+					)}
 					// {tagDetails.filter((tagDetails) =>
 					//   tagDetails.tagName.toLowerCase().includes(searchText)
 					// )}
 					setIcons={setIcons}
-					handleSearchIcon={setSearchText}
+					handleSearchIcon={setSearchIcon}
 				/>
 				<DeleteWorkspace
 					wsDeleteStatus={wsDeleteStatus}
@@ -581,6 +550,12 @@ const MainContainer = ({ setAuth }) => {
 					handleRenameNotebook={renameNotebook}
 					workspaceID={workspaceID}
 					setFeatureStatus={setFeatureStatus}
+				/>
+				<DeleteNote
+					setDeleteNoteStatus={setDeleteNoteStatus}
+					handleDeleteNote={deleteNote}
+					id={noteID}
+					deleteNoteStatus={deleteNoteStatus}
 				/>
 			</div>
 		</div>

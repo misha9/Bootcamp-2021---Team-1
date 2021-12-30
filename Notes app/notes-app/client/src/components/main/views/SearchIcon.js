@@ -1,14 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Input from '@mui/material/Input';
 import { MdSearch } from 'react-icons/md';
 import FormControl from '@mui/material/FormControl';
 
-function SearchIcon({ handleSearchIcon, icons, setIcons }) {
-	const handleIconSearch = (iconName) => {
-		setIcons([
-			...icons.filter((icon) => icon.toLowerCase().includes(iconName)),
-		]);
-	};
+function SearchIcon({ handleSearchIcon }) {
 	return (
 		<div className='small'>
 			<FormControl
@@ -20,6 +15,7 @@ function SearchIcon({ handleSearchIcon, icons, setIcons }) {
 				<Input
 					id='input-with-icon-adornment'
 					placeholder='Search icons'
+					autoComplete='off'
 					startAdornment={
 						<MdSearch
 							position='start'
@@ -28,7 +24,7 @@ function SearchIcon({ handleSearchIcon, icons, setIcons }) {
 						/>
 					}
 					onChange={(event) => {
-						handleIconSearch(event.target.value);
+						handleSearchIcon(event.target.value);
 					}}
 				/>
 			</FormControl>

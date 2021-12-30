@@ -39,6 +39,7 @@ function RightContent({
 	setEditStatus,
 	handleDeleteNote,
 	setFullScreenStatus,
+	setDeleteNoteStatus,
 }) {
 	const bookmarkChangeHandler = () => {
 		setBookmarkStatus(!bookmarkStatus);
@@ -95,13 +96,9 @@ function RightContent({
 			setTimeout(() => {
 				setFullTextStatus(false);
 				getAllBookmark(workspaceID);
-				// setFullText("");
-				// setContentTitle("");
 			}, 100);
 		}
 	}, [bookmarkStatus]);
-
-	//console.log(fullTextStatus, fullText, contentTitle);
 
 	return fullTextStatus ? (
 		<div className='right-content'>
@@ -120,7 +117,7 @@ function RightContent({
             />
           </IconButton> */}
 					<IconButton className='p-2' color='inherit' size='1.2rem'>
-						{bookmarkStatus != true ? (
+						{bookmarkStatus !== true ? (
 							<StarOutlineIcon
 								style={{ cursor: 'pointer' }}
 								onClick={bookmarkChangeHandler}
@@ -143,7 +140,10 @@ function RightContent({
 							<CgMaximize size='1.2rem' className='m-1' />
 						</IconButton>
 					)}
-					<NoteOptions id={id} handleDeleteNote={handleDeleteNote} />
+					<NoteOptions
+						id={id}
+						setDeleteNoteStatus={setDeleteNoteStatus}
+					/>
 				</div>
 			</div>
 			<h2

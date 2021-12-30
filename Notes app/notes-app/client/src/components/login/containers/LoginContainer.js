@@ -26,10 +26,9 @@ export default function LoginContainer({ setAuth }) {
 		const profilePic = res.profileObj.imageUrl;
 		const userName = res.profileObj.name;
 		const userMail = res.profileObj.email;
+		const tokenId = res.tokenObj.id_token;
 
-		const token_id = res.tokenObj.id_token;
-
-		APIService.loginAccess(token_id).then((res) => {
+		APIService.loginAccess(tokenId).then((res) => {
 			const userID = res[0].userID;
 
 			const uIdExist = localStorage.getItem('uID');
@@ -54,7 +53,6 @@ export default function LoginContainer({ setAuth }) {
 				localStorage.setItem('profilePic', profilePic);
 				localStorage.setItem('userName', userName);
 				localStorage.setItem('userMail', userMail);
-
 				setAuth(true);
 			}
 		});

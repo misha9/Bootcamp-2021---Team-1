@@ -1,44 +1,40 @@
-const pool = require("../../../dbService");
+const pool = require('../../../dbService');
 
 const getRecent = (req, res) => {
-  console.log(req.body, "In recent");
-  pool.query(
-    "SELECT * FROM prev where ws_id = $1 ORDER BY updated_date DESC LIMIT 10",
-    [req.body.wsID],
-    (error, results) => {
-      if (error) throw error;
-      res.status(200).json(results.rows);
-    }
-  );
+	pool.query(
+		'SELECT * FROM prev where ws_id = $1 ORDER BY updated_date DESC LIMIT 10',
+		[req.body.wsID],
+		(error, results) => {
+			if (error) throw error;
+			res.status(200).json(results.rows);
+		}
+	);
 };
 
 const getIcons = (req, res) => {
-  pool.query("SELECT * FROM icons", (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results.rows);
-  });
+	pool.query('SELECT * FROM icons', (error, results) => {
+		if (error) throw error;
+		res.status(200).json(results.rows);
+	});
 };
 
 const updateIcon = (req, res) => {
-  console.log(req.body.icon, req.body.wsID);
-  pool.query(
-    "update workspace set icon = $1 where ws_id = $2",
-    [req.body.icon, req.body.wsID],
-    (error, results) => {
-      if (error) throw error;
-      console.log("Updated the icon");
-      res.status(200).send("Icon updated successfully");
-    }
-  );
+	pool.query(
+		'update workspace set icon = $1 where ws_id = $2',
+		[req.body.icon, req.body.wsID],
+		(error, results) => {
+			if (error) throw error;
+			res.status(200).send('Icon updated successfully');
+		}
+	);
 };
 
 const getToken = (req, res) => {
-  try {
-    res.json(true);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).json("Server Error");
-  }
+	try {
+		res.json(true);
+	} catch (err) {
+		res.status(500).json('Server Error');
+	}
 };
 
 module.exports = { getRecent, getToken, getIcons, updateIcon };
