@@ -13,7 +13,7 @@ const options = [
 	{ icon: <LockOutlinedIcon />, option: 'Lock page' },
 ];
 
-function NoteOptions({ id, handleDeleteNote }) {
+function NoteOptions({ id, setDeleteNoteStatus }) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -25,7 +25,7 @@ function NoteOptions({ id, handleDeleteNote }) {
 
 	function handleToolbar(option, id) {
 		if (option === 'Delete note') {
-			handleDeleteNote(id);
+			setDeleteNoteStatus(true);
 			handleClose();
 		}
 	}

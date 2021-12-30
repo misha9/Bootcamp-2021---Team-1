@@ -8,6 +8,7 @@ import DeleteWorkspace from '../views/DeleteWorkspace';
 import CreateNotebook from '../views/CreateNotebook';
 import DeleteNotebook from '../views/DeleteNotebook';
 import RenameNotebook from '../views/RenameNotebook';
+import DeleteNote from '../views/noteView/DeleteNote';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { APIService } from '../../../services/apiService';
@@ -62,6 +63,7 @@ const MainContainer = ({ setAuth }) => {
 	const [icons, setIcons] = useState([]);
 	const [wsIcon, setWsIcon] = useState('work_outline');
 	const [searchIcon, setSearchIcon] = useState('');
+	const [deleteNoteStatus, setDeleteNoteStatus] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -513,6 +515,7 @@ const MainContainer = ({ setAuth }) => {
 					setTagNames={setTagNames}
 					allTags={allTags}
 					setAllTags={setAllTags}
+					setDeleteNoteStatus={setDeleteNoteStatus}
 				/>
 				<CreateWorkspace
 					addWorkspaceStatus={addWorkspaceStatus}
@@ -582,6 +585,15 @@ const MainContainer = ({ setAuth }) => {
 					workspaceID={workspaceID}
 					setFeatureStatus={setFeatureStatus}
 				/>
+				{deleteNoteStatus ? (
+					<DeleteNote
+						setDeleteNoteStatus={setDeleteNoteStatus}
+						handleDeleteNote={deleteNote}
+						id={noteID}
+					/>
+				) : (
+					''
+				)}
 			</div>
 		</div>
 	);
