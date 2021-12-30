@@ -48,7 +48,7 @@ const Router = () => {
 
 			//console.log(parseRes);
 
-			parseRes == true ? setAuth(true) : setAuth(false);
+			parseRes === true ? setAuth(true) : setAuth(false);
 		} catch (err) {
 			//console.log(err.message);
 		} finally {

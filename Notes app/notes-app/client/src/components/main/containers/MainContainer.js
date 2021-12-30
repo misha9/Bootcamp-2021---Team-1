@@ -401,7 +401,9 @@ const MainContainer = ({ setAuth }) => {
 					wsIcon={wsIcon}
 					setWsIcon={setWsIcon}
 					getAllIcons={getAllIcons}
-					icons={icons}
+					icons={icons.filter((icon) =>
+						icon.toLowerCase().includes(searchIcon)
+					)}
 					handleSearchIcon={setSearchIcon}
 					updateIcon={updateIcon}
 					setIcons={setIcons}
@@ -490,10 +492,9 @@ const MainContainer = ({ setAuth }) => {
 					setWsIcon={setWsIcon}
 					wsIcon={wsIcon}
 					getAllIcons={getAllIcons}
-					icons={icons}
-					// icons={icons.filter((icons) =>
-					//   icons.iconName.toLowerCase().includes(searchIcon)
-					// )}
+					icons={icons.filter((icon) =>
+						icon.toLowerCase().includes(searchIcon)
+					)}
 					// {tagDetails.filter((tagDetails) =>
 					//   tagDetails.tagName.toLowerCase().includes(searchText)
 					// )}
@@ -510,13 +511,14 @@ const MainContainer = ({ setAuth }) => {
 					setWsIcon={setWsIcon}
 					wsIcon={wsIcon}
 					getAllIcons={getAllIcons}
-					icons={icons}
-					// icons={icons.filter().includes(searchText)}
+					icons={icons.filter((icon) =>
+						icon.toLowerCase().includes(searchIcon)
+					)}
 					// {tagDetails.filter((tagDetails) =>
 					//   tagDetails.tagName.toLowerCase().includes(searchText)
 					// )}
 					setIcons={setIcons}
-					handleSearchIcon={setSearchText}
+					handleSearchIcon={setSearchIcon}
 				/>
 				<DeleteWorkspace
 					wsDeleteStatus={wsDeleteStatus}
@@ -549,15 +551,12 @@ const MainContainer = ({ setAuth }) => {
 					workspaceID={workspaceID}
 					setFeatureStatus={setFeatureStatus}
 				/>
-				{deleteNoteStatus ? (
-					<DeleteNote
-						setDeleteNoteStatus={setDeleteNoteStatus}
-						handleDeleteNote={deleteNote}
-						id={noteID}
-					/>
-				) : (
-					''
-				)}
+				<DeleteNote
+					setDeleteNoteStatus={setDeleteNoteStatus}
+					handleDeleteNote={deleteNote}
+					id={noteID}
+					deleteNoteStatus={deleteNoteStatus}
+				/>
 			</div>
 		</div>
 	);

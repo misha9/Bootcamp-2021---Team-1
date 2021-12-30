@@ -20,9 +20,7 @@ function RenameWorkspace({
 	getAllIcons,
 	setWsName,
 }) {
-	// const [renameWs, setRenameWs] = useState("");
 	const handleRename = () => {
-		//console.log("Rename workspace");
 		handleRenameWorkspace(wsName, workspaceID, wsIcon);
 		setWsRenameStatus(false);
 	};

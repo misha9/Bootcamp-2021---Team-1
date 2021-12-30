@@ -1,13 +1,18 @@
 import React from 'react';
 import '../../../../styles/DeleteNotebook.css';
 
-function DeleteNote({ setDeleteNoteStatus, handleDeleteNote, id }) {
+function DeleteNote({
+	setDeleteNoteStatus,
+	handleDeleteNote,
+	id,
+	deleteNoteStatus,
+}) {
 	const handleDelete = () => {
 		setDeleteNoteStatus(false);
 		handleDeleteNote(id);
 	};
 
-	return (
+	return deleteNoteStatus ? (
 		<div
 			className='delete-nb position-fixed'
 			style={{
@@ -63,8 +68,8 @@ function DeleteNote({ setDeleteNoteStatus, handleDeleteNote, id }) {
 				</div>
 			</div>
 		</div>
-		// ) : (
-		// 	''
+	) : (
+		''
 	);
 }
 
