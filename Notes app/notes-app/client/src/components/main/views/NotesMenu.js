@@ -289,7 +289,18 @@ const NotesMenu = ({
 						</div>
 						<div className='special'>
 							<ul className='list-unstyled'>
-								<li className='mt-4 d-flex align-items-center'>
+								<li
+									className='mt-4 d-flex align-items-center'
+									onClick={() => {
+										setStarredStatus(false);
+										setRecentStatus(false);
+										setTagStatus(true);
+										setNbID('');
+										setNbSelect(false);
+										setFeatureStatus(false);
+										// setWorkspaceID("");
+									}}
+								>
 									<CgHashtag className='me-3' size='1.3rem' />
 									<button
 										className='text-decoration-none p-0 border-0 bg-transparent'
@@ -312,7 +323,16 @@ const NotesMenu = ({
 										Tags
 									</button>
 								</li>
-								<li className='d-flex align-items-center'>
+								<li
+									className='d-flex align-items-center'
+									onClick={() => {
+										getBookmarkNotes(workspaceID);
+										setStarredStatus(true);
+										setRecentStatus(false);
+										setTagStatus(false);
+										setNbID('');
+									}}
+								>
 									<MdStarBorder
 										className='me-3'
 										size='1.3rem'
@@ -320,13 +340,7 @@ const NotesMenu = ({
 									<button
 										className='text-decoration-none p-0 border-0 bg-transparent'
 										// onClick={getBookmarkNotes}
-										onClick={() => {
-											getBookmarkNotes(workspaceID);
-											setStarredStatus(true);
-											setRecentStatus(false);
-											setTagStatus(false);
-											setNbID('');
-										}}
+
 										style={{
 											fontWeight: '500',
 											color: starredStatus
@@ -337,20 +351,22 @@ const NotesMenu = ({
 										Starred
 									</button>
 								</li>
-								<li className='d-flex align-items-center'>
+								<li
+									className='d-flex align-items-center'
+									onClick={() => {
+										getAllRecentNotes(workspaceID);
+										setRecentStatus(true);
+										setStarredStatus(false);
+										setTagStatus(false);
+										setNbID('');
+									}}
+								>
 									<GiBackwardTime
 										className='me-3'
 										size='1.3rem'
 									/>
 									<button
 										className='text-decoration-none p-0 border-0 bg-transparent'
-										onClick={() => {
-											getAllRecentNotes(workspaceID);
-											setRecentStatus(true);
-											setStarredStatus(false);
-											setTagStatus(false);
-											setNbID('');
-										}}
 										style={{
 											fontWeight: '500',
 											color: recentStatus
